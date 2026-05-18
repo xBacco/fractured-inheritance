@@ -16,12 +16,22 @@ export class Zeryth extends BaseCharacter {
     this.alive = true
     this._prevX = x
     this._prevY = y
+
+    this.attackKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J)
+    this.bloodKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K)
+    this.swordHeld = false
+    this.swordTimer = 0
+    this.swordActive = false
+    this.swordGfx = null
+    this.projectiles = scene.physics.add.group()
+    this.attackCooldown = 0
   }
 
   update(scene, delta) {
     super.update(scene)
     if (!this.alive) return
     this._handleRegen(scene, delta)
+    this._handleAttacks(scene, delta)
     this._updateVisual()
     this._checkDeath(scene)
   }
@@ -47,6 +57,91 @@ export class Zeryth extends BaseCharacter {
     if (effects?.zerythRegenMult) rate *= effects.zerythRegenMult
 
     this.integrity = Math.min(this.maxIntegrity, this.integrity + rate * (delta / 1000))
+  }
+
+  _handleAttacks(scene, delta) {
+    if (this.attackCooldown > 0) this.attackCooldown -= delta
+
+    if (this.attackKey.isDown && this.attackCooldown <= 0) {
+      this._strikeAttack(scene)
+      this.attackCooldown = 300
+    }
+
+    if (this.bloodKey.isDown) {
+      if (!this.swordHeld) {
+        this.swordHeld = true
+        this.swordTimer = 0
+      }
+      this.swordTimer += delta
+      this._showSword(scene)
+    } else if (this.swordHeld) {
+      this.swordHeld = false
+      this._hideSword()
+      if (this.swordTimer > 400) {
+        this._swordSlash(scene)
+      } else {
+        this._bloodProjectile(scene)
+      }
+    }
+  }
+
+  _strikeAttack(scene) {
+    const reach = 30
+    const hx = this.x + this.facingX * reach
+    const hy = this.y + this.facingY * reach
+    if (scene.enemies) {
+      scene.enemies.getChildren().forEach(enemy => {
+        const dist = Phaser.Math.Distance.Between(hx, hy, enemy.x, enemy.y)
+        if (dist < 25) enemy.takeDamage(20)
+      })
+    }
+  }
+
+  _bloodProjectile(scene) {
+    const cost = 8
+    if (this.integrity - cost < 5) return
+    this.takeDamage(cost)
+
+    const proj = scene.add.rectangle(this.x, this.y, 6, 6, 0xcc0000)
+    scene.physics.add.existing(proj)
+    proj.body.setVelocity(this.facingX * 400, this.facingY * 400)
+    proj.damage = 25
+    proj.piercing = true
+    this.projectiles.add(proj)
+
+    scene.time.delayedCall(1500, () => proj.destroy())
+  }
+
+  _showSword(scene) {
+    if (!this.swordGfx) {
+      this.swordGfx = scene.add.rectangle(
+        this.x + this.facingX * 20,
+        this.y + this.facingY * 20,
+        8, 28, 0xaa0000
+      ).setDepth(5)
+    }
+    this.integrity = Math.max(5, this.integrity - 0.05)
+    this.swordGfx.setPosition(
+      this.x + this.facingX * 20,
+      this.y + this.facingY * 20
+    )
+  }
+
+  _hideSword() {
+    if (this.swordGfx) { this.swordGfx.destroy(); this.swordGfx = null }
+  }
+
+  _swordSlash(scene) {
+    if (scene.enemies) {
+      scene.enemies.getChildren().forEach(enemy => {
+        const dx = enemy.x - this.x
+        const dy = enemy.y - this.y
+        const dist = Math.sqrt(dx * dx + dy * dy)
+        if (dist < 50) enemy.takeDamage(40)
+      })
+    }
+    const flash = scene.add.rectangle(this.x, this.y, 60, 60, 0xff0000, 0.3).setDepth(5)
+    scene.time.delayedCall(150, () => flash.destroy())
   }
 
   _updateVisual() {
