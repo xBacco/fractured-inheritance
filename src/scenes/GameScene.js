@@ -4,7 +4,7 @@ import { TILE, WALKABLE } from '../map/TileTypes.js'
 import { TILE_COLORS, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT } from '../config/GameConfig.js'
 import { Zeryth } from '../characters/Zeryth.js'
 import { TacticalPause } from '../systems/TacticalPause.js'
-import { HunterCommon } from '../enemies/HunterCommon.js'
+import { EsecutoreIllyrium } from '../enemies/EsecutoreIllyrium.js'
 
 export class GameScene extends Phaser.Scene {
   constructor() { super({ key: 'GameScene' }) }
@@ -75,11 +75,13 @@ export class GameScene extends Phaser.Scene {
   }
 
   _spawnEnemies() {
+    const FLANK_OFFSETS = [0, Math.PI / 3, -Math.PI / 3, Math.PI * 2 / 3, -Math.PI * 2 / 3]
     for (let i = 1; i < this.rooms.length; i++) {
       const room = this.rooms[i]
       const ex = (room.x + Math.floor(room.width / 2)) * TILE_SIZE
       const ey = (room.y + Math.floor(room.height / 2)) * TILE_SIZE
-      this.enemies.add(new HunterCommon(this, ex, ey))
+      const offset = FLANK_OFFSETS[(i - 1) % FLANK_OFFSETS.length]
+      this.enemies.add(new EsecutoreIllyrium(this, ex, ey, offset))
     }
   }
 
