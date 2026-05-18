@@ -4,6 +4,7 @@ import { TILE, WALKABLE } from '../map/TileTypes.js'
 import { TILE_COLORS, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT } from '../config/GameConfig.js'
 import { Zeryth } from '../characters/Zeryth.js'
 import { TacticalPause } from '../systems/TacticalPause.js'
+import { HunterCommon } from '../enemies/HunterCommon.js'
 
 export class GameScene extends Phaser.Scene {
   constructor() { super({ key: 'GameScene' }) }
@@ -26,10 +27,22 @@ export class GameScene extends Phaser.Scene {
       .setScrollFactor(0)
       .setVisible(false)
       .setDepth(10)
+
+    this.enemies = this.add.group()
+    this._spawnEnemies()
+
+    this.physics.add.overlap(
+      this.player.projectiles,
+      this.enemies,
+      (proj, enemy) => { enemy.takeDamage(proj.damage) }
+    )
   }
 
   update(time, delta) {
     if (this.player) this.player.update(this, delta)
+    if (this.enemies) {
+      this.enemies.getChildren().forEach(e => e.update(this.player, delta))
+    }
     if (this.tacticalPause) {
       this.tacticalPause.update(delta)
       this.pauseOverlay.setVisible(this.tacticalPause.active)
@@ -58,6 +71,26 @@ export class GameScene extends Phaser.Scene {
         gfx.fillStyle(color, 1)
         gfx.fillRect(x * TILE_SIZE, y * TILE_SIZE, TILE_SIZE, TILE_SIZE)
       }
+    }
+  }
+
+  _spawnEnemies() {
+    for (let i = 1; i < this.rooms.length; i++) {
+      const room = this.rooms[i]
+      const ex = (room.x + Math.floor(room.width / 2)) * TILE_SIZE
+      const ey = (room.y + Math.floor(room.height / 2)) * TILE_SIZE
+      this.enemies.add(new HunterCommon(this, ex, ey))
+    }
+  }
+
+  _placeBloodPool(worldX, worldY) {
+    const tx = Math.floor(worldX / TILE_SIZE)
+    const ty = Math.floor(worldY / TILE_SIZE)
+    if (this.grid?.[ty]?.[tx] !== undefined) {
+      this.grid[ty][tx] = TILE.BLOOD_POOL
+      const gfx = this.add.graphics()
+      gfx.fillStyle(TILE_COLORS.BLOOD_POOL, 1)
+      gfx.fillRect(tx * TILE_SIZE, ty * TILE_SIZE, TILE_SIZE, TILE_SIZE)
     }
   }
 
