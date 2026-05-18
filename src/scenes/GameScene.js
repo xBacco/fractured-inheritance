@@ -7,6 +7,7 @@ import { TacticalPause } from '../systems/TacticalPause.js'
 import { EsecutoreIllyrium } from '../enemies/EsecutoreIllyrium.js'
 import { SkravAlpha } from '../enemies/SkravAlpha.js'
 import { SkravMembro } from '../enemies/SkravMembro.js'
+import { KeyBindings } from '../config/KeyBindings.js'
 
 export class GameScene extends Phaser.Scene {
   constructor() { super({ key: 'GameScene' }) }
@@ -22,8 +23,24 @@ export class GameScene extends Phaser.Scene {
     this.player = new Zeryth(this, spawnX, spawnY)
 
     this.tacticalPause = new TacticalPause(this)
-    this.spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+    this.spaceKey = this.input.keyboard.addKey(KeyBindings.keyCode('pause'))
     this.spaceKey.on('down', () => this.tacticalPause.toggle())
+
+    this.tabKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.TAB)
+    this.tabKey.on('down', () => {
+      if (!this.scene.isActive('SettingsScene')) {
+        this.scene.pause()
+        this.scene.launch('SettingsScene')
+      }
+    })
+
+    this.events.on('keybindings-updated', () => {
+      this.input.keyboard.removeKey(this.spaceKey)
+      this.spaceKey = this.input.keyboard.addKey(KeyBindings.keyCode('pause'))
+      this.spaceKey.on('down', () => this.tacticalPause.toggle())
+      this.player.rebindMovement(this)
+      this.player.rebindActions(this)
+    })
 
     this.pauseOverlay = this.add.rectangle(0, 0, 1, 1, 0x0000ff, 0.08)
       .setScrollFactor(0)

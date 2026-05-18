@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 import { BootScene } from './scenes/BootScene.js'
 import { GameScene } from './scenes/GameScene.js'
 import { GameOverScene } from './scenes/GameOverScene.js'
+import { SettingsScene } from './scenes/SettingsScene.js'
 import { GAME_WIDTH, GAME_HEIGHT } from './config/GameConfig.js'
 
 const config = {
@@ -13,7 +14,7 @@ const config = {
     default: 'arcade',
     arcade: { debug: false }
   },
-  scene: [BootScene, GameScene, GameOverScene]
+  scene: [BootScene, GameScene, GameOverScene, SettingsScene]
 }
 
-new Phaser.Game(config)
+window.__game = new Phaser.Game(config)

@@ -1,3 +1,5 @@
+import { KeyBindings } from '../config/KeyBindings.js'
+
 export class BootScene extends Phaser.Scene {
   constructor() { super({ key: 'BootScene' }) }
 
@@ -6,6 +8,7 @@ export class BootScene extends Phaser.Scene {
   }
 
   create() {
+    KeyBindings.load()
     this.scene.start('GameScene')
   }
 }

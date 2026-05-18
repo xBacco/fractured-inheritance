@@ -1,4 +1,5 @@
 import { TILE_SIZE, PLAYER_SPEED, MIN_ZOOM, MAX_ZOOM } from '../config/GameConfig.js'
+import { KeyBindings } from '../config/KeyBindings.js'
 
 export class BaseCharacter extends Phaser.GameObjects.Rectangle {
   constructor(scene, x, y, width, height, color) {
@@ -8,10 +9,10 @@ export class BaseCharacter extends Phaser.GameObjects.Rectangle {
     this.body.setCollideWorldBounds(false)
 
     this.wasd = {
-      up:    scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W),
-      down:  scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S),
-      left:  scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A),
-      right: scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D),
+      up:    scene.input.keyboard.addKey(KeyBindings.keyCode('up')),
+      down:  scene.input.keyboard.addKey(KeyBindings.keyCode('down')),
+      left:  scene.input.keyboard.addKey(KeyBindings.keyCode('left')),
+      right: scene.input.keyboard.addKey(KeyBindings.keyCode('right')),
     }
 
     this._setupCamera(scene)
@@ -66,6 +67,16 @@ export class BaseCharacter extends Phaser.GameObjects.Rectangle {
 
       body.setVelocityX(scene.isWalkable(tileXOnly, tileYCurr) ? vx : 0)
       body.setVelocityY(scene.isWalkable(tileCurrX, tileYOnly) ? vy : 0)
+    }
+  }
+
+  rebindMovement(scene) {
+    Object.values(this.wasd).forEach(k => scene.input.keyboard.removeKey(k))
+    this.wasd = {
+      up:    scene.input.keyboard.addKey(KeyBindings.keyCode('up')),
+      down:  scene.input.keyboard.addKey(KeyBindings.keyCode('down')),
+      left:  scene.input.keyboard.addKey(KeyBindings.keyCode('left')),
+      right: scene.input.keyboard.addKey(KeyBindings.keyCode('right')),
     }
   }
 

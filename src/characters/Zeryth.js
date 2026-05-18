@@ -1,6 +1,7 @@
 import { BaseCharacter } from './BaseCharacter.js'
 import { TILE_SIZE, PLAYER_SPEED } from '../config/GameConfig.js'
 import { TILE, TILE_EFFECTS } from '../map/TileTypes.js'
+import { KeyBindings } from '../config/KeyBindings.js'
 
 const MAX_INTEGRITY = 100
 const REGEN_RATE = 4
@@ -17,8 +18,8 @@ export class Zeryth extends BaseCharacter {
     this._prevX = x
     this._prevY = y
 
-    this.attackKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J)
-    this.bloodKey = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.K)
+    this.attackKey = scene.input.keyboard.addKey(KeyBindings.keyCode('attack'))
+    this.bloodKey  = scene.input.keyboard.addKey(KeyBindings.keyCode('blood'))
     this.swordHeld = false
     this.swordTimer = 0
     this.swordActive = false
@@ -152,6 +153,13 @@ export class Zeryth extends BaseCharacter {
     else                 this.fillColor = INTEGRITY_COLORS[3]
 
     this.speed = pct < 0.2 ? PLAYER_SPEED * 0.5 : PLAYER_SPEED
+  }
+
+  rebindActions(scene) {
+    scene.input.keyboard.removeKey(this.attackKey)
+    scene.input.keyboard.removeKey(this.bloodKey)
+    this.attackKey = scene.input.keyboard.addKey(KeyBindings.keyCode('attack'))
+    this.bloodKey  = scene.input.keyboard.addKey(KeyBindings.keyCode('blood'))
   }
 
   _checkDeath(scene) {
