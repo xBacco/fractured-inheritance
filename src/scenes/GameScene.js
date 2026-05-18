@@ -3,6 +3,7 @@ import { FloorBuilder } from '../map/FloorBuilder.js'
 import { TILE, WALKABLE } from '../map/TileTypes.js'
 import { TILE_COLORS, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT } from '../config/GameConfig.js'
 import { BaseCharacter } from '../characters/BaseCharacter.js'
+import { TacticalPause } from '../systems/TacticalPause.js'
 
 export class GameScene extends Phaser.Scene {
   constructor() { super({ key: 'GameScene' }) }
@@ -16,10 +17,27 @@ export class GameScene extends Phaser.Scene {
     const spawnX = (spawn.x + Math.floor(spawn.width / 2)) * TILE_SIZE
     const spawnY = (spawn.y + Math.floor(spawn.height / 2)) * TILE_SIZE
     this.player = new BaseCharacter(this, spawnX, spawnY, 20, 20, 0x888888)
+
+    this.tacticalPause = new TacticalPause(this)
+    this.spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+    this.spaceKey.on('down', () => this.tacticalPause.toggle())
+
+    this.pauseOverlay = this.add.rectangle(0, 0, 1, 1, 0x0000ff, 0.08)
+      .setScrollFactor(0)
+      .setVisible(false)
+      .setDepth(10)
   }
 
-  update() {
+  update(time, delta) {
     if (this.player) this.player.update(this)
+    if (this.tacticalPause) {
+      this.tacticalPause.update(delta)
+      this.pauseOverlay.setVisible(this.tacticalPause.active)
+      const cam = this.cameras.main
+      this.pauseOverlay
+        .setPosition(cam.scrollX + cam.width / 2, cam.scrollY + cam.height / 2)
+        .setSize(cam.width, cam.height)
+    }
   }
 
   _generateMap() {
