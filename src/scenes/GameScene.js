@@ -5,6 +5,8 @@ import { TILE_COLORS, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT } from '../config/GameCon
 import { Zeryth } from '../characters/Zeryth.js'
 import { TacticalPause } from '../systems/TacticalPause.js'
 import { EsecutoreIllyrium } from '../enemies/EsecutoreIllyrium.js'
+import { SkravAlpha } from '../enemies/SkravAlpha.js'
+import { SkravMembro } from '../enemies/SkravMembro.js'
 
 export class GameScene extends Phaser.Scene {
   constructor() { super({ key: 'GameScene' }) }
@@ -29,12 +31,18 @@ export class GameScene extends Phaser.Scene {
       .setDepth(10)
 
     this.enemies = this.add.group()
+    this.enemyProjectiles = this.physics.add.group()
     this._spawnEnemies()
 
     this.physics.add.overlap(
       this.player.projectiles,
       this.enemies,
       (proj, enemy) => { enemy.takeDamage(proj.damage) }
+    )
+    this.physics.add.overlap(
+      this.enemyProjectiles,
+      this.player,
+      (proj, player) => { player.takeDamage(proj.damage); proj.destroy() }
     )
   }
 
@@ -76,13 +84,27 @@ export class GameScene extends Phaser.Scene {
 
   _spawnEnemies() {
     const FLANK_OFFSETS = [0, Math.PI / 3, -Math.PI / 3, Math.PI * 2 / 3, -Math.PI * 2 / 3]
-    for (let i = 1; i < this.rooms.length; i++) {
-      const room = this.rooms[i]
-      const ex = (room.x + Math.floor(room.width / 2)) * TILE_SIZE
-      const ey = (room.y + Math.floor(room.height / 2)) * TILE_SIZE
-      const offset = FLANK_OFFSETS[(i - 1) % FLANK_OFFSETS.length]
-      this.enemies.add(new EsecutoreIllyrium(this, ex, ey, offset))
-    }
+    const enemyRooms = this.rooms.slice(1)
+    const splitAt = Math.ceil(enemyRooms.length / 2)
+
+    enemyRooms.forEach((room, i) => {
+      const cx = (room.x + Math.floor(room.width / 2)) * TILE_SIZE
+      const cy = (room.y + Math.floor(room.height / 2)) * TILE_SIZE
+      if (i < splitAt) {
+        this.enemies.add(new EsecutoreIllyrium(this, cx, cy, FLANK_OFFSETS[i % FLANK_OFFSETS.length]))
+      } else {
+        this._spawnSkravPack(cx, cy)
+      }
+    })
+  }
+
+  _spawnSkravPack(cx, cy) {
+    const alpha = new SkravAlpha(this, cx, cy, this.enemyProjectiles)
+    this.enemies.add(alpha)
+    const memberOffsets = [[-30, -20], [30, -20], [0, 30]]
+    memberOffsets.forEach(([ox, oy]) => {
+      this.enemies.add(new SkravMembro(this, cx + ox, cy + oy, alpha))
+    })
   }
 
   _placeBloodPool(worldX, worldY) {
