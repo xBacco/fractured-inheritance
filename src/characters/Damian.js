@@ -14,6 +14,7 @@ export class Damian extends BaseCharacter {
     this.corruption = 0
     this.reserve    = 100
     this.alive      = true
+    this._dead      = false
 
     this.fKey = scene.input.keyboard.addKey(KeyBindings.keyCode('ability3'))
 
@@ -70,8 +71,9 @@ export class Damian extends BaseCharacter {
       if (triggered > this.phase) this.phase = triggered
     }
 
+    const phaseBeforeFKey = this.phase
     if (Phaser.Input.Keyboard.JustDown(this.fKey)) {
-      if (canEscalate(this.phase, this.reserve)) this.phase++
+      if (canEscalate(phaseBeforeFKey, this.reserve)) this.phase = phaseBeforeFKey + 1
     }
 
     if (this.phase >= PHASE.AWAKENING && this.phase !== PHASE.TRAUMATIC) {
@@ -143,14 +145,15 @@ export class Damian extends BaseCharacter {
 
     const startX = this._shadowLagX
     const startY = this._shadowLagY
+    const shadow = this.shadow
 
     scene.tweens.add({
-      targets: this.shadow,
+      targets: shadow,
       x: target.x, y: target.y,
       duration: 150,
       onComplete: () => {
         if (target?.takeDamage) target.takeDamage(20)
-        if (this.shadow?.active) scene.tweens.add({ targets: this.shadow, x: startX, y: startY, duration: 400 })
+        if (shadow?.active) scene.tweens.add({ targets: shadow, x: startX, y: startY, duration: 400 })
       }
     })
   }
@@ -186,9 +189,8 @@ export class Damian extends BaseCharacter {
     scene.enemies.getChildren().forEach(enemy => {
       if (Phaser.Math.Distance.Between(this.x + aimX * reach, this.y + aimY * reach, enemy.x, enemy.y) < 25) {
         enemy.takeDamage(dmg)
-        if (this.phase === PHASE.MINOR_DEMON) {
-          enemy.x += aimX * 20
-          enemy.y += aimY * 20
+        if (this.phase === PHASE.MINOR_DEMON && enemy.body) {
+          enemy.body.reset(enemy.x + aimX * 20, enemy.y + aimY * 20)
         }
         if (this.phase >= PHASE.INCUBUS) {
           this.reserve = Math.min(100, this.reserve + 10)
@@ -252,10 +254,11 @@ export class Damian extends BaseCharacter {
   }
 
   _checkDeath(scene) {
-    if (!this.alive) {
+    if (!this.alive && !this._dead) {
+      this._dead = true
       this._corrIndicator.destroy()
       this._resIndicator.destroy()
-      if (this.shadow) this.shadow.destroy()
+      if (this.shadow) { this.shadow.destroy(); this.shadow = null }
       this._traumaOverlay.destroy()
       scene.scene.start('GameOverScene', { score: scene.scoreSystem?.getScore() ?? 0 })
     }
