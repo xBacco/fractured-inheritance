@@ -185,6 +185,9 @@ export class Damian extends BaseCharacter {
       aimY = Math.sin(angle)
     }
 
+    const fx = scene.add.rectangle(this.x + aimX * reach, this.y + aimY * reach, 10, 10, 0xffffff, 0.6).setDepth(5)
+    scene.time.delayedCall(100, () => { if (fx.active) fx.destroy() })
+
     const dmg = punchDamage(this.phase)
     scene.enemies.getChildren().forEach(enemy => {
       if (Phaser.Math.Distance.Between(this.x + aimX * reach, this.y + aimY * reach, enemy.x, enemy.y) < 25) {

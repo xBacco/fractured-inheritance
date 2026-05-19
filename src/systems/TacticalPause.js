@@ -5,18 +5,19 @@ export class TacticalPause {
     this.scene = scene
     this.active = false
     this.totalTacticalMs = 0
+    scene.game.loop.timeScale = 1
   }
 
   activate() {
     if (this.active) return
     this.active = true
-    this.scene.physics.world.timeScale = TACTICAL_TIME_SCALE
+    this.scene.game.loop.timeScale = TACTICAL_TIME_SCALE
   }
 
   deactivate() {
     if (!this.active) return
     this.active = false
-    this.scene.physics.world.timeScale = 1
+    this.scene.game.loop.timeScale = 1
   }
 
   toggle() {
