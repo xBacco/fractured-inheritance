@@ -31,4 +31,38 @@ describe('FloorBuilder', () => {
     const grid = builder.build([], corridors)
     expect(grid[6][7]).toBe(TILE.CORRIDOR)
   })
+
+  it('aggiunge patch di ombra nelle stanze grandi (> 4x4)', () => {
+    const builder = new FloorBuilder(40, 30)
+    const room = { x: 2, y: 2, width: 12, height: 10 }
+    // start with a fully-FLOOR grid so we can count only the new patches
+    const grid = Array.from({ length: 30 }, () => Array(40).fill(TILE.FLOOR))
+
+    builder._placeRandomShadowPatches(grid, room)
+
+    let shadowCount = 0
+    for (let y = room.y; y < room.y + room.height; y++) {
+      for (let x = room.x; x < room.x + room.width; x++) {
+        if (grid[y][x] === TILE.SHADOW) shadowCount++
+      }
+    }
+    // 2–3 patches of 2 tiles each → at least 4 shadow tiles
+    expect(shadowCount).toBeGreaterThanOrEqual(4)
+  })
+
+  it('non aggiunge patch nelle stanze piccole (width o height ≤ 4)', () => {
+    const builder = new FloorBuilder(40, 30)
+    const room = { x: 2, y: 2, width: 4, height: 4 }
+    const grid = Array.from({ length: 30 }, () => Array(40).fill(TILE.FLOOR))
+
+    builder._placeRandomShadowPatches(grid, room)
+
+    let shadowCount = 0
+    for (let y = room.y; y < room.y + room.height; y++) {
+      for (let x = room.x; x < room.x + room.width; x++) {
+        if (grid[y][x] === TILE.SHADOW) shadowCount++
+      }
+    }
+    expect(shadowCount).toBe(0)
+  })
 })
