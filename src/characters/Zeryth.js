@@ -1,7 +1,6 @@
 import { BaseCharacter } from './BaseCharacter.js'
 import { TILE_SIZE, PLAYER_SPEED } from '../config/GameConfig.js'
 import { TILE, TILE_EFFECTS } from '../map/TileTypes.js'
-import { KeyBindings } from '../config/KeyBindings.js'
 
 const MAX_INTEGRITY = 100
 const REGEN_RATE = 4
@@ -18,8 +17,6 @@ export class Zeryth extends BaseCharacter {
     this._prevX = x
     this._prevY = y
 
-    this.attackKey = scene.input.keyboard.addKey(KeyBindings.keyCode('attack'))
-    this.bloodKey  = scene.input.keyboard.addKey(KeyBindings.keyCode('blood'))
     this.swordHeld = false
     this.swordTimer = 0
     this.swordActive = false
@@ -63,12 +60,12 @@ export class Zeryth extends BaseCharacter {
   _handleAttacks(scene, delta) {
     if (this.attackCooldown > 0) this.attackCooldown -= delta
 
-    if (this.attackKey.isDown && this.attackCooldown <= 0) {
+    if (this._lmbDown && this.attackCooldown <= 0) {
       this._strikeAttack(scene)
       this.attackCooldown = 300
     }
 
-    if (this.bloodKey.isDown) {
+    if (this._rmbDown) {
       if (!this.swordHeld) {
         this.swordHeld = true
         this.swordTimer = 0
@@ -156,10 +153,7 @@ export class Zeryth extends BaseCharacter {
   }
 
   rebindActions(scene) {
-    scene.input.keyboard.removeKey(this.attackKey)
-    scene.input.keyboard.removeKey(this.bloodKey)
-    this.attackKey = scene.input.keyboard.addKey(KeyBindings.keyCode('attack'))
-    this.bloodKey  = scene.input.keyboard.addKey(KeyBindings.keyCode('blood'))
+    // LMB/RMB are mouse buttons — no rebinding needed
   }
 
   _checkDeath(scene) {
