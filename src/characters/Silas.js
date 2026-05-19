@@ -151,6 +151,11 @@ export class Silas extends BaseCharacter {
 
     if (!nearest) return
 
+    if (nearest._bound) {
+      nearest._boundTimer = 2000
+      return
+    }
+
     nearest._bound      = true
     nearest._boundTimer = 2000
     this.temperature    = Math.max(TEMP_MIN, this.temperature - TEMP_DRAIN_BIND)
