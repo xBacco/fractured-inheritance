@@ -22,7 +22,8 @@ export class EsecutoreIllyrium extends BaseEnemy {
   }
 
   chasePlayer(player) {
-    if (!this.alive || !player?.alive) return
+    if (!this.alive || !player?.alive || this._bound) return
+    if (player._fusionActive && player._inShadow) return
     const dx = player.x - this.x
     const dy = player.y - this.y
     const dist = Math.sqrt(dx * dx + dy * dy)

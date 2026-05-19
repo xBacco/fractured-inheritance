@@ -10,18 +10,21 @@ export class SkravAlpha extends BaseEnemy {
 
   update(player, delta) {
     if (!this.alive || !player?.alive) return
+    this._tickBound(delta)
     const dist = Phaser.Math.Distance.Between(this.x, this.y, player.x, player.y)
     if (!this.signalGiven && dist < 110) {
       this.signalGiven = true
       this._flashSignal()
     }
-    if (this.signalGiven) {
-      this.chasePlayer(player)
-      this.attackPlayer(player, delta)
-      this._tailCooldown -= delta
-      if (dist > 60 && dist < 180 && this._tailCooldown <= 0) {
-        this._fireTail(player)
-        this._tailCooldown = 2200
+    if (this.signalGiven && !this._bound) {
+      if (!(player._fusionActive && player._inShadow)) {
+        this.chasePlayer(player)
+        this.attackPlayer(player, delta)
+        this._tailCooldown -= delta
+        if (dist > 60 && dist < 180 && this._tailCooldown <= 0) {
+          this._fireTail(player)
+          this._tailCooldown = 2200
+        }
       }
     }
   }

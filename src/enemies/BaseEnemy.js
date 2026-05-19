@@ -9,6 +9,17 @@ export class BaseEnemy extends Phaser.GameObjects.Rectangle {
     this.speed = speed
     this.alive = true
     this.attackCooldown = 0
+    this._bound = false
+    this._boundTimer = 0
+  }
+
+  _tickBound(delta) {
+    if (!this._bound) return
+    this._boundTimer -= delta
+    if (this._boundTimer <= 0) {
+      this._bound = false
+      this._boundTimer = 0
+    }
   }
 
   takeDamage(amount) {
@@ -27,7 +38,8 @@ export class BaseEnemy extends Phaser.GameObjects.Rectangle {
   }
 
   chasePlayer(player) {
-    if (!this.alive || !player?.alive) return
+    if (!this.alive || !player?.alive || this._bound) return
+    if (player._fusionActive && player._inShadow) return
     const dx = player.x - this.x
     const dy = player.y - this.y
     const dist = Math.sqrt(dx * dx + dy * dy)
@@ -36,7 +48,8 @@ export class BaseEnemy extends Phaser.GameObjects.Rectangle {
   }
 
   attackPlayer(player, delta) {
-    if (!this.alive || !player?.alive) return
+    if (!this.alive || !player?.alive || this._bound) return
+    if (player._fusionActive && player._inShadow) return
     this.attackCooldown -= delta
     const dist = Phaser.Math.Distance.Between(this.x, this.y, player.x, player.y)
     if (dist < 25 && this.attackCooldown <= 0) {
@@ -46,6 +59,7 @@ export class BaseEnemy extends Phaser.GameObjects.Rectangle {
   }
 
   update(player, delta) {
+    this._tickBound(delta)
     this.chasePlayer(player)
     this.attackPlayer(player, delta)
   }
