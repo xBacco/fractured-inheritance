@@ -20,6 +20,9 @@ export class BaseCharacter extends Phaser.GameObjects.Rectangle {
     this.speed = PLAYER_SPEED
     this.facingX = 1
     this.facingY = 0
+    this._lmbDown = false
+    this._rmbDown = false
+    this._setupMouseInput(scene)
   }
 
   _setupCamera(scene) {
@@ -30,6 +33,18 @@ export class BaseCharacter extends Phaser.GameObjects.Rectangle {
     scene.input.on('wheel', (_pointer, _objs, _dx, deltaY) => {
       const cam = scene.cameras.main
       cam.zoom = Phaser.Math.Clamp(cam.zoom - deltaY * 0.001, MIN_ZOOM, MAX_ZOOM)
+    })
+  }
+
+  _setupMouseInput(scene) {
+    scene.game.canvas.addEventListener('contextmenu', e => e.preventDefault())
+    scene.input.on('pointerdown', (pointer) => {
+      if (pointer.button === 0) this._lmbDown = true
+      if (pointer.button === 2) this._rmbDown = true
+    })
+    scene.input.on('pointerup', (pointer) => {
+      if (pointer.button === 0) this._lmbDown = false
+      if (pointer.button === 2) this._rmbDown = false
     })
   }
 
