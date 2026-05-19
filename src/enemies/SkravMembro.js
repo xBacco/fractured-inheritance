@@ -11,12 +11,13 @@ export class SkravMembro extends BaseEnemy {
   update(player, delta) {
     if (!this.alive) return
     this._tickBound(delta)
-    this._updateState(delta)
 
     if (this._bound) {
       this.body.setVelocity(0, 0)
       return
     }
+
+    this._updateState(delta)
 
     if (this._state === 'chase') {
       this.chasePlayer(player)
