@@ -31,7 +31,7 @@ export class Damian extends BaseCharacter {
 
     this._corrIndicator = scene.add.rectangle(this.x - 5, this.y - 20, 6, 6, 0x444444).setDepth(6)
     this._resIndicator  = scene.add.rectangle(this.x + 5, this.y - 20, 6, 6, 0x6600aa).setDepth(6)
-    this._traumaOverlay = null
+    this._traumaOverlay = scene.add.rectangle(this.x, this.y, 22, 30, 0xffffff, 0.25).setDepth(6).setVisible(false)
   }
 
   update(scene, delta) {
@@ -150,7 +150,7 @@ export class Damian extends BaseCharacter {
       duration: 150,
       onComplete: () => {
         if (target?.takeDamage) target.takeDamage(20)
-        scene.tweens.add({ targets: this.shadow, x: startX, y: startY, duration: 400 })
+        if (this.shadow?.active) scene.tweens.add({ targets: this.shadow, x: startX, y: startY, duration: 400 })
       }
     })
   }
@@ -233,11 +233,9 @@ export class Damian extends BaseCharacter {
 
   _updateVisual(scene) {
     this.fillColor = PHASE_COLOR[this.phase]
-
-    if (this._traumaOverlay) { this._traumaOverlay.destroy(); this._traumaOverlay = null }
-    if (this.phase === PHASE.TRAUMATIC && Math.sin(scene.time.now * 0.005) > 0) {
-      this._traumaOverlay = scene.add.rectangle(this.x, this.y, 22, 30, 0xffffff, 0.25).setDepth(6)
-    }
+    const showFlicker = this.phase === PHASE.TRAUMATIC && Math.sin(scene.time.now * 0.005) > 0
+    this._traumaOverlay.setVisible(showFlicker)
+    this._traumaOverlay.setPosition(this.x, this.y)
   }
 
   _updateIndicators() {
@@ -258,7 +256,7 @@ export class Damian extends BaseCharacter {
       this._corrIndicator.destroy()
       this._resIndicator.destroy()
       if (this.shadow) this.shadow.destroy()
-      if (this._traumaOverlay) this._traumaOverlay.destroy()
+      this._traumaOverlay.destroy()
       scene.scene.start('GameOverScene', { score: scene.scoreSystem?.getScore() ?? 0 })
     }
   }
