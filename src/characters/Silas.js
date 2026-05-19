@@ -5,7 +5,7 @@ import { TILE } from '../map/TileTypes.js'
 import {
   TEMP_MAX, TEMP_MIN,
   TEMP_DRAIN_BIND, TEMP_DRAIN_TELEPORT, TEMP_DRAIN_HIT,
-  tempDelta, isFrozen, speedMultiplier, powersEnabled, isShadowTile,
+  tempDelta, isFrozen, speedMultiplier, powersEnabled,
 } from './SilasTemp.js'
 
 const FUSION_PULSE_MS = 400
