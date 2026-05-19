@@ -37,7 +37,6 @@ export class BaseCharacter extends Phaser.GameObjects.Rectangle {
   }
 
   _setupMouseInput(scene) {
-    scene.game.canvas.addEventListener('contextmenu', e => e.preventDefault())
     scene.input.on('pointerdown', (pointer) => {
       if (pointer.button === 0) this._lmbDown = true
       if (pointer.button === 2) this._rmbDown = true

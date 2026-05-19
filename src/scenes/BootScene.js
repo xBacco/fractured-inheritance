@@ -9,6 +9,7 @@ export class BootScene extends Phaser.Scene {
 
   create() {
     KeyBindings.load()
+    this.game.canvas.addEventListener('contextmenu', e => e.preventDefault())
     this.scene.start('GameScene')
   }
 }
