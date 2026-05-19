@@ -2,7 +2,7 @@ import { BSPGenerator } from '../map/BSPGenerator.js'
 import { FloorBuilder } from '../map/FloorBuilder.js'
 import { TILE, WALKABLE } from '../map/TileTypes.js'
 import { TILE_COLORS, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT } from '../config/GameConfig.js'
-import { Zeryth } from '../characters/Zeryth.js'
+import { Damian } from '../characters/Damian.js'
 import { TacticalPause } from '../systems/TacticalPause.js'
 import { EsecutoreIllyrium } from '../enemies/EsecutoreIllyrium.js'
 import { SkravAlpha } from '../enemies/SkravAlpha.js'
@@ -20,7 +20,7 @@ export class GameScene extends Phaser.Scene {
     const spawn = this.rooms[0]
     const spawnX = (spawn.x + Math.floor(spawn.width / 2)) * TILE_SIZE
     const spawnY = (spawn.y + Math.floor(spawn.height / 2)) * TILE_SIZE
-    this.player = new Zeryth(this, spawnX, spawnY)
+    this.player = new Damian(this, spawnX, spawnY)
 
     this.tacticalPause = new TacticalPause(this)
     this.spaceKey = this.input.keyboard.addKey(KeyBindings.keyCode('pause'))
