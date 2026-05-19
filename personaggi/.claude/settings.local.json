@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(superpowers:brainstorming)",
+      "Bash(bash *)",
+      "Skill(humanizer)",
+      "Bash(curl -s --max-time 3 http://localhost:58374)"
+    ]
+  }
+}
