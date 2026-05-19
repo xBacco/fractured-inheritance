@@ -1,11 +1,13 @@
 const DEFAULTS = {
-  up:     'W',
-  down:   'S',
-  left:   'A',
-  right:  'D',
-  attack: 'J',
-  blood:  'K',
-  pause:  'SPACE',
+  up:       'W',
+  down:     'S',
+  left:     'A',
+  right:    'D',
+  ability1: 'Q',
+  ability2: 'R',
+  ability3: 'F',
+  interact: 'E',
+  pause:    'SPACE',
 }
 
 const STORAGE_KEY = 'fi_keybindings'

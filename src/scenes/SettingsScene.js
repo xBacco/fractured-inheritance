@@ -1,13 +1,15 @@
 import { KeyBindings } from '../config/KeyBindings.js'
 
 const ACTIONS = [
-  { action: 'up',     label: 'Sali' },
-  { action: 'down',   label: 'Scendi' },
-  { action: 'left',   label: 'Sinistra' },
-  { action: 'right',  label: 'Destra' },
-  { action: 'attack', label: 'Attacco' },
-  { action: 'blood',  label: 'Sangue / Spada' },
-  { action: 'pause',  label: 'Pausa Tattica' },
+  { action: 'up',       label: 'Sali' },
+  { action: 'down',     label: 'Scendi' },
+  { action: 'left',     label: 'Sinistra' },
+  { action: 'right',    label: 'Destra' },
+  { action: 'ability1', label: 'Abilità 1 (Q)' },
+  { action: 'ability2', label: 'Abilità 2 (R)' },
+  { action: 'ability3', label: 'Fase / Trasf. (F)' },
+  { action: 'interact', label: 'Interagisci (E)' },
+  { action: 'pause',    label: 'Pausa Tattica' },
 ]
 
 export class SettingsScene extends Phaser.Scene {
@@ -24,7 +26,7 @@ export class SettingsScene extends Phaser.Scene {
   _buildUI() {
     const W = this.cameras.main.width
     const H = this.cameras.main.height
-    const PW = 440, PH = 380
+    const PW = 440, PH = 460
     const PX = W / 2, PY = H / 2
 
     this.add.rectangle(PX, PY, W, H, 0x000000, 0.72).setScrollFactor(0)
