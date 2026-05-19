@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Silas — Scheda Tecnica</title>
+<style>
+  :root { --accent: #4499ee; --accent-dim: #4499ee22; --bg: #0a0d18; --bg2: #0f1220; --bg3: #0a1028; --text: #c4c4d4; --muted: #557799; --val: #77ddff; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); max-width: 920px; margin: 0 auto; padding: 2.5rem 2rem; line-height: 1.6; }
+
+  header { display: flex; gap: 2rem; align-items: flex-start; padding-bottom: 2rem; border-bottom: 1px solid var(--accent); margin-bottom: 2.5rem; }
+  header img { width: 180px; border-radius: 6px; flex-shrink: 0; }
+  .header-text h1 { font-size: 2.4rem; color: var(--accent); letter-spacing: 0.02em; }
+  .header-text .subtitle { color: var(--muted); font-size: 1rem; margin-top: 0.3rem; margin-bottom: 1rem; }
+  .header-text .tagline { font-style: italic; color: #6688aa; font-size: 0.9rem; border-left: 2px solid var(--accent); padding-left: 0.8rem; }
+  .status-todo { display: inline-block; margin-top: 1rem; padding: 0.2rem 0.7rem; border-radius: 3px; font-size: 0.75rem; font-family: monospace; background: #221100; color: #ff9944; }
+
+  section { margin-bottom: 2.5rem; }
+  h2 { color: var(--accent); font-size: 1.15rem; margin-bottom: 0.9rem; border-left: 3px solid var(--accent); padding-left: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  h3 { color: #99bbcc; font-size: 0.95rem; margin: 1.2rem 0 0.4rem; }
+  p { font-size: 0.9rem; margin-bottom: 0.5rem; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  th { background: var(--bg3); color: var(--accent); text-align: left; padding: 0.5rem 0.9rem; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.07em; font-weight: 600; }
+  td { padding: 0.45rem 0.9rem; border-bottom: 1px solid #141a28; vertical-align: top; }
+  tr:hover td { background: var(--bg2); }
+  td:first-child { color: #8899aa; font-family: monospace; font-size: 0.85rem; white-space: nowrap; }
+
+  .val { font-family: monospace; color: var(--val); font-weight: 600; }
+  .tag-shadow { display: inline-block; padding: 0.05rem 0.45rem; border-radius: 2px; font-size: 0.72rem; font-family: monospace; background: #001133; color: #4499ee; }
+  .tag-light { display: inline-block; padding: 0.05rem 0.45rem; border-radius: 2px; font-size: 0.72rem; font-family: monospace; background: #221100; color: #cc8844; }
+  .note { background: var(--bg2); border-left: 2px solid #113344; padding: 0.6rem 1rem; margin: 0.6rem 0; font-size: 0.84rem; color: #8899aa; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1rem; }
+  .box { background: var(--bg2); border: 1px solid #141a28; border-radius: 4px; padding: 1rem 1.2rem; }
+  .box-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.3rem; }
+  .box-val { font-size: 1.6rem; font-family: monospace; color: var(--val); }
+  .box-desc { font-size: 0.8rem; color: #556677; margin-top: 0.2rem; }
+  .combo-box { background: #051020; border: 1px solid var(--accent); border-radius: 4px; padding: 1rem 1.2rem; margin: 0.8rem 0; }
+  .combo-title { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); margin-bottom: 0.5rem; }
+  .combo-body { font-size: 0.88rem; }
+  code { font-family: monospace; background: #0a1020; padding: 0.1rem 0.4rem; border-radius: 2px; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="card.jpg" alt="Silas">
+  <div class="header-text">
+    <h1>Silas</h1>
+    <p class="subtitle">Ombra del Korvo Nero</p>
+    <p class="tagline">Giocare Silas è giocare nell'ombra che gli altri non vedono.</p>
+    <span class="status-todo">⬡ DA IMPLEMENTARE</span>
+  </div>
+</header>
+
+<section>
+  <h2>Sistema Vitale — Sangue Congelato</h2>
+  <div class="grid2">
+    <div class="box"><div class="box-label">Temperatura (max)</div><div class="box-val">100</div><div class="box-desc">Caldo — piena funzionalità</div></div>
+    <div class="box"><div class="box-label">Temperatura (min)</div><div class="box-val">0</div><div class="box-desc">Max gelo — prossimo colpo = morte</div></div>
+  </div>
+
+  <h3>Variazioni di temperatura</h3>
+  <table>
+    <tr><th>Evento</th><th>Δ Temperatura</th></tr>
+    <tr><td>Colpo ricevuto</td><td class="val">−20</td></tr>
+    <tr><td>Shadow Bind (RMB)</td><td class="val">−15</td></tr>
+    <tr><td>Shadow Teleport (Q)</td><td class="val">−25</td></tr>
+    <tr><td>Shadow Fusion attiva (F)</td><td class="val">−5 / s</td></tr>
+    <tr><td>Regen in zona d'ombra</td><td class="val">+8 / s</td></tr>
+    <tr><td>Regen fuori dall'ombra</td><td class="val">+3 / s</td></tr>
+  </table>
+  <div class="note">A temperatura 0: velocità dimezzata, tutti i poteri ombra disabilitati. Il prossimo colpo ricevuto è fatale.</div>
+</section>
+
+<section>
+  <h2>Zone d'ombra</h2>
+  <p><code>GameScene.isInShadow(tileX, tileY)</code> ritorna true se:</p>
+  <table>
+    <tr><th>#</th><th>Condizione</th></tr>
+    <tr><td>1</td><td>Tile corrente è <code>TILE.SHADOW</code></td></tr>
+    <tr><td>2</td><td>Tile corrente è <code>TILE.CORRIDOR</code></td></tr>
+    <tr><td>3</td><td>Almeno 1 dei 4 vicini ortogonali è <code>TILE.WALL</code> (perimetro stanza)</td></tr>
+  </table>
+  <div class="note">FloorBuilder aggiunge 2–3 patch SHADOW casuali 1×2 per stanza (escluso centro e angoli già assegnati).</div>
+  <div class="note">Copertura stimata: corridoi 100% shadow — stanze piccole ~60% — stanze grandi ~35%</div>
+</section>
+
+<section>
+  <h2>Controlli</h2>
+  <table>
+    <tr><th>Input</th><th>Condizione</th><th>Azione</th><th>Valori</th></tr>
+    <tr><td>WASD</td><td>Sempre</td><td>Movimento + facing</td><td class="val">200 px/s</td></tr>
+    <tr><td>LMB</td><td>Sempre</td><td>Pugnalata base</td><td><span class="val">12 dmg</span> — cd <span class="val">250 ms</span></td></tr>
+    <tr><td>LMB</td><td>In ombra</td><td>Pugnalata potenziata</td><td><span class="val">18 dmg</span> (+50%)</td></tr>
+    <tr><td>LMB</td><td>Dopo Shadow Fusion</td><td><strong>Backstab</strong></td><td><span class="val">36 dmg</span> (×3) — consuma Fusion</td></tr>
+    <tr><td>RMB</td><td><span class="tag-shadow">in ombra</span> + temp &gt; 0</td><td>Shadow Bind</td><td>Immobilizza 2 s — <span class="val">−15 temp</span> — cd <span class="val">1500 ms</span></td></tr>
+    <tr><td>Q</td><td><span class="tag-shadow">in ombra</span> + temp &gt; 0</td><td>Shadow Teleport</td><td>Max <span class="val">80 px</span> — <span class="val">−25 temp</span></td></tr>
+    <tr><td>F</td><td><span class="tag-shadow">in ombra</span> + temp &gt; 0</td><td>Shadow Fusion toggle</td><td>Invisibilità — <span class="val">−5 temp/s</span></td></tr>
+    <tr><td>SPACE</td><td>Sempre</td><td>Pausa tattica</td><td>Rallenta mondo a <span class="val">8%</span></td></tr>
+  </table>
+  <div class="note">RMB, Q, F non hanno nessun effetto in luce piena o a temperatura 0.</div>
+</section>
+
+<section>
+  <h2>Abilità nel dettaglio</h2>
+
+  <h3>Shadow Bind (RMB)</h3>
+  <table>
+    <tr><th>Parametro</th><th>Valore</th></tr>
+    <tr><td>Raggio ricerca nemico</td><td class="val">50 px</td></tr>
+    <tr><td>Durata immobilizzazione</td><td class="val">2000 ms</td></tr>
+    <tr><td>Costo temperatura</td><td class="val">−15</td></tr>
+    <tr><td>Cooldown</td><td class="val">1500 ms</td></tr>
+    <tr><td>Bonus LMB su nemico bound</td><td class="val">×2 danno</td></tr>
+  </table>
+
+  <h3>Shadow Teleport (Q)</h3>
+  <table>
+    <tr><th>Parametro</th><th>Valore</th></tr>
+    <tr><td>Direzione</td><td>Facing WASD corrente</td></tr>
+    <tr><td>Portata massima</td><td class="val">80 px</td></tr>
+    <tr><td>Costo temperatura</td><td class="val">−25</td></tr>
+    <tr><td>Fallisce se</td><td>Tile LIGHT interposto tra Silas e destinazione</td></tr>
+    <tr><td>Costo se fallisce</td><td>Nessuno — abilità silenziosa</td></tr>
+    <tr><td>Effetto visivo</td><td>Teletrasporto istantaneo (no tween)</td></tr>
+  </table>
+
+  <h3>Shadow Fusion (F toggle)</h3>
+  <table>
+    <tr><th>Parametro</th><th>Valore</th></tr>
+    <tr><td>Effetto</td><td>Invisibilità — nemici ignorano Silas</td></tr>
+    <tr><td>Drain temperatura</td><td class="val">−5 / s</td></tr>
+    <tr><td>Esce dall'ombra</td><td>Invisibilità sospesa (non cancellata)</td></tr>
+    <tr><td>Rientra in ombra</td><td>Invisibilità ripristinata automaticamente</td></tr>
+    <tr><td>Primo attacco in Fusion</td><td>Backstab <span class="val">36 dmg</span> — Fusion si chiude</td></tr>
+    <tr><td>Effetto visivo</td><td>Alpha pulsa <span class="val">0.1 → 0.8</span> ogni 400 ms</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>Combo massima</h2>
+  <div class="combo-box">
+    <div class="combo-title">Shadow Bind + Backstab</div>
+    <div class="combo-body">
+      <strong>1.</strong> Attiva Shadow Fusion in corridoio → invisibile<br>
+      <strong>2.</strong> Avvicinati al nemico<br>
+      <strong>3.</strong> RMB → Shadow Bind (nemico immobilizzato 2s, −15 temp)<br>
+      <strong>4.</strong> LMB → Backstab su nemico bound: <span class="val">36 × 2 = 72 dmg</span><br>
+      <strong>5.</strong> Ritiro immediato in ombra per regen temperatura<br><br>
+      <em>Costo totale: −40 temperatura. Danno garantito: 72 dmg su target singolo.</em>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Visuale Placeholder</h2>
+  <table>
+    <tr><th>Elemento</th><th>Dimensione</th><th>Colore / Comportamento</th></tr>
+    <tr><td>Silas</td><td class="val">16×24</td><td>Gradiente temp: <span class="val">#0a0a1a</span> (caldo) → <span class="val">#4488ff</span> (gelo)</td></tr>
+    <tr><td>Shadow Fusion</td><td>—</td><td>Alpha pulsa <span class="val">0.1↔0.8</span> ogni 400 ms</td></tr>
+    <tr><td>Indicatore temperatura</td><td class="val">6×6</td><td>Stesso gradiente blu — sopra Silas (y−20)</td></tr>
+    <tr><td>Indicatore ombra</td><td class="val">4×4</td><td><span class="val">#003300</span> (in ombra) / <span class="val">#111111</span> (in luce) — laterale</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>File da creare / modificare</h2>
+  <table>
+    <tr><th>File</th><th>Azione</th><th>Note</th></tr>
+    <tr><td><code>src/characters/SilasTemp.js</code></td><td>Creare</td><td>Logica temperatura pura — testabile senza Phaser</td></tr>
+    <tr><td><code>src/characters/Silas.js</code></td><td>Creare</td><td>Classe Silas estende BaseCharacter</td></tr>
+    <tr><td><code>tests/characters/SilasTemp.test.js</code></td><td>Creare</td><td>Unit test costanti e funzioni temperatura</td></tr>
+    <tr><td><code>src/map/FloorBuilder.js</code></td><td>Modificare</td><td>Aggiungere 2–3 patch SHADOW sparse per stanza</td></tr>
+    <tr><td><code>src/scenes/GameScene.js</code></td><td>Modificare</td><td>Aggiungere isInShadow() — swap player a Silas</td></tr>
+    <tr><td><code>src/enemies/EsecutoreIllyrium.js</code></td><td>Modificare</td><td>Gestione _bound + _boundTimer</td></tr>
+    <tr><td><code>src/enemies/SkravAlpha.js</code></td><td>Modificare</td><td>Gestione _bound + _boundTimer</td></tr>
+    <tr><td><code>src/enemies/SkravMembro.js</code></td><td>Modificare</td><td>Gestione _bound + _boundTimer</td></tr>
+  </table>
+</section>
+
+</body>
+</html>

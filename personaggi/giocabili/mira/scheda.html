@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Mira — Scheda Tecnica</title>
+<style>
+  :root { --accent: #cc8844; --accent-dim: #cc884422; --bg: #0d0d0a; --bg2: #131208; --bg3: #1a1800; --text: #c4c4d4; --muted: #887755; --val: #ffdd88; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); max-width: 920px; margin: 0 auto; padding: 2.5rem 2rem; line-height: 1.6; }
+
+  header { display: flex; gap: 2rem; align-items: flex-start; padding-bottom: 2rem; border-bottom: 1px solid var(--accent); margin-bottom: 2.5rem; }
+  header img { width: 180px; border-radius: 6px; flex-shrink: 0; }
+  .header-text h1 { font-size: 2.4rem; color: var(--accent); letter-spacing: 0.02em; }
+  .header-text .subtitle { color: var(--muted); font-size: 1rem; margin-top: 0.3rem; margin-bottom: 1rem; }
+  .header-text .tagline { font-style: italic; color: #997744; font-size: 0.9rem; border-left: 2px solid var(--accent); padding-left: 0.8rem; }
+  .status-design { display: inline-block; margin-top: 1rem; padding: 0.2rem 0.7rem; border-radius: 3px; font-size: 0.75rem; font-family: monospace; background: #112233; color: #6699cc; }
+
+  section { margin-bottom: 2.5rem; }
+  h2 { color: var(--accent); font-size: 1.15rem; margin-bottom: 0.9rem; border-left: 3px solid var(--accent); padding-left: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  h3 { color: #ccbbaa; font-size: 0.95rem; margin: 1.2rem 0 0.4rem; }
+  p { font-size: 0.9rem; margin-bottom: 0.5rem; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  th { background: var(--bg3); color: var(--accent); text-align: left; padding: 0.5rem 0.9rem; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.07em; font-weight: 600; }
+  td { padding: 0.45rem 0.9rem; border-bottom: 1px solid #1e1c10; vertical-align: top; }
+  tr:hover td { background: var(--bg2); }
+  td:first-child { color: #aaa088; font-family: monospace; font-size: 0.85rem; white-space: nowrap; }
+
+  .val { font-family: monospace; color: var(--val); font-weight: 600; }
+  .note { background: var(--bg2); border-left: 2px solid #443300; padding: 0.6rem 1rem; margin: 0.6rem 0; font-size: 0.84rem; color: #8899aa; }
+  .warn { background: #1a1000; border-left: 2px solid var(--accent); padding: 0.6rem 1rem; margin: 0.6rem 0; font-size: 0.84rem; color: #cc9944; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1rem; }
+  .box { background: var(--bg2); border: 1px solid #221e00; border-radius: 4px; padding: 1rem 1.2rem; }
+  .box-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.3rem; }
+  .box-val { font-size: 1.3rem; font-family: monospace; color: var(--val); }
+  .box-desc { font-size: 0.8rem; color: #665544; margin-top: 0.2rem; }
+  code { font-family: monospace; background: #111000; padding: 0.1rem 0.4rem; border-radius: 2px; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="card.jpg" alt="Mira">
+  <div class="header-text">
+    <h1>Mira</h1>
+    <p class="subtitle">Alchimista di Korvo Nero</p>
+    <p class="tagline">Giocare Mira è giocare con ciò che il piano ti dà.<br>Ogni stanza è un laboratorio. Ogni errore ha un prezzo fisico.</p>
+    <span class="status-design">◈ DESIGN APPROVATO — DA IMPLEMENTARE</span>
+  </div>
+</header>
+
+<div class="warn">Questa scheda riflette il design approvato. I valori numerici sono target di design e potranno essere bilanciati durante l'implementazione.</div>
+
+<section>
+  <h2>Sistema Vitale — Calore Alchemico</h2>
+  <div class="grid2">
+    <div class="box">
+      <div class="box-label">Temperatura Tatuaggi</div>
+      <div class="box-val">0 – 100%</div>
+      <div class="box-desc">Cresce con ogni trasmutazione. Al max: penalità precisione.</div>
+    </div>
+    <div class="box">
+      <div class="box-label">Integrità Guanti</div>
+      <div class="box-val">0 – 100%</div>
+      <div class="box-desc">Si consuma con trasmutazioni fallite. A 0: Rebound diretto.</div>
+    </div>
+  </div>
+  <div class="note">Subire danno fisico non riduce una barra — riduce la capacità di muoversi e concentrarsi, rendendo le trasmutazioni più lente e meno precise.</div>
+
+  <h3>Rebound (Contraccolpo)</h3>
+  <table>
+    <tr><th>Causa</th><th>Effetto</th></tr>
+    <tr><td>Trasmutazione oltre i limiti dello scambio equivalente</td><td>Sanguinamento temporaneo</td></tr>
+    <tr><td>Guanti rotti + trasmutazione fallita</td><td>Perdita temporanea di un senso (visione ridotta) o svenimento breve</td></tr>
+    <tr><td>Calore tatuaggi al massimo</td><td>Penalità visiva + trasmutazioni più lente / meno precise</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>Principio Fondante — Scambio Equivalente</h2>
+  <p>L'alchimia non è magia. Non si può creare dal nulla. Per ottenere qualcosa occorre materiale di valore equivalente. Ogni trasmutazione ha un ingresso (materiale disponibile) e un'uscita (forma trasformata). Se l'ingresso è insufficiente: Rebound.</p>
+  <div class="note">In stanze spoglie Mira non può usare quasi nessuna abilità offensiva. La selezione della stanza di partenza e il percorso nella mappa hanno impatto strategico alto.</div>
+</section>
+
+<section>
+  <h2>Abilità — Sintesi Somatica</h2>
+  <p>Attivazione: batte le mani per avviare la reazione (nessun cerchio necessario — guanti e tatuaggi sostituiscono il cerchio tradizionale).</p>
+
+  <table>
+    <tr><th>Abilità</th><th>Input</th><th>Effetto</th><th>Requisito</th></tr>
+    <tr>
+      <td>Difesa</td>
+      <td>LMB su superficie</td>
+      <td>Muro istantaneo o cupola di protezione (blocca proiettili)</td>
+      <td>Materiale solido sotto i piedi</td>
+    </tr>
+    <tr>
+      <td>Attacco terreno</td>
+      <td>RMB su nemico</td>
+      <td>Sabbie mobili (rallenta, no danno) o lance di pietra/metallo (danno diretto)</td>
+      <td>Pavimento non spoglio</td>
+    </tr>
+    <tr>
+      <td>Riarmo al volo</td>
+      <td>Q su oggetto metallico</td>
+      <td>Rimodella in lancia (danno distanza) o scudo (blocco fisico)</td>
+      <td>Oggetto metallico in raggio 40px</td>
+    </tr>
+    <tr>
+      <td>Reazione Metamorfica</td>
+      <td>F su superficie</td>
+      <td>Cambia consistenza: solido → gelatinoso, pietra → fragile, aria compressa → parete</td>
+      <td>Contatto fisico con la superficie</td>
+    </tr>
+    <tr>
+      <td>Pozione Potenziata</td>
+      <td>E su fiala</td>
+      <td>Acqua → ghiaccio esplosivo · Olio → fiamma accelerata · Acido → vapore corrosivo</td>
+      <td>Fiala alla cintura disponibile</td>
+    </tr>
+  </table>
+
+  <div class="note">Trasmutare esseri viventi o materiali complessi richiede tempo e concentrazione. Materiali alieni o sconosciuti richiedono analisi prima dell'uso — la prima reazione su un nuovo materiale può fallire.</div>
+</section>
+
+<section>
+  <h2>Limiti strutturali</h2>
+  <table>
+    <tr><th>Limite</th><th>Effetto gameplay</th></tr>
+    <tr><td>Nessun materiale disponibile</td><td>Solo attacco fisico base — potenza quasi nulla</td></tr>
+    <tr><td>Mani bloccate o legate</td><td>Nessuna trasmutazione possibile</td></tr>
+    <tr><td>Temperatura tatuaggi al massimo</td><td>Trasmutazioni più lente e meno precise — rischio Rebound aumentato</td></tr>
+    <tr><td>Guanti distrutti</td><td>Ogni trasmutazione fallita causa Rebound fisico diretto</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>Tile speciali</h2>
+  <table>
+    <tr><th>Tile</th><th>Effetto su Mira</th></tr>
+    <tr><td>METAL</td><td>Materiale metallico disponibile → Riarmo al volo garantito</td></tr>
+    <tr><td>Deposito materiali</td><td>Trasmutazioni con rischio Rebound ridotto — risorse multiple</td></tr>
+    <tr><td>FLOOR spoglio</td><td>Solo attacchi base — Sintesi Somatica limitatissima</td></tr>
+    <tr><td>DESTRUCTIBLE</td><td>Reazione Metamorfica può indebolirlo o aprire nuovi passaggi</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>Note Implementative</h2>
+  <table>
+    <tr><th>Campo</th><th>Valore</th></tr>
+    <tr><td>File da creare</td><td><code>src/characters/Mira.js</code></td></tr>
+    <tr><td>Estende</td><td><code>BaseCharacter</code></td></tr>
+    <tr><td>Richiede</td><td>Sistema materiali per stanza, interazione tile METAL / depositi</td></tr>
+    <tr><td>Spec narrativa</td><td><code>docs/superpowers/specs/2026-05-18-fractured-inheritance-design.md</code></td></tr>
+    <tr><td>Stato</td><td><span class="status-design">design approvato — da implementare dopo Silas</span></td></tr>
+  </table>
+</section>
+
+</body>
+</html>
