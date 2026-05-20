@@ -7,7 +7,7 @@ export class EsecutoreLeader extends EsecutoreComune {
 
     // Override base properties from parent
     this.setSize(22, 22)
-    this.fillColor = 0x3a4050
+    this.setFillStyle(0x3a4050)
     this.hp = 108
     this.maxHp = 108
     this.damage = 15
