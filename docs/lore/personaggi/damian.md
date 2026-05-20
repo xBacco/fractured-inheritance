@@ -12,6 +12,32 @@ Buzz cut nero corvino. Occhiali da sole con lenti specchiate, sempre indosso. Gi
 
 **Visual reference:** `personaggi/giocabili/damian.jpg`
 
+### Palette HEX ufficiale
+
+| Zona | Hex |
+|---|---|
+| Pelle base | `#C89060` |
+| Ombre pelle | `#A06838` |
+| Barba/contorni | `#7A4820` |
+| Capelli (nero blu-scuro) | `#141420` |
+| Capelli (highlight) | `#2A2A38` |
+| Giacca pelle | `#181818` |
+| Camicia nera | `#111111` |
+| Cintura | `#1C1C1C` |
+| Fibbia metallo | `#888888` |
+| Dog tag argento | `#AAAAAA` |
+| Occhiali | `#222222` |
+| **Phase 1** — anelli glow arancio | `#E87020` |
+| **Phase 1** — alone esterno | `#C05010` |
+| **Phase 2** — fiamma base | `#FF6600` |
+| **Phase 2** — fiamma centro | `#FFCC00` |
+| **Phase 2** — croce bruciante | `#FF8800` |
+| **Phase 3** — corpo ombra | `#0A0808` |
+| **Phase 3** — occhi infuocati | `#FF6600` |
+| **Phase 3** — alone scuro | `#1A0808` |
+
+**Identità visiva:** `#181818` (pelle nera) + `#FF6600` (fuoco) + `#FFCC00` (fiamma centro)
+
 ---
 
 ## Sistema: Riserva Demoniaca e Corruzione

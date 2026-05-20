@@ -9,6 +9,29 @@ Nordico, nato nelle Lande del Nord, concepito nell'Abisso di Khol. Da parte di m
 
 **Visual reference:** `personaggi/giocabili/silas.jpg`
 
+### Palette HEX ufficiale
+
+| Zona | Hex |
+|---|---|
+| Pelle base | `#C89A6A` |
+| Ombre pelle | `#A07040` |
+| Capelli (nero-blu scuro) | `#151820` |
+| Capelli (highlight) | `#252A38` |
+| Mantello/hoodie (dominante) | `#1A1E2C` |
+| Ombre mantello | `#10121A` |
+| Bende/maschera | `#DDD8C8` |
+| Cinghie cuoio | `#7A4E32` |
+| Fibbie metallo | `#444444` |
+| Lacci/dettagli | `#5C3C22` |
+| Tatuaggi ink | `#2A2018` |
+| Lame daghe (acciaio) | `#B8C0C8` |
+| Manici daghe | `#8B5A30` |
+| Punta daghe | `#D8DDE0` |
+| **Shadow Form** — silhouette | `#0A0A0A` |
+| **Shadow Form** — alone ombra | `#1A1A28` |
+
+**Identità visiva:** `#1A1E2C` (mantello) + `#DDD8C8` (bende) + `#B8C0C8` (acciaio)
+
 ---
 
 ## Sistema: Sangue Congelato

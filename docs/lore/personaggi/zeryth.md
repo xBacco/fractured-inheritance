@@ -18,6 +18,30 @@ Abito bianco elegante, cappotto lungo. Capelli bianchi/argento, pelle pallida. L
 
 **Visual reference:** `personaggi/giocabili/zeryth.jpg`
 
+### Palette HEX ufficiale
+
+| Zona | Hex |
+|---|---|
+| Pelle base | `#E8D0BC` |
+| Ombre pelle | `#C4A080` |
+| Labbra | `#B07868` |
+| Capelli (argento base) | `#C8C8D8` |
+| Capelli (highlight bianco) | `#EEEEF4` |
+| Capelli (ombre grigie) | `#8888A0` |
+| Occhi (blu ghiaccio) | `#5599BB` |
+| Abito bianco | `#EEEEF0` |
+| Ombre abito | `#C8C8D0` |
+| Cravatta nera | `#1A1A1A` |
+| Guanti neri | `#181818` |
+| Bottoni/dettagli | `#AAAABC` |
+| Spada di sangue (dominante) | `#CC1111` |
+| X-Scar | `#AA0000` |
+| Glow rosso BG | `#CC2222` |
+| Time Distortion (blu cristallo) | `#C8E8F8` |
+| Cristalli oro | `#E8E0AA` |
+
+**Identità visiva:** `#EEEEF0` (bianco) + `#CC1111` (sangue) + `#C8C8D8` (argento)
+
 ---
 
 ## Sistema: Integrità Corporea
