@@ -3,6 +3,23 @@
 **Sottotitolo:** *L'Eco di Illyrium*
 **Visual reference:** `personaggi/nemici/sussurri.jpg`
 
+### Palette HEX ufficiale
+
+*Palette intenzionalmente desaturata, quasi monocromatica.*
+
+| Zona | Hex |
+|---|---|
+| Corpo fumo scuro | `#252525` |
+| Fumo medio | `#505050` |
+| Tendrili fumo | `#808080` |
+| Volti cenere | `#B8B8B8` |
+| Occhi (glow bianco) | `#F0F0F0` |
+| Carta/ambiente BG | `#F0EDE4` |
+| Ombre sfondo | `#D0CCC4` |
+| Glow esplosione (flash puro alla morte) | `#FFFFFF` |
+
+**Identità visiva:** `#252525` + `#808080` + `#F0EDE4` (contrasto nero-su-bianco, nessun colore caldo)
+
 ---
 
 Non sono creature. Sono echi del luogo stesso.

@@ -57,3 +57,43 @@ Il numero di serie è sul collo, lato destro: EC seguito da due cifre. Stampigli
 - Connessione con Zeryth: lui è "L'Esecutore" singolo e spezzato; loro sono la versione di serie
 
 **Varianti:** `EsecutoreComune` (grigio-acciaio `0x5a6070`) + `EsecutoreLeader` (grigio scuro `0x3a4050`, più grande, sigillo I, stats maggiorate)
+
+### Palette HEX ufficiale — Esecutore Comune
+
+| Zona | Hex |
+|---|---|
+| Pelle cadaverica (grigio-bluastro) | `#C0C4CC` |
+| Ombre pelle | `#8890A0` |
+| Occhi vuoti | `#D0D8E0` |
+| Capelli corti | `#A0A8B0` |
+| Trench coat (dominante) | `#606878` |
+| Ombre cappotto | `#3A404A` |
+| Cinghie tattiche | `#4A5040` |
+| Cintura/fibbie | `#3A3A3A` |
+| Stivali | `#282828` |
+| Sigillo III (carne) | `#B0A0A0` |
+| Sigillo III (rosso) | `#882222` |
+| Numero di serie | `#882222` |
+
+**Identità visiva:** `#606878` (cappotto) + `#C0C4CC` (pelle) + `#882222` (sigillo)
+
+### Palette HEX ufficiale — Esecutore Leader
+
+Variante del Comune — stesse proporzioni, differenze chiave:
+
+| Zona | Hex | Differenza |
+|---|---|---|
+| Trench coat | `#3A4050` | Più scuro vs Comune `#606878` |
+| Ombre cappotto | `#252A35` | |
+| Pelle, cinghie, stivali | (identica al Comune) | |
+
+**Stati visivi (degradazione):**
+
+| Stato | HP | Occhi | Sigillo |
+|---|---|---|---|
+| Operativo | 100–71% | `#FFFFFF` (bianchi attivi) | `#882222` (luminoso) |
+| Degrado | 70–41% | un occhio `#FFFFFF` + uno `#222222` | `#882222` |
+| Critico | 40–1% | `#222222` (entrambi spenti) | `#333333` (senza energia) |
+| Collasso | 0% | — | — |
+
+**Identità visiva vs Comune:** `#3A4050` vs `#606878` (più scuro, stessa famiglia cromatica)

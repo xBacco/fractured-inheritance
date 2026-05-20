@@ -22,7 +22,27 @@ Quando ti guardano non vedono una minaccia. Vedono una scelta. Se ti muovi, la s
 
 Corpo umanoide snello, ali grandi sul dorso (separate dalle braccia), braccia che terminano in artigli lunghi su quattro dita, gambe umane che diventano zampe di rapace dal ginocchio. Capelli lunghi scuri. Viso umano con tratti affilati, iride oro bruciato, pupilla verticale viola scuro.
 
-**Palette:** corpo viola/nero profondo. Dettagli oro bruciato su: punte delle penne, artigli, collare, corona sulla fronte con gemma, bracciali ai polsi, pattern decorativo sul busto.
+### Palette HEX ufficiale
+
+| Zona | Hex |
+|---|---|
+| Pelle pallida (viola-bianco) | `#E0D4DC` |
+| Ombre pelle | `#B090A8` |
+| Labbra (prugna scuro) | `#7A3050` |
+| Capelli nero-blu | `#151220` |
+| Iride oro | `#CC8800` |
+| Pupilla viola | `#6633AA` |
+| Gemma fronte | `#5522AA` |
+| Piume (viola-nero, dominante) | `#1E1228` |
+| Highlight ali (oro) | `#C87820` |
+| Punta ali | `#0A0808` |
+| Corpo scaglie (viola scuro) | `#2E1438` |
+| Dettagli scaglie | `#3A1A4A` |
+| Oro base (corona, collare, artigli) | `#C8A020` |
+| Oro highlight | `#E8C840` |
+| Oro ombre/artigli | `#8B5E10` |
+
+**Identità visiva:** `#1E1228` (ali) + `#C8A020` (oro) + `#7A3050` (labbra)
 
 **Prompt Grok (card art):**
 > Fantasy card art. A harpy creature — elegant, predatory, ancient. Human female body with large dark wings on her back (wings separate from arms). Long sharp claws on human hands. Human legs transitioning into bird talons below the knee. Long dark hair. Facial features sharp and beautiful but cold, golden irises with vertical purple slit pupils. Small gold crown on forehead with a single gemstone, gold collar around neck, gold bracelets on wrists, gold-tipped feathers at wing edges, gold-tipped talons. Color palette: deep violet and black body, dark purple wings with gold accents only on details. Dark background, fractured dimensional plane aesthetic. Style: Yu-Gi-Oh card art influenced, dark fantasy, detailed illustration. Portrait orientation, full body visible.

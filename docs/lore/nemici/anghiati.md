@@ -2,6 +2,23 @@
 
 **Visual reference:** `personaggi/nemici/anghiati.jpeg`
 
+### Palette HEX ufficiale
+
+| Zona | Hex |
+|---|---|
+| Pelle cadaverica (base) | `#D0CEC0` |
+| Ombre pelle/vene | `#4A5840` |
+| Cavità/bocca | `#2A1A18` |
+| Denti | `#E0D8C0` |
+| Occhi senza palpebre | `#D8E4DC` |
+| Fluido/gocce nere | `#0A0A0A` |
+| Parte acquatica (corpo inferiore) | `#182420` |
+| Pinne/artigli | `#2A2020` |
+| Acqua/palude BG | `#243430` |
+| Accenti corrosivi | `#4A6050` |
+
+**Identità visiva:** `#D0CEC0` (cadaverico) + `#243430` (palude) + `#0A0A0A` (fluido)
+
 ---
 
 ## Aspetto
