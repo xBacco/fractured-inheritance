@@ -101,8 +101,8 @@ Valide per tutti i personaggi giocabili una volta implementati:
 
 ---
 
-## Aperto / Da definire
+## Spawn e audio
 
-- Quante unità per stanza (min/max)?
-- Il leader spawna sempre o solo da un certo piano in poi?
-- Suono di ricalibrazione (silenzio assoluto, o un click meccanico)?
+- **Unità per stanza:** 1–3
+- **Leader:** dal piano 2 in poi; piano 1 solo `EsecutoreComune`
+- **Suono ricalibrazione:** silenzio assoluto — nessun suono aggiuntivo
