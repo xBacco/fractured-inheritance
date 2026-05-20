@@ -1,0 +1,106 @@
+<h2>Aspetto del nemico — I Bassifondi</h2>
+<p class="subtitle">Come si manifesta fisicamente chi ha consumato carne umana per sopravvivere e cerca di ascendere?</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0d0d0d;padding:20px;display:flex;align-items:center;justify-content:center;min-height:220px">
+      <svg viewBox="0 0 80 160" width="80" height="160" xmlns="http://www.w3.org/2000/svg">
+        <!-- Emaciated figure -->
+        <ellipse cx="40" cy="18" rx="11" ry="13" fill="#5a4030"/>
+        <!-- neck -->
+        <rect x="37" y="30" width="6" height="10" fill="#5a4030"/>
+        <!-- torso - very thin, visible ribs suggested -->
+        <polygon points="25,40 55,40 52,85 28,85" fill="#4a3020"/>
+        <!-- rib marks -->
+        <line x1="28" y1="50" x2="52" y2="50" stroke="#6a5040" stroke-width="1"/>
+        <line x1="28" y1="58" x2="52" y2="58" stroke="#6a5040" stroke-width="1"/>
+        <line x1="28" y1="66" x2="52" y2="66" stroke="#6a5040" stroke-width="1"/>
+        <!-- arms - long and bony -->
+        <polygon points="25,40 14,42 10,80 22,80 26,55" fill="#4a3020"/>
+        <polygon points="55,40 66,42 70,80 58,80 54,55" fill="#4a3020"/>
+        <!-- legs -->
+        <polygon points="28,85 40,87 36,140 22,138" fill="#4a3020"/>
+        <polygon points="52,85 40,87 44,140 58,138" fill="#4a3020"/>
+        <!-- ritual marks (scratched lines on chest) -->
+        <line x1="35" y1="44" x2="45" y2="44" stroke="#cc3300" stroke-width="1.5"/>
+        <line x1="38" y1="42" x2="38" y2="48" stroke="#cc3300" stroke-width="1.5"/>
+        <!-- wild hair/head wrappings -->
+        <ellipse cx="40" cy="12" rx="14" ry="6" fill="#2a1a10"/>
+        <!-- hollow eyes -->
+        <ellipse cx="35" cy="18" rx="3" ry="3" fill="#cc4400" opacity="0.8"/>
+        <ellipse cx="45" cy="18" rx="3" ry="3" fill="#cc4400" opacity="0.8"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <h3>A — L'Emaciato</h3>
+      <p>Pelle sugli ossi. Il corpo ha consumato se stesso prima degli altri. Ossessivo, frenetico. I segni rituali sono incisi direttamente sulle costole esposte. Si muove a scatti, con velocità innaturale per il corpo che ha.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0d0d0d;padding:20px;display:flex;align-items:center;justify-content:center;min-height:220px">
+      <svg viewBox="0 0 80 160" width="80" height="160" xmlns="http://www.w3.org/2000/svg">
+        <!-- Bloated/asymmetric figure -->
+        <ellipse cx="40" cy="18" rx="13" ry="14" fill="#5a4030"/>
+        <rect x="36" y="31" width="8" height="9" fill="#5a4030"/>
+        <!-- torso - bloated, irregular -->
+        <polygon points="20,40 60,40 58,90 22,90" fill="#4a3020"/>
+        <!-- patches of different "consumed" flesh -->
+        <ellipse cx="30" cy="58" rx="9" ry="7" fill="#6a2020" opacity="0.7"/>
+        <ellipse cx="52" cy="65" rx="7" ry="9" fill="#3a5020" opacity="0.6"/>
+        <!-- arms - one thin, one swollen -->
+        <polygon points="20,40 8,45 6,75 18,78 22,55" fill="#4a3020"/>
+        <polygon points="60,40 74,43 76,78 62,82 58,55" fill="#6a3a20"/>
+        <ellipse cx="75" cy="65" rx="7" ry="12" fill="#6a3a20"/>
+        <!-- legs - uneven -->
+        <polygon points="22,90 38,92 34,142 18,140" fill="#4a3020"/>
+        <polygon points="58,90 42,92 46,138 62,136" fill="#5a3020"/>
+        <!-- eyes: one normal, one wrong -->
+        <ellipse cx="35" cy="18" rx="3" ry="3" fill="#ccaa00" opacity="0.9"/>
+        <ellipse cx="46" cy="17" rx="5" ry="4" fill="#cc2200" opacity="0.9"/>
+        <!-- ritual scar on stomach -->
+        <path d="M32,65 Q40,60 48,65 Q40,70 32,65" fill="none" stroke="#cc3300" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <h3>B — Il Corrotto</h3>
+      <p>La carne consumata si è integrata in modo sbagliato. Proporzioni irregolari, pezzi di corpo che non corrispondono. Un braccio più grosso dell'altro, torace asimmetrico. Non orripilante per le ferite — orripilante perché cresce nel modo sbagliato.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0d0d0d;padding:20px;display:flex;align-items:center;justify-content:center;min-height:220px">
+      <svg viewBox="0 0 80 160" width="80" height="160" xmlns="http://www.w3.org/2000/svg">
+        <!-- Hooded ritual figure - still recognizably human -->
+        <ellipse cx="40" cy="20" rx="12" ry="13" fill="#3a2a20"/>
+        <!-- hood -->
+        <ellipse cx="40" cy="14" rx="16" ry="10" fill="#2a1a10"/>
+        <polygon points="24,14 56,14 60,35 20,35" fill="#2a1a10"/>
+        <!-- torso - wrapped/robed -->
+        <polygon points="22,40 58,40 55,92 25,92" fill="#2a1a10"/>
+        <!-- ritual symbols on robe (chalk/blood markings) -->
+        <text x="30" y="60" font-size="10" fill="#cc3300" opacity="0.9">⋮⋮</text>
+        <text x="38" y="72" font-size="8" fill="#cc3300" opacity="0.9">✕</text>
+        <text x="30" y="82" font-size="8" fill="#cc3300" opacity="0.9">—◦—</text>
+        <!-- arms with wrapped hands/tools -->
+        <polygon points="22,42 10,50 8,82 20,84 24,60" fill="#2a1a10"/>
+        <polygon points="58,42 70,50 72,82 60,84 56,60" fill="#2a1a10"/>
+        <!-- bone weapon in right hand -->
+        <rect x="68" y="72" width="4" height="22" fill="#bbaa88" rx="1"/>
+        <ellipse cx="70" cy="72" rx="5" ry="4" fill="#bbaa88"/>
+        <!-- legs -->
+        <polygon points="25,92 40,94 36,144 20,142" fill="#2a1a10"/>
+        <polygon points="55,92 40,94 44,140 60,138" fill="#2a1a10"/>
+        <!-- glowing eyes under hood -->
+        <ellipse cx="36" cy="20" rx="3" ry="2.5" fill="#ff6600" opacity="0.95"/>
+        <ellipse cx="44" cy="20" rx="3" ry="2.5" fill="#ff6600" opacity="0.95"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <h3>C — Il Ritualista</h3>
+      <p>Ancora riconoscibilmente umano — ma avvolto nel rituale. Vesti stracciate con simboli tracciati nel sangue, armi di osso, movimenti lenti e deliberati. La pericolosità non è nella forma del corpo ma in quello che sa fare. Sembra quasi un prete di qualcosa di sbagliato.</p>
+    </div>
+  </div>
+
+</div>

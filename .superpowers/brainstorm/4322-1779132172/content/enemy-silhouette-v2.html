@@ -1,0 +1,138 @@
+<h2>Aspetto del nemico — Varianti aggiuntive</h2>
+<p class="subtitle">Nuove direzioni, più B come riferimento</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0d0d0d;padding:20px;display:flex;align-items:center;justify-content:center;min-height:220px">
+      <svg viewBox="0 0 80 160" width="80" height="160" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="40" cy="18" rx="13" ry="14" fill="#5a4030"/>
+        <rect x="36" y="31" width="8" height="9" fill="#5a4030"/>
+        <polygon points="20,40 60,40 58,90 22,90" fill="#4a3020"/>
+        <ellipse cx="30" cy="58" rx="9" ry="7" fill="#6a2020" opacity="0.7"/>
+        <ellipse cx="52" cy="65" rx="7" ry="9" fill="#3a5020" opacity="0.6"/>
+        <polygon points="20,40 8,45 6,75 18,78 22,55" fill="#4a3020"/>
+        <polygon points="60,40 74,43 76,78 62,82 58,55" fill="#6a3a20"/>
+        <ellipse cx="75" cy="65" rx="7" ry="12" fill="#6a3a20"/>
+        <polygon points="22,90 38,92 34,142 18,140" fill="#4a3020"/>
+        <polygon points="58,90 42,92 46,138 62,136" fill="#5a3020"/>
+        <ellipse cx="35" cy="18" rx="3" ry="3" fill="#ccaa00" opacity="0.9"/>
+        <ellipse cx="46" cy="17" rx="5" ry="4" fill="#cc2200" opacity="0.9"/>
+        <path d="M32,65 Q40,60 48,65 Q40,70 32,65" fill="none" stroke="#cc3300" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <h3>B — Il Corrotto (riferimento)</h3>
+      <p>Proporzioni sbagliate, carne integrata male, asimmetrico. Cresce nel modo sbagliato.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="d" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0d0d0d;padding:20px;display:flex;align-items:center;justify-content:center;min-height:220px">
+      <svg viewBox="0 0 80 170" width="80" height="170" xmlns="http://www.w3.org/2000/svg">
+        <!-- Il Proliferante - extra limbs growing from torso -->
+        <ellipse cx="40" cy="18" rx="12" ry="13" fill="#5a3828"/>
+        <rect x="37" y="30" width="6" height="9" fill="#5a3828"/>
+        <!-- torso -->
+        <polygon points="24,39 56,39 54,88 26,88" fill="#4a2818"/>
+        <!-- main arms -->
+        <polygon points="24,39 12,44 10,76 22,78 26,54" fill="#4a2818"/>
+        <polygon points="56,39 68,44 70,76 58,78 54,54" fill="#4a2818"/>
+        <!-- extra arm growing from left shoulder (different color/texture - consumed flesh) -->
+        <polygon points="24,46 4,38 2,62 14,66 20,52" fill="#5a2a10" opacity="0.9"/>
+        <ellipse cx="3" cy="50" rx="5" ry="8" fill="#5a2a10"/>
+        <!-- extra arm-like protrusion from right torso mid -->
+        <polygon points="54,62 70,56 72,74 60,76 56,68" fill="#3a4020" opacity="0.85"/>
+        <!-- legs -->
+        <polygon points="26,88 40,90 36,145 20,143" fill="#4a2818"/>
+        <polygon points="54,88 40,90 44,141 60,139" fill="#4a2818"/>
+        <!-- ritual burn mark at center chest -->
+        <circle cx="40" cy="58" r="8" fill="none" stroke="#cc4400" stroke-width="1.5"/>
+        <circle cx="40" cy="58" r="4" fill="#cc440033"/>
+        <!-- eyes - three (one extra, wrong position) -->
+        <ellipse cx="35" cy="18" rx="3" ry="3" fill="#ffaa00" opacity="0.9"/>
+        <ellipse cx="45" cy="18" rx="3" ry="3" fill="#ffaa00" opacity="0.9"/>
+        <ellipse cx="41" cy="10" rx="2" ry="2" fill="#ff4400" opacity="0.7"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <h3>D — Il Proliferante</h3>
+      <p>La carne consumata ha fatto crescere appendici nuove — un braccio extra, una spalla in più. Non funzionano bene, ma fanno paura. Versione estrema del Corrotto: il corpo non si è adattato, si è espanso a caso. Un terzo occhio in posizione sbagliata.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="e" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0d0d0d;padding:20px;display:flex;align-items:center;justify-content:center;min-height:220px">
+      <svg viewBox="0 0 80 170" width="80" height="170" xmlns="http://www.w3.org/2000/svg">
+        <!-- Il Trascinante - carries/drags remnants of the sacrificed -->
+        <!-- Main body - hunched forward -->
+        <ellipse cx="42" cy="20" rx="11" ry="12" fill="#5a3828"/>
+        <rect x="39" y="31" width="6" height="8" fill="#5a3828"/>
+        <!-- hunched torso -->
+        <polygon points="28,39 56,36 58,82 26,85" fill="#4a2818"/>
+        <!-- arms - one holding something, one free -->
+        <polygon points="28,40 16,44 12,72 24,74 28,56" fill="#4a2818"/>
+        <polygon points="56,36 70,32 72,62 60,66 56,50" fill="#4a2818"/>
+        <!-- What they're dragging: a half-body torso chained/tied -->
+        <ellipse cx="20" cy="110" rx="12" ry="9" fill="#3a2010" opacity="0.8"/>
+        <polygon points="14,110 26,110 24,138 16,138" fill="#3a2010" opacity="0.7"/>
+        <!-- chain/rope from hand to dragged body -->
+        <path d="M13,72 Q8,90 20,110" fill="none" stroke="#887755" stroke-width="2" stroke-dasharray="3,2"/>
+        <!-- legs - uneven stance -->
+        <polygon points="30,85 42,87 38,143 22,141" fill="#4a2818"/>
+        <polygon points="54,82 42,87 46,139 62,137" fill="#4a2818"/>
+        <!-- ritual marks on main body chest -->
+        <line x1="35" y1="50" x2="50" y2="50" stroke="#cc3300" stroke-width="1"/>
+        <line x1="38" y1="46" x2="38" y2="54" stroke="#cc3300" stroke-width="1"/>
+        <line x1="46" y1="46" x2="46" y2="54" stroke="#cc3300" stroke-width="1"/>
+        <!-- eyes -->
+        <ellipse cx="38" cy="20" rx="3" ry="3" fill="#ddaa00" opacity="0.9"/>
+        <ellipse cx="47" cy="19" rx="3" ry="3" fill="#ddaa00" opacity="0.9"/>
+        <!-- mouth open -->
+        <path d="M37,26 Q42,29 47,26" fill="none" stroke="#cc4400" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <h3>E — Il Trascinante</h3>
+      <p>Non ha ancora finito il rituale — trascina con sé il corpo da cui si nutre ancora. Ciò che porta è sia arma che costo. Visivamente racconta la meccanica: qualcuno non può ascendere perché lui sì. Grottesco per quello che mostra, non per come è fatto.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="f" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0d0d0d;padding:20px;display:flex;align-items:center;justify-content:center;min-height:220px">
+      <svg viewBox="0 0 80 160" width="80" height="160" xmlns="http://www.w3.org/2000/svg">
+        <!-- Il Quasi-Asceso - body looks almost normal but face/head wrong -->
+        <!-- body - muscular, almost normal, but ritual marks glow -->
+        <ellipse cx="40" cy="19" rx="10" ry="11" fill="#5a3828"/>
+        <rect x="37" y="29" width="6" height="9" fill="#5a3828"/>
+        <!-- well-built torso (the flesh worked) -->
+        <polygon points="26,38 54,38 52,86 28,86" fill="#4a3020"/>
+        <!-- arms - strong, defined -->
+        <polygon points="26,38 14,42 12,78 24,80 28,56" fill="#4a3020"/>
+        <polygon points="54,38 66,42 68,78 56,80 52,56" fill="#4a3020"/>
+        <!-- legs -->
+        <polygon points="28,86 40,88 36,142 22,140" fill="#4a3020"/>
+        <polygon points="52,86 40,88 44,138 58,136" fill="#4a3020"/>
+        <!-- ritual veins/lines glowing across entire body (the ascension starting) -->
+        <path d="M40,38 Q30,50 28,65 Q30,78 40,86" fill="none" stroke="#ff6600" stroke-width="1" opacity="0.7"/>
+        <path d="M40,38 Q50,50 52,65 Q50,78 40,86" fill="none" stroke="#ff6600" stroke-width="1" opacity="0.7"/>
+        <path d="M26,52 Q20,58 14,56" fill="none" stroke="#ff6600" stroke-width="1" opacity="0.6"/>
+        <path d="M54,52 Q60,58 66,56" fill="none" stroke="#ff6600" stroke-width="1" opacity="0.6"/>
+        <!-- face: WRONG - too many features, dissolving into something -->
+        <ellipse cx="40" cy="19" rx="10" ry="11" fill="#5a3828" opacity="0.3"/>
+        <!-- multiple overlapping eyes -->
+        <ellipse cx="35" cy="17" rx="4" ry="3.5" fill="#ff4400" opacity="0.95"/>
+        <ellipse cx="45" cy="17" rx="4" ry="3.5" fill="#ff4400" opacity="0.95"/>
+        <ellipse cx="38" cy="23" rx="2.5" ry="2" fill="#ff8800" opacity="0.7"/>
+        <ellipse cx="43" cy="23" rx="2.5" ry="2" fill="#ff8800" opacity="0.7"/>
+        <!-- mouth too wide -->
+        <path d="M30,27 Q40,31 50,27" fill="none" stroke="#cc2200" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="card-body">
+      <h3>F — Il Quasi-Asceso</h3>
+      <p>Il corpo ha funzionato — forte, integro. Ma la testa no. Il volto è sbagliato: troppe bocche, troppi occhi, come se l'ascensione stia partendo dal punto sbagliato. Vene incandescenti sotto pelle. È il più vicino all'ascensione — ed è il più pericoloso.</p>
+    </div>
+  </div>
+
+</div>
