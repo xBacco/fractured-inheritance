@@ -5,7 +5,9 @@ import { TILE_COLORS, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT } from '../config/GameCon
 import { Silas } from '../characters/Silas.js'
 import { isShadowTile } from '../characters/SilasTemp.js'
 import { TacticalPause } from '../systems/TacticalPause.js'
-import { EsecutoreIllyrium } from '../enemies/EsecutoreIllyrium.js'
+import { EsecutoreComune } from '../enemies/EsecutoreComune.js'
+import { EsecutoreLeader } from '../enemies/EsecutoreLeader.js'
+import { FormationSystem } from '../systems/FormationSystem.js'
 import { SkravAlpha } from '../enemies/SkravAlpha.js'
 import { SkravMembro } from '../enemies/SkravMembro.js'
 import { KeyBindings } from '../config/KeyBindings.js'
@@ -22,6 +24,8 @@ export class GameScene extends Phaser.Scene {
     const spawnX = (spawn.x + Math.floor(spawn.width / 2)) * TILE_SIZE
     const spawnY = (spawn.y + Math.floor(spawn.height / 2)) * TILE_SIZE
     this.player = new Silas(this, spawnX, spawnY)
+    this.floor = 1
+    this._formations = []
 
     this.tacticalPause = new TacticalPause(this)
     this.spaceKey = this.input.keyboard.addKey(KeyBindings.keyCode('pause'))
@@ -69,6 +73,9 @@ export class GameScene extends Phaser.Scene {
     if (this.enemies) {
       this.enemies.getChildren().forEach(e => e.update(this.player, delta))
     }
+    if (this._formations) {
+      this._formations.forEach(f => f.update(delta))
+    }
     if (this.tacticalPause) {
       this.tacticalPause.update(delta)
       this.pauseOverlay.setVisible(this.tacticalPause.active)
@@ -101,19 +108,45 @@ export class GameScene extends Phaser.Scene {
   }
 
   _spawnEnemies() {
-    const FLANK_OFFSETS = [0, Math.PI / 3, -Math.PI / 3, Math.PI * 2 / 3, -Math.PI * 2 / 3]
     const enemyRooms = this.rooms.slice(1)
     const splitAt = Math.ceil(enemyRooms.length / 2)
-
     enemyRooms.forEach((room, i) => {
       const cx = (room.x + Math.floor(room.width / 2)) * TILE_SIZE
       const cy = (room.y + Math.floor(room.height / 2)) * TILE_SIZE
       if (i < splitAt) {
-        this.enemies.add(new EsecutoreIllyrium(this, cx, cy, FLANK_OFFSETS[i % FLANK_OFFSETS.length]))
+        this._spawnEsecutoriGroup(cx, cy)
       } else {
         this._spawnSkravPack(cx, cy)
       }
     })
+  }
+
+  _spawnEsecutoriGroup(cx, cy) {
+    const count = Phaser.Math.Between(1, 3)
+    const system = new FormationSystem()
+    const SLOT_ORDER = ['fronte', 'fianco_sx', 'fianco_dx']
+    const SPAWN_OFFSETS = [[0, 0], [-25, -15], [25, -15]]
+
+    if (this.floor >= 2) {
+      const leader = new EsecutoreLeader(this, cx, cy)
+      system.addUnit(leader, 'fronte')
+      this.enemies.add(leader)
+      for (let i = 0; i < count - 1; i++) {
+        const [ox, oy] = SPAWN_OFFSETS[i + 1]
+        const unit = new EsecutoreComune(this, cx + ox, cy + oy)
+        system.addUnit(unit, SLOT_ORDER[i + 1])
+        this.enemies.add(unit)
+      }
+    } else {
+      for (let i = 0; i < count; i++) {
+        const [ox, oy] = SPAWN_OFFSETS[i]
+        const unit = new EsecutoreComune(this, cx + ox, cy + oy)
+        system.addUnit(unit, SLOT_ORDER[i])
+        this.enemies.add(unit)
+      }
+    }
+
+    this._formations.push(system)
   }
 
   _spawnSkravPack(cx, cy) {
