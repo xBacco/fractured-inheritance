@@ -10,6 +10,7 @@ export class EsecutoreComune extends BaseEnemy {
     this._eyeL = scene.add.rectangle(x - 5, y - 5, 2, 2, 0xffffff).setDepth(1)
     this._eyeR = scene.add.rectangle(x + 3, y - 5, 2, 2, 0xffffff).setDepth(1)
     this._seal = scene.add.rectangle(x, y + 3, 3, 3, 0x7888a0).setDepth(1)
+    this._updateDegradation()
   }
 
   takeDamage(amount) {
