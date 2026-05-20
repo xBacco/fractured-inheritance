@@ -8,6 +8,7 @@ import { TacticalPause } from '../systems/TacticalPause.js'
 import { EsecutoreComune } from '../enemies/EsecutoreComune.js'
 import { EsecutoreLeader } from '../enemies/EsecutoreLeader.js'
 import { FormationSystem } from '../systems/FormationSystem.js'
+import { LeSignore } from '../enemies/LeSignore.js'
 import { SkravAlpha } from '../enemies/SkravAlpha.js'
 import { SkravMembro } from '../enemies/SkravMembro.js'
 import { KeyBindings } from '../config/KeyBindings.js'
@@ -110,16 +111,27 @@ export class GameScene extends Phaser.Scene {
 
   _spawnEnemies() {
     const enemyRooms = this.rooms.slice(1)
-    const splitAt = Math.ceil(enemyRooms.length / 2)
+    const third = Math.ceil(enemyRooms.length / 3)
     enemyRooms.forEach((room, i) => {
       const cx = (room.x + Math.floor(room.width / 2)) * TILE_SIZE
       const cy = (room.y + Math.floor(room.height / 2)) * TILE_SIZE
-      if (i < splitAt) {
+      if (i < third) {
         this._spawnEsecutoriGroup(cx, cy)
+      } else if (i < third * 2) {
+        this._spawnSignoreGroup(cx, cy)
       } else {
         this._spawnSkravPack(cx, cy)
       }
     })
+  }
+
+  _spawnSignoreGroup(cx, cy) {
+    const count = Phaser.Math.Between(1, 3)
+    const OFFSETS = [[0, 0], [-30, -20], [30, -20]]
+    for (let i = 0; i < count; i++) {
+      const [ox, oy] = OFFSETS[i]
+      this.enemies.add(new LeSignore(this, cx + ox, cy + oy))
+    }
   }
 
   _spawnEsecutoriGroup(cx, cy) {
