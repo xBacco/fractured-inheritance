@@ -59,7 +59,7 @@ export class GameScene extends Phaser.Scene {
     this.physics.add.overlap(
       this.player.projectiles,
       this.enemies,
-      (proj, enemy) => { enemy.takeDamage(proj.damage) }
+      (proj, enemy) => { proj.destroy(); enemy.takeDamage(proj.damage) }
     )
     this.physics.add.overlap(
       this.enemyProjectiles,
@@ -74,6 +74,7 @@ export class GameScene extends Phaser.Scene {
       this.enemies.getChildren().forEach(e => e.update(this.player, delta))
     }
     if (this._formations) {
+      this._formations = this._formations.filter(f => !f.isEmpty)
       this._formations.forEach(f => f.update(delta))
     }
     if (this.tacticalPause) {

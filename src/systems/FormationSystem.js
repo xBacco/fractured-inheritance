@@ -1,4 +1,4 @@
-const SLOT_DIST = 64
+const SLOT_DIST = 20
 const SLOT_ORDER = ['fronte', 'fianco_sx', 'fianco_dx', 'retro']
 const SLOT_ROTATION = { fronte: 0, fianco_sx: Math.PI / 2, fianco_dx: -Math.PI / 2, retro: Math.PI }
 
@@ -45,6 +45,8 @@ export class FormationSystem {
     this._pauseTimer -= delta
     if (this._pauseTimer <= 0) this._paused = false
   }
+
+  get isEmpty() { return this._units.length === 0 }
 
   _centroid() {
     const alive = this._units.filter(u => u.unit.alive)
