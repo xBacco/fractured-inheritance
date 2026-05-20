@@ -13,6 +13,32 @@ I guanti sono il suo fusibile. Se sbaglia una trasmutazione o accumula troppa en
 
 **Visual reference:** `personaggi/giocabili/mira.jpg`
 
+### Palette HEX ufficiale
+
+| Zona | Hex |
+|---|---|
+| Pelle base | `#F2C4A0` |
+| Ombre pelle | `#D9956B` |
+| Labbra | `#C9685A` |
+| Capelli (base, dominante) | `#D44E0A` |
+| Capelli (highlight) | `#E8700F` |
+| Capelli (ombre) | `#8A2C00` |
+| Camicia bianca | `#F0EDE6` |
+| Gilet cuoio | `#7D4E28` |
+| Cintura scura | `#3D2010` |
+| Guanto nero | `#1E1510` |
+| Fibbia metallo | `#888878` |
+| Goggles | `#5C4A30` |
+| Cerchio trasmutatorio (glow) | `#3AAEFF` → `#E8840A` → `#DD3311` |
+| Core bianco-blu | `#B8E8FF` |
+| Sigillo oro | `#E8840A` |
+| Cicatrici rame | `#C07035` |
+
+**Identità visiva:** `#D44E0A` (rame) + `#3AAEFF` (glow alchemico) + `#7D4E28` (cuoio)
+
+**Palette pozioni (UI):**
+- Viola `#9944CC` · Rosso `#DD3311` · Ciano `#00BBCC`
+
 ---
 
 ## Principio fondante — Scambio Equivalente
