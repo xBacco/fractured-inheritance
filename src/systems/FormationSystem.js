@@ -1,4 +1,4 @@
-const SLOT_DIST = 20
+const SLOT_DIST = 64
 const SLOT_ORDER = ['fronte', 'fianco_sx', 'fianco_dx', 'retro']
 const SLOT_ROTATION = { fronte: 0, fianco_sx: Math.PI / 2, fianco_dx: -Math.PI / 2, retro: Math.PI }
 
