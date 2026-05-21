@@ -1,5 +1,6 @@
 import { BaseCharacter } from './BaseCharacter.js'
-import { PLAYER_SPEED } from '../config/GameConfig.js'
+import { PLAYER_SPEED, TILE_SIZE } from '../config/GameConfig.js'
+import { TILE } from '../map/TileTypes.js'
 import { KeyBindings } from '../config/KeyBindings.js'
 import {
   BURST_COOLDOWN_MS,
@@ -51,6 +52,7 @@ export class Aetherion extends BaseCharacter {
     this._tickCooldowns(delta)
     super.update(scene)
     this._handleLMB(scene)
+    this._handleF(scene)
     this._syncScarPosition()
     this._updateHud(scene)
     this._checkDeath(scene)
@@ -147,6 +149,76 @@ export class Aetherion extends BaseCharacter {
       if (Phaser.Math.Distance.Between(hx, hy, enemy.x, enemy.y) < 18) {
         enemy.takeDamage(8)
       }
+    })
+  }
+
+  // ── F: Spezza Metallo ─────────────────────────────────────────────────────
+
+  _handleF(scene) {
+    if (!Phaser.Input.Keyboard.JustDown(this.fKey)) return
+    if (this._fCd > 0) return
+    if (this._burstActive || this._dissolveActive) return
+
+    const cx = Math.floor(this.x / TILE_SIZE)
+    const cy = Math.floor(this.y / TILE_SIZE)
+
+    const order = [
+      [this.facingX, this.facingY],
+      [this.facingY, -this.facingX],
+      [-this.facingY, this.facingX],
+      [-this.facingX, -this.facingY],
+    ]
+
+    let target = null
+    for (const [dx, dy] of order) {
+      if (dx === 0 && dy === 0) continue
+      if (scene.grid?.[cy + dy]?.[cx + dx] === TILE.METAL) {
+        target = { x: cx + dx, y: cy + dy }
+        break
+      }
+    }
+    if (!target) return
+
+    this._fCd = 6000
+    this._spezzaMetallo(scene, target)
+  }
+
+  _spezzaMetallo(scene, target) {
+    scene.events.emit('player_attacked', this.x, this.y)
+
+    const wx = target.x * TILE_SIZE + TILE_SIZE / 2
+    const wy = target.y * TILE_SIZE + TILE_SIZE / 2
+
+    scene.grid[target.y][target.x] = TILE.FLOOR
+    scene.time.delayedCall(8000, () => {
+      if (scene.grid?.[target.y]?.[target.x] === TILE.FLOOR) {
+        scene.grid[target.y][target.x] = TILE.METAL
+      }
+    })
+
+    const flash = scene.add.rectangle(wx, wy, TILE_SIZE, TILE_SIZE, BURST_COLOR, 0.7).setDepth(4)
+    scene.time.delayedCall(200, () => { if (flash.active) flash.destroy() })
+
+    if (scene.enemies) {
+      scene.enemies.getChildren().forEach(enemy => {
+        if (!enemy.alive) return
+        if (Phaser.Math.Distance.Between(wx, wy, enemy.x, enemy.y) < 40) {
+          enemy.takeDamage(30)
+        }
+      })
+    }
+
+    const cone = [-25, 0, 25]
+    cone.forEach(deg => {
+      const rad = deg * Math.PI / 180
+      const baseAng = Math.atan2(this.facingY, this.facingX === 0 ? 0.0001 : this.facingX)
+      const ang = baseAng + rad
+      const shard = scene.add.rectangle(this.x, this.y, 8, 3, 0xaab0b8).setDepth(5)
+      scene.physics.add.existing(shard)
+      shard.damage = 15
+      shard.body.setVelocity(Math.cos(ang) * 320, Math.sin(ang) * 320)
+      this.projectiles.add(shard)
+      scene.time.delayedCall(600, () => { if (shard.active) shard.destroy() })
     })
   }
 
