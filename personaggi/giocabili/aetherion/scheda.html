@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Aetherion — Scheda Tecnica</title>
+<style>
+  :root { --accent: #E07828; --accent-dim: #E0782822; --bg: #080808; --bg2: #10100e; --bg3: #181410; --text: #c4c0b8; --muted: #7a6a55; --val: #FFB040; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); max-width: 920px; margin: 0 auto; padding: 2.5rem 2rem; line-height: 1.6; }
+
+  header { display: flex; gap: 2rem; align-items: flex-start; padding-bottom: 2rem; border-bottom: 1px solid var(--accent); margin-bottom: 2.5rem; }
+  header img { width: 180px; border-radius: 6px; flex-shrink: 0; }
+  .header-text h1 { font-size: 2.4rem; color: var(--accent); letter-spacing: 0.02em; }
+  .header-text .subtitle { color: var(--muted); font-size: 1rem; margin-top: 0.3rem; margin-bottom: 1rem; }
+  .header-text .tagline { font-style: italic; color: #a07040; font-size: 0.9rem; border-left: 2px solid var(--accent); padding-left: 0.8rem; }
+  .status-story { display: inline-block; margin-top: 1rem; padding: 0.2rem 0.7rem; border-radius: 3px; font-size: 0.75rem; font-family: monospace; background: #201008; color: var(--accent); border: 1px solid #5a2a08; }
+
+  section { margin-bottom: 2.5rem; }
+  h2 { color: var(--accent); font-size: 1.15rem; margin-bottom: 0.9rem; border-left: 3px solid var(--accent); padding-left: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  h3 { color: #ccbbaa; font-size: 0.95rem; margin: 1.2rem 0 0.4rem; }
+  p { font-size: 0.9rem; margin-bottom: 0.5rem; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  th { background: var(--bg3); color: var(--accent); text-align: left; padding: 0.5rem 0.9rem; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.07em; font-weight: 600; }
+  td { padding: 0.45rem 0.9rem; border-bottom: 1px solid #1e1a14; vertical-align: top; }
+  tr:hover td { background: var(--bg2); }
+  td:first-child { color: #9a8870; font-family: monospace; font-size: 0.85rem; white-space: nowrap; }
+
+  .val { font-family: monospace; color: var(--val); font-weight: 600; }
+  .note { background: var(--bg2); border-left: 2px solid #3a2010; padding: 0.6rem 1rem; margin: 0.6rem 0; font-size: 0.84rem; color: #8899aa; }
+  .warn { background: #180e00; border-left: 2px solid var(--accent); padding: 0.6rem 1rem; margin: 0.6rem 0; font-size: 0.84rem; color: #cc8844; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1rem; }
+  .box { background: var(--bg2); border: 1px solid #2a1e10; border-radius: 4px; padding: 1rem 1.2rem; }
+  .box-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.3rem; }
+  .box-val { font-size: 1.3rem; font-family: monospace; color: var(--val); }
+  .box-desc { font-size: 0.8rem; color: #6a5540; margin-top: 0.2rem; }
+  code { font-family: monospace; background: #100c08; padding: 0.1rem 0.4rem; border-radius: 2px; font-size: 0.85rem; }
+
+  .swatch-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0.6rem 0; }
+  .swatch { display: flex; align-items: center; gap: 0.5rem; background: var(--bg2); border: 1px solid #2a2018; border-radius: 3px; padding: 0.3rem 0.6rem; font-size: 0.78rem; font-family: monospace; }
+  .swatch-dot { width: 14px; height: 14px; border-radius: 2px; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="card.jpg" alt="Aetherion">
+  <div class="header-text">
+    <h1>Aetherion</h1>
+    <p class="subtitle">L'Incendio Senza Argine — Protagonista Storia</p>
+    <p class="tagline">Il sistema lo ha chiamato Anomalia. La gente lo ha chiamato Reietto.<br>Lui vuole essere chiamato Ethan.</p>
+    <span class="status-story">◈ PROTAGONISTA — MODALITÀ STORIA</span>
+  </div>
+</header>
+
+<div class="warn">Personaggio principale della Modalità Storia. Le abilità riflettono il lore — da tradurre in meccaniche di gioco in una sessione separata.</div>
+
+<section>
+  <h2>Identità</h2>
+  <table>
+    <tr><th>Campo</th><th>Valore</th></tr>
+    <tr><td>Nome</td><td>Ethan (piano fisico) · <span class="val">Aetherion</span> (piano fratturato)</td></tr>
+    <tr><td>Età</td><td>Teenager</td></tr>
+    <tr><td>Statura</td><td>Non particolarmente alto per la sua età e ruolo — Damian se lo aspettava più imponente</td></tr>
+    <tr><td>Build</td><td>Non addestrato — nessuna postura né muscolatura da combattente</td></tr>
+    <tr><td>Segno distintivo</td><td>Cicatrice a forma di stella sul petto — calda al tatto anche a riposo</td></tr>
+    <tr><td>Mani</td><td>Macchiate di pittura — la pittura è la sua unica valvola</td></tr>
+    <tr><td>Origine</td><td>Soffitta ai margini di Illyrium. Autodicatta. Figlio di nessuno e discendente di un fondatore.</td></tr>
+    <tr><td>Ruolo narrativo</td><td>Protagonista della storia — i quattro del Korvo Nero lo incontrano nel piano fratturato</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>Il Potere — Lago Sotterraneo</h2>
+  <p>A Illyrium la magia scorre come un fiume — controllata, deviabile, tassabile. Quella di Aetherion non scorre.</p>
+  <div class="grid2">
+    <div class="box">
+      <div class="box-label">Stato a riposo</div>
+      <div class="box-val">Stagnante</div>
+      <div class="box-desc">Un lago sotterraneo fermo. Non si percepisce dall'esterno. Non si può canalizzare per gradi.</div>
+    </div>
+    <div class="box">
+      <div class="box-label">Stato attivo</div>
+      <div class="box-val">Divampa</div>
+      <div class="box-desc">Quando spacca: incessante, organico, caldo. Non aspetta permesso. Nessun controllo aperto.</div>
+    </div>
+  </div>
+  <div class="note">Non si possono creare a mano i canali mancanti. L'unico modo è spaccare il terreno — e quando spacca, non si ferma da solo.</div>
+
+  <h3>Cicatrice Stellare</h3>
+  <p>La fonte del potere. Calda al tatto anche a riposo. Quando il potere erutta, parte da lì — irradiazione visibile, dolore fulmineo e chiaro.</p>
+  <p><strong>Manifestazioni documentate:</strong> piegare e spezzare metallo · dissoluzione di freccia magica nell'aria (riflesso, non intenzionale) · I limiti non sono ancora stati mappati.</p>
+
+  <h3>Prima Manifestazione</h3>
+  <p>Una freccia magica diretta a un membro della famiglia reale. Un riflesso puro. La freccia di luce si dissolve tra le dita. Nessun controllo, solo il risultato. Da quel momento, l'ha seppellito e vissuto come se non l'avesse.</p>
+</section>
+
+<section>
+  <h2>Tratti</h2>
+  <table>
+    <tr><th>Tratto</th><th>Manifestazione</th></tr>
+    <tr><td>Fiducia</td><td>Zero per default — sopravvivenza appresa, non cinismo</td></tr>
+    <tr><td>Resilienza</td><td>Non si lascia mettere i piedi in testa neanche quando è esausto</td></tr>
+    <tr><td>Orgoglio</td><td>Senza arroganza — sa esattamente quanto vale, sa che gli altri non lo sanno ancora</td></tr>
+    <tr><td>Relazione col vuoto</td><td>Ha sempre notato il vuoto negli occhi altrui. Lui è ciò che non volevano vedere.</td></tr>
+    <tr><td>Pittura</td><td>Unica forma di controllo e sfogo che si è concesso</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>Palette HEX</h2>
+  <div class="swatch-row">
+    <div class="swatch"><div class="swatch-dot" style="background:#141218"></div>#141218 — Capelli</div>
+    <div class="swatch"><div class="swatch-dot" style="background:#C8A882"></div>#C8A882 — Pelle base</div>
+    <div class="swatch"><div class="swatch-dot" style="background:#A88060"></div>#A88060 — Ombre pelle</div>
+    <div class="swatch"><div class="swatch-dot" style="background:#2A3028"></div>#2A3028 — Cappotto</div>
+    <div class="swatch"><div class="swatch-dot" style="background:#E07828"></div>#E07828 — Cicatrice (riposo)</div>
+    <div class="swatch"><div class="swatch-dot" style="background:#FFB040"></div>#FFB040 — Cicatrice (attiva)</div>
+    <div class="swatch"><div class="swatch-dot" style="background:#FFF0C0"></div>#FFF0C0 — Core burst</div>
+    <div class="swatch"><div class="swatch-dot" style="background:#0A0808"></div>#0A0808 — Pittura mani</div>
+    <div class="swatch"><div class="swatch-dot" style="background:#0A1825"></div>#0A1825 — Ambiente (teal scuro)</div>
+  </div>
+  <div class="note"><strong>Identità visiva:</strong> <code>#E07828</code> (ember) + <code>#141218</code> (vuoto) + <code>#FFB040</code> (burst)</div>
+</section>
+
+<section>
+  <h2>Struttura Narrativa</h2>
+  <table>
+    <tr><th>Elemento</th><th>Dettaglio</th></tr>
+    <tr><td>Modalità Storia</td><td>Protagonista. Il piano fratturato è il suo arco principale.</td></tr>
+    <tr><td>Modalità Roguelite</td><td>Non disponibile. La storia è la sua modalità.</td></tr>
+    <tr><td>Boss finale della storia</td><td>Zeryth — una volta sconfitto viene sbloccato nella modalità roguelite</td></tr>
+    <tr><td>Compagni</td><td>I quattro del Korvo Nero (Damian, Mira, Silas, Zeryth come antagonista) — da sbloccare in roguelite</td></tr>
+    <tr><td>Antenato fondatore</td><td>Il motivo per cui nessuno lo ha esiliato — da definire in dettaglio</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>Note Implementative</h2>
+  <table>
+    <tr><th>Campo</th><th>Valore</th></tr>
+    <tr><td>File da creare</td><td><code>src/characters/Aetherion.js</code></td></tr>
+    <tr><td>Estende</td><td><code>BaseCharacter</code></td></tr>
+    <tr><td>Placeholder sprite</td><td>Rectangle <code>#E07828</code> (ember)</td></tr>
+    <tr><td>Sprite reale</td><td><code>personaggi/giocabili/aetherion/card.jpg</code></td></tr>
+    <tr><td>Meccanica core</td><td>Da brainstormare — lago sotterraneo / burst non controllato</td></tr>
+    <tr><td>Stato</td><td><span class="status-story">lore completo — meccaniche da definire</span></td></tr>
+  </table>
+</section>
+
+</body>
+</html>
