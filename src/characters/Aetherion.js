@@ -86,6 +86,47 @@ export class Aetherion extends BaseCharacter {
     })
   }
 
+  handleMovement(scene) {
+    if (this._rootedMs > 0 && !this._burstActive) {
+      this.body.setVelocity(0, 0)
+      return
+    }
+    if (this._disorientMs <= 0) { super.handleMovement(scene); return }
+
+    const body = this.body
+    let vx = 0, vy = 0
+    if (this.wasd.left.isDown)  vx += 1
+    if (this.wasd.right.isDown) vx -= 1
+    if (this.wasd.up.isDown)    vy += 1
+    if (this.wasd.down.isDown)  vy -= 1
+    if (vx !== 0 || vy !== 0) {
+      const len = Math.sqrt(vx * vx + vy * vy)
+      vx = (vx / len) * this.speed
+      vy = (vy / len) * this.speed
+      this.facingX = vx > 0 ? 1 : vx < 0 ? -1 : this.facingX
+      this.facingY = vy > 0 ? 1 : vy < 0 ? -1 : this.facingY
+    }
+    const nextX = this.x + vx * (1 / 60)
+    const nextY = this.y + vy * (1 / 60)
+    const tileX = Math.floor(nextX / TILE_SIZE)
+    const tileY = Math.floor(nextY / TILE_SIZE)
+    if (scene.isWalkable(tileX, tileY)) {
+      body.setVelocity(vx, vy)
+    } else {
+      body.setVelocityX(scene.isWalkable(tileX, Math.floor(this.y / TILE_SIZE)) ? vx : 0)
+      body.setVelocityY(scene.isWalkable(Math.floor(this.x / TILE_SIZE), tileY) ? vy : 0)
+    }
+  }
+
+  applyRoot(duration) {
+    this._rootedMs = Math.max(this._rootedMs, duration)
+  }
+
+  applyDisorient(duration) {
+    this._disorientMs = Math.max(this._disorientMs, duration)
+    this.scene.cameras.main.flash(200, 0, 160, 120)
+  }
+
   rebindActions(scene) {
     scene.input.keyboard.removeKey(this.qKey)
     scene.input.keyboard.removeKey(this.fKey)
