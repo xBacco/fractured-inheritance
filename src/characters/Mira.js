@@ -202,7 +202,69 @@ export class Mira extends BaseCharacter {
     })
   }
 
-  _handleQ(scene, delta) { /* Task 9 */ }
+  _handleQ(scene, delta) {
+    const qNowDown = this.qKey.isDown
+
+    if (qNowDown && !this._qDown) {
+      this._qDown    = true
+      this._qHoldMs  = 0
+      const tileX = Math.floor(this.x / TILE_SIZE)
+      const tileY = Math.floor(this.y / TILE_SIZE)
+      this._qOnMetal = scene.grid?.[tileY]?.[tileX] === TILE.METAL
+    }
+
+    if (qNowDown && this._qDown && this._qOnMetal) {
+      this._qHoldMs += delta
+    }
+
+    if (!qNowDown && this._qDown) {
+      const wasOnMetal = this._qOnMetal
+      this._qDown    = false
+      this._qOnMetal = false
+
+      if (!wasOnMetal) return
+
+      if (this._precastCheck(scene)) return
+
+      const tileX = Math.floor(this.x / TILE_SIZE)
+      const tileY = Math.floor(this.y / TILE_SIZE)
+      if (scene.grid?.[tileY]?.[tileX] !== TILE.METAL) return
+      scene.grid[tileY][tileX] = TILE.FLOOR
+      scene.time.delayedCall(8000, () => {
+        if (scene.grid?.[tileY]?.[tileX] === TILE.FLOOR) {
+          scene.grid[tileY][tileX] = TILE.METAL
+        }
+      })
+
+      if (this._qHoldMs >= 300) {
+        this._spawnShield(scene)
+      } else {
+        this._throwLance(scene)
+      }
+    }
+  }
+
+  _throwLance(scene) {
+    const lance = scene.add.rectangle(this.x, this.y, 8, 4, 0xaab0b8).setDepth(5)
+    scene.physics.add.existing(lance)
+    lance.damage = 40
+    lance.body.setVelocity(this.facingX * 450, this.facingY * 450)
+    this.projectiles.add(lance)
+    scene.time.delayedCall(800, () => { if (lance.active) lance.destroy() })
+  }
+
+  _spawnShield(scene) {
+    if (this._qShield?.active) this._qShield.destroy()
+    const sx = this.x + this.facingX * 18
+    const sy = this.y + this.facingY * 18
+    this._qShield = scene.add.rectangle(sx, sy, 12, 20, 0xaab0b8, 0.85).setDepth(5)
+    this._qShieldActive = true
+    scene.time.delayedCall(5000, () => {
+      this._qShieldActive = false
+      if (this._qShield?.active) this._qShield.destroy()
+    })
+  }
+
   _handleF(scene)        { /* Task 10 */ }
 
   // Stubs for later tasks — will be implemented in Tasks 11 and 12
