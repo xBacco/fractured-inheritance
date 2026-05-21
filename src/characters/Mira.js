@@ -126,11 +126,11 @@ export class Mira extends BaseCharacter {
     const mat = materialForTile(scene.grid?.[my]?.[mx])
     if (!mat) return
 
+    this._attackCooldown = 300
     if (this._precastCheck(scene)) return
 
     this.temperature = tempWithCost(this.temperature, abilityCost('LMB', mat))
     this._postcastCheck()
-    this._attackCooldown = 300
     this._placeWall(scene, mx, my, mat)
   }
 
