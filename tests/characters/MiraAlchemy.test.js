@@ -4,6 +4,7 @@ import {
   TEMP_MAX, TEMP_DECAY_PER_S, TEMP_HIGH_THRESHOLD, TEMP_LOCKOUT_MS,
   GLOVES_MAX, GLOVES_REBOUND_COST,
   MAT, materialForTile, abilityCost, wallDuration, rmbDamage,
+  tempAfterDecay, tempWithCost, isOverheat, isHighHeat,
 } from '../../src/characters/MiraAlchemy.js'
 
 describe('MiraAlchemy — constants', () => {
@@ -50,4 +51,34 @@ describe('rmbDamage', () => {
   it('STONE = 30',             () => expect(rmbDamage(MAT.STONE)).toBe(30))
   it('METAL = 35',             () => expect(rmbDamage(MAT.METAL)).toBe(35))
   it('LIQUID = 25',            () => expect(rmbDamage(MAT.LIQUID)).toBe(25))
+})
+
+describe('tempAfterDecay', () => {
+  it('decreases by 4 per second at full delta', () =>
+    expect(tempAfterDecay(50, 1000)).toBeCloseTo(46))
+  it('scales with delta (500ms = -2)', () =>
+    expect(tempAfterDecay(50, 500)).toBeCloseTo(48))
+  it('does not go below 0', () =>
+    expect(tempAfterDecay(1, 1000)).toBe(0))
+  it('starts at 0 → stays 0', () =>
+    expect(tempAfterDecay(0, 1000)).toBe(0))
+})
+
+describe('tempWithCost', () => {
+  it('adds base cost at temp < 80', () =>
+    expect(tempWithCost(40, 6)).toBe(46))
+  it('applies 1.5x surcharge at temp >= 80 (80 + 6*1.5 = 89)', () =>
+    expect(tempWithCost(80, 6)).toBe(89))
+  it('caps at 100', () =>
+    expect(tempWithCost(98, 10)).toBe(100))
+  it('at temp 79: no surcharge (79 + 8 = 87)', () =>
+    expect(tempWithCost(79, 8)).toBe(87))
+})
+
+describe('isOverheat / isHighHeat', () => {
+  it('isOverheat true at 100',  () => expect(isOverheat(100)).toBe(true))
+  it('isOverheat false at 99',  () => expect(isOverheat(99)).toBe(false))
+  it('isHighHeat true at 80',   () => expect(isHighHeat(80)).toBe(true))
+  it('isHighHeat false at 79',  () => expect(isHighHeat(79)).toBe(false))
+  it('isHighHeat true at 100',  () => expect(isHighHeat(100)).toBe(true))
 })

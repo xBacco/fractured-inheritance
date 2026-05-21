@@ -57,3 +57,15 @@ export function wallDuration(material) { return WALL_DUR[material] ?? null }
 
 const RMB_DMG = { [MAT.EARTH]: 0, [MAT.STONE]: 30, [MAT.METAL]: 35, [MAT.LIQUID]: 25 }
 export function rmbDamage(material) { return RMB_DMG[material] ?? 0 }
+
+export function tempAfterDecay(temp, delta) {
+  return Math.max(0, temp - TEMP_DECAY_PER_S * (delta / 1000))
+}
+
+export function tempWithCost(temp, baseCost) {
+  const mult = temp >= TEMP_HIGH_THRESHOLD ? TEMP_SURCHARGE_MULT : 1
+  return Math.min(TEMP_MAX, temp + baseCost * mult)
+}
+
+export function isOverheat(temp) { return temp >= TEMP_MAX }
+export function isHighHeat(temp)  { return temp >= TEMP_HIGH_THRESHOLD }
