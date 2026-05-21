@@ -2,8 +2,7 @@ import { BSPGenerator } from '../map/BSPGenerator.js'
 import { FloorBuilder } from '../map/FloorBuilder.js'
 import { TILE, WALKABLE } from '../map/TileTypes.js'
 import { TILE_COLORS, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT } from '../config/GameConfig.js'
-import { Silas } from '../characters/Silas.js'
-import { isShadowTile } from '../characters/SilasTemp.js'
+import { Mira } from '../characters/Mira.js'
 import { TacticalPause } from '../systems/TacticalPause.js'
 import { EsecutoreComune } from '../enemies/EsecutoreComune.js'
 import { EsecutoreLeader } from '../enemies/EsecutoreLeader.js'
@@ -24,7 +23,7 @@ export class GameScene extends Phaser.Scene {
     const spawn = this.rooms[0]
     const spawnX = (spawn.x + Math.floor(spawn.width / 2)) * TILE_SIZE
     const spawnY = (spawn.y + Math.floor(spawn.height / 2)) * TILE_SIZE
-    this.player = new Silas(this, spawnX, spawnY)
+    this.player = new Mira(this, spawnX, spawnY)
     this.floor = 1
     this._formations = []
 
@@ -188,7 +187,4 @@ export class GameScene extends Phaser.Scene {
     return WALKABLE.has(this.grid[tileY][tileX])
   }
 
-  isInShadow(tileX, tileY) {
-    return isShadowTile(this.grid, tileX, tileY)
-  }
 }
