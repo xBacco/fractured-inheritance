@@ -3,7 +3,12 @@ import { PLAYER_SPEED, TILE_SIZE } from '../config/GameConfig.js'
 import { TILE } from '../map/TileTypes.js'
 import { KeyBindings } from '../config/KeyBindings.js'
 import {
+  BURST_DURATION_MS,
+  BURST_AOE_RADIUS,
+  BURST_AOE_DPS,
   BURST_COOLDOWN_MS,
+  burstTick,
+  applyKillRebate,
 } from './AetherionBurst.js'
 
 const BASE_COLOR  = 0xE07828
@@ -46,6 +51,15 @@ export class Aetherion extends BaseCharacter {
     // HUD: burst indicator (cerchio sotto barra HP)
     this._burstIndicator = scene.add.graphics().setScrollFactor(0).setDepth(20)
     this._dissolveCone = scene.add.graphics().setDepth(4)
+    this._burstAura = scene.add.graphics().setDepth(2)
+    this._burstKillsThisBurst = 0
+
+    this._onEnemyKilled = (_x, _y) => {
+      if (!this._burstActive) return
+      this._burstKillsThisBurst++
+      this._selfDamageOffsetMs = applyKillRebate(this._selfDamageOffsetMs, 1)
+    }
+    scene.events.on('enemy_killed', this._onEnemyKilled)
   }
 
   update(scene, delta) {
@@ -55,6 +69,7 @@ export class Aetherion extends BaseCharacter {
     this._handleLMB(scene)
     this._handleF(scene)
     this._handleRMB(scene, delta)
+    this._handleBurst(scene, delta)
     this._syncScarPosition()
     this._updateHud(scene)
     this._checkDeath(scene)
@@ -79,10 +94,12 @@ export class Aetherion extends BaseCharacter {
   }
 
   destroy() {
+    this.scene?.events.off('enemy_killed', this._onEnemyKilled)
     this._scar?.destroy()
     this._hpBar?.destroy()
     this._burstIndicator?.destroy()
     this._dissolveCone?.destroy()
+    this._burstAura?.destroy()
     super.destroy()
   }
 
@@ -299,13 +316,83 @@ export class Aetherion extends BaseCharacter {
     return Math.atan2(this.facingY, this.facingX)
   }
 
+  // ── Q: Crack / Burst ──────────────────────────────────────────────────────
+
+  _handleBurst(scene, delta) {
+    if (!this._burstActive) {
+      if (Phaser.Input.Keyboard.JustDown(this.qKey) && this._burstCd <= 0) {
+        this._startBurst(scene)
+      }
+      return
+    }
+
+    const tick = burstTick({
+      burstMs:            this._burstMs,
+      selfDamageOffsetMs: this._selfDamageOffsetMs,
+      hp:                 this.hp,
+      delta,
+    })
+    this._burstMs              = tick.burstMs
+    this._selfDamageOffsetMs   = tick.selfDamageOffsetMs
+    this.hp                    = tick.hp
+    if (this.hp <= 0) this.alive = false
+
+    this._burstAOE(scene, delta)
+    this._renderBurstAura(scene)
+
+    if (this._burstMs <= 0) this._endBurst()
+  }
+
+  _startBurst(scene) {
+    if (this._dissolveActive) this._endDissolve()
+    this._burstActive          = true
+    this._burstMs              = BURST_DURATION_MS
+    this._selfDamageOffsetMs   = 0
+    this._burstKillsThisBurst  = 0
+    this.fillColor             = BURST_COLOR
+    this._scar?.setSize(4, 4)
+    scene.cameras.main.flash(150, 224, 120, 40)
+  }
+
+  _endBurst() {
+    this._burstActive        = false
+    this._burstMs            = 0
+    this._burstCd            = BURST_COOLDOWN_MS
+    this.fillColor           = BASE_COLOR
+    this._scar?.setSize(2, 2)
+    this._burstAura?.clear()
+  }
+
+  _burstAOE(scene, delta) {
+    if (!scene.enemies) return
+    const dmg = BURST_AOE_DPS * (delta / 1000)
+    scene.enemies.getChildren().forEach(enemy => {
+      if (!enemy.alive) return
+      if (Phaser.Math.Distance.Between(this.x, this.y, enemy.x, enemy.y) < BURST_AOE_RADIUS) {
+        enemy.takeDamage(dmg)
+      }
+    })
+    scene.events.emit('player_attacked', this.x, this.y)
+  }
+
+  _renderBurstAura(scene) {
+    if (!this._burstAura) return
+    this._burstAura.clear()
+    this._burstAura.fillStyle(BURST_COLOR, 0.20)
+    this._burstAura.fillCircle(this.x, this.y, BURST_AOE_RADIUS)
+    this._burstAura.lineStyle(2, 0xFFF0C0, 0.6)
+    this._burstAura.strokeCircle(this.x, this.y, BURST_AOE_RADIUS)
+  }
+
   _checkDeath(scene) {
     if (!this.alive && !this._dead) {
       this._dead = true
+      this.scene.events.off('enemy_killed', this._onEnemyKilled)
       this._scar?.destroy();             this._scar             = null
       this._hpBar?.destroy();            this._hpBar            = null
       this._burstIndicator?.destroy();   this._burstIndicator   = null
       this._dissolveCone?.destroy();     this._dissolveCone     = null
+      this._burstAura?.destroy();        this._burstAura        = null
       scene.scene.start('GameOverScene', { score: scene.scoreSystem?.getScore() ?? 0 })
     }
   }
