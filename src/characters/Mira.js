@@ -348,6 +348,35 @@ export class Mira extends BaseCharacter {
       .setSize(cam.width, cam.height)
       .setAlpha(alpha)
   }
-  _updateVisual(scene)       { /* Task 12 */ }
-  _checkDeath(scene)         { /* Task 12 */ }
+  _updateVisual(scene) {
+    const hx   = 20
+    const hy   = scene.game.config.height - 40
+    const barW = 80
+
+    const tf = this.temperature / TEMP_MAX
+    const tr = Math.round(0x3A + tf * (0xDD - 0x3A))
+    const tg = Math.round(0xAE + tf * (0x33 - 0xAE))
+    const tb = Math.round(0xFF + tf * (0x11 - 0xFF))
+    this._tempBar
+      .setPosition(hx + (barW * tf) / 2, hy)
+      .setSize(barW * tf + 1, 6)
+      .setFillStyle((tr << 16) | (tg << 8) | tb)
+
+    const gf = this.gloves / 100
+    this._glovesBar
+      .setPosition(hx + (barW * gf) / 2, hy + 10)
+      .setSize(barW * gf + 1, 6)
+      .setFillStyle(gf > 0.25 ? 0x00aa44 : 0x556655)
+  }
+
+  _checkDeath(scene) {
+    if (!this.alive && !this._dead) {
+      this._dead = true
+      this._tempBar.destroy()
+      this._glovesBar.destroy()
+      this._vignette.destroy()
+      if (this._qShield?.active) this._qShield.destroy()
+      scene.scene.start('GameOverScene', { score: scene.scoreSystem?.getScore() ?? 0 })
+    }
+  }
 }
