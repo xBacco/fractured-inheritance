@@ -294,11 +294,60 @@ export class Mira extends BaseCharacter {
     scene.time.delayedCall(300, () => { if (gfx.active) gfx.destroy() })
   }
 
-  // Stubs for later tasks — will be implemented in Tasks 11 and 12
-  _triggerRebound(scene)     { /* Task 11 */ }
-  _tickRebound(scene, delta) { /* Task 11 */ }
-  _tickBleed(delta)          { /* Task 11 */ }
-  _updateVignette(scene)     { /* Task 11 */ }
+  // ── Rebound system (Task 11) ──────────────────────────────────────────────
+
+  _triggerRebound(scene) {
+    const result = reboundResult(this.temperature, this.gloves)
+    this.temperature = result.newTemp
+    this.gloves      = result.newGloves
+
+    if (result.aggravated) {
+      this.hp = Math.max(0, this.hp - result.directDmg)
+    } else {
+      this._bleedMs  = result.bleedMs
+      this._bleedDps = result.bleedDmg
+    }
+
+    this._reboundMs    = result.stunMs + REBOUND_INVINCIBLE_MS
+    this._invincibleMs = REBOUND_INVINCIBLE_MS
+    this._vignetteMs   = REBOUND_VIGNETTE_MS
+
+    this.fillColor = 0xffffff
+    this.setAlpha(0.55)
+  }
+
+  _tickRebound(scene, delta) {
+    this._reboundMs    -= delta
+    if (this._invincibleMs > 0) this._invincibleMs -= delta
+    if (this._vignetteMs  > 0) {
+      this._vignetteMs -= delta
+      this._updateVignette(scene)
+    }
+    this._tickBleed(delta)
+
+    if (this._reboundMs <= 0) {
+      this._reboundMs = 0
+      this.setAlpha(1)
+      this.fillColor  = 0xD44E0A
+    }
+    this._checkDeath(scene)
+  }
+
+  _tickBleed(delta) {
+    if (this._bleedMs <= 0) return
+    this._bleedMs -= delta
+    this.hp = Math.max(0, this.hp - this._bleedDps * (delta / 1000))
+    if (this.hp <= 0) this.alive = false
+  }
+
+  _updateVignette(scene) {
+    const alpha = Math.max(0, this._vignetteMs / REBOUND_VIGNETTE_MS) * 0.45
+    const cam = scene.cameras.main
+    this._vignette
+      .setPosition(cam.scrollX + cam.width / 2, cam.scrollY + cam.height / 2)
+      .setSize(cam.width, cam.height)
+      .setAlpha(alpha)
+  }
   _updateVisual(scene)       { /* Task 12 */ }
   _checkDeath(scene)         { /* Task 12 */ }
 }
