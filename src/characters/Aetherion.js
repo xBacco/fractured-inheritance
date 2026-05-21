@@ -50,6 +50,7 @@ export class Aetherion extends BaseCharacter {
     if (!this.alive) { this._checkDeath(scene); return }
     this._tickCooldowns(delta)
     super.update(scene)
+    this._handleLMB(scene)
     this._syncScarPosition()
     this._updateHud(scene)
     this._checkDeath(scene)
@@ -119,6 +120,34 @@ export class Aetherion extends BaseCharacter {
     } else {
       this._burstIndicator.fillStyle(BASE_COLOR, 1).fillCircle(cx, cy, 5)
     }
+  }
+
+  // ── LMB: Paint Strike ─────────────────────────────────────────────────────
+
+  _handleLMB(scene) {
+    if (!this._lmbDown) return
+    if (this._lmbCd > 0) return
+    if (this._burstActive || this._dissolveActive) return
+
+    this._lmbCd = 300
+    this._paintStrike(scene)
+  }
+
+  _paintStrike(scene) {
+    scene.events.emit('player_attacked', this.x, this.y)
+
+    const hx = this.x + this.facingX * 18
+    const hy = this.y + this.facingY * 18
+    const hit = scene.add.rectangle(hx, hy, 12, 6, 0x0a0808, 0.75).setDepth(5)
+    scene.time.delayedCall(100, () => { if (hit.active) hit.destroy() })
+
+    if (!scene.enemies) return
+    scene.enemies.getChildren().forEach(enemy => {
+      if (!enemy.alive) return
+      if (Phaser.Math.Distance.Between(hx, hy, enemy.x, enemy.y) < 18) {
+        enemy.takeDamage(8)
+      }
+    })
   }
 
   _checkDeath(scene) {
