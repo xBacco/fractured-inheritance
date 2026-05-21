@@ -118,7 +118,43 @@ export class Mira extends BaseCharacter {
     this._handleF(scene)
   }
 
-  _handleLMB(scene)      { /* Task 7 */ }
+  _handleLMB(scene) {
+    if (!this._lmbDown || this._attackCooldown > 0) return
+
+    const mx = Math.floor(this.x / TILE_SIZE) + this.facingX
+    const my = Math.floor(this.y / TILE_SIZE) + this.facingY
+    const mat = materialForTile(scene.grid?.[my]?.[mx])
+    if (!mat) return
+
+    if (this._precastCheck(scene)) return
+
+    this.temperature = tempWithCost(this.temperature, abilityCost('LMB', mat))
+    this._postcastCheck()
+    this._attackCooldown = 300
+    this._placeWall(scene, mx, my, mat)
+  }
+
+  _placeWall(scene, tileX, tileY, mat) {
+    const prev = scene.grid[tileY][tileX]
+    scene.grid[tileY][tileX] = TILE.WALL
+
+    const COLORS = {
+      [MAT.EARTH]: 0x7a5c2a, [MAT.STONE]: 0x888888,
+      [MAT.METAL]: 0xaab0b8, [MAT.LIQUID]: 0x331a00,
+    }
+    const vis = scene.add.rectangle(
+      tileX * TILE_SIZE + TILE_SIZE / 2,
+      tileY * TILE_SIZE + TILE_SIZE / 2,
+      TILE_SIZE, TILE_SIZE, COLORS[mat] ?? 0x888888, 0.85
+    ).setDepth(3)
+
+    scene.time.delayedCall(wallDuration(mat), () => {
+      if (scene.grid?.[tileY]?.[tileX] === TILE.WALL) {
+        scene.grid[tileY][tileX] = prev
+      }
+      if (vis.active) vis.destroy()
+    })
+  }
   _handleRMB(scene)      { /* Task 8 */ }
   _handleQ(scene, delta) { /* Task 9 */ }
   _handleF(scene)        { /* Task 10 */ }
