@@ -50,6 +50,7 @@ export class BaseEnemy extends Phaser.GameObjects.Rectangle {
 
   _die() {
     this.alive = false
+    this.scene.events.emit('enemy_killed', this.x, this.y)
     this.scene._placeBloodPool(this.x, this.y)
     this.destroy()
   }

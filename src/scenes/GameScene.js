@@ -3,6 +3,8 @@ import { FloorBuilder } from '../map/FloorBuilder.js'
 import { TILE, WALKABLE } from '../map/TileTypes.js'
 import { TILE_COLORS, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT } from '../config/GameConfig.js'
 import { Mira } from '../characters/Mira.js'
+import { Korvan } from '../characters/Korvan.js'
+import { Veyra } from '../characters/Veyra.js'
 import { TacticalPause } from '../systems/TacticalPause.js'
 import { EsecutoreComune } from '../enemies/EsecutoreComune.js'
 import { EsecutoreLeader } from '../enemies/EsecutoreLeader.js'
@@ -10,6 +12,9 @@ import { FormationSystem } from '../systems/FormationSystem.js'
 import { LeSignore } from '../enemies/LeSignore.js'
 import { SkravAlpha } from '../enemies/SkravAlpha.js'
 import { SkravMembro } from '../enemies/SkravMembro.js'
+import { Anghiato } from '../enemies/Anghiato.js'
+import { Sussurro } from '../enemies/Sussurro.js'
+import { AlberoRichiusa } from '../enemies/AlberoRichiusa.js'
 import { KeyBindings } from '../config/KeyBindings.js'
 
 export class GameScene extends Phaser.Scene {
@@ -110,16 +115,22 @@ export class GameScene extends Phaser.Scene {
 
   _spawnEnemies() {
     const enemyRooms = this.rooms.slice(1)
-    const third = Math.ceil(enemyRooms.length / 3)
+    const sixth = Math.max(1, Math.floor(enemyRooms.length / 6))
     enemyRooms.forEach((room, i) => {
       const cx = (room.x + Math.floor(room.width / 2)) * TILE_SIZE
       const cy = (room.y + Math.floor(room.height / 2)) * TILE_SIZE
-      if (i < third) {
+      if (i < sixth) {
         this._spawnEsecutoriGroup(cx, cy)
-      } else if (i < third * 2) {
+      } else if (i < sixth * 2) {
         this._spawnSignoreGroup(cx, cy)
-      } else {
+      } else if (i < sixth * 3) {
         this._spawnSkravPack(cx, cy)
+      } else if (i < sixth * 4) {
+        this._spawnAnghiatiZone(room, cx, cy)
+      } else if (i < sixth * 5) {
+        this._spawnForestGroup(cx, cy)
+      } else {
+        this._spawnSussurriPack(cx, cy)
       }
     })
   }
@@ -168,6 +179,58 @@ export class GameScene extends Phaser.Scene {
     memberOffsets.forEach(([ox, oy]) => {
       this.enemies.add(new SkravMembro(this, cx + ox, cy + oy, alpha))
     })
+  }
+
+  _spawnForestGroup(cx, cy) {
+    const count = Phaser.Math.Between(2, 3)
+    const OFFSETS = [[0, 0], [-40, 20], [40, -20]]
+    for (let i = 0; i < count; i++) {
+      const [ox, oy] = OFFSETS[i]
+      this.enemies.add(new AlberoRichiusa(this, cx + ox, cy + oy))
+    }
+  }
+
+  _spawnSussurriPack(cx, cy) {
+    const count = Phaser.Math.Between(2, 4)
+    for (let i = 0; i < count; i++) {
+      const ox = Phaser.Math.Between(-50, 50)
+      const oy = Phaser.Math.Between(-50, 50)
+      this.enemies.add(new Sussurro(this, cx + ox, cy + oy))
+    }
+  }
+
+  _spawnAnghiatiZone(room, cx, cy) {
+    this._floodRoomWithWater(room)
+    this.enemies.add(new Anghiato(this, cx, cy, this.enemyProjectiles))
+
+    this.time.delayedCall(15000, () => {
+      if (!this.scene.isActive('GameScene')) return
+      const offsets = [[-40, -20], [40, 20]]
+      offsets.forEach(([ox, oy]) => {
+        this.enemies.add(new Anghiato(this, cx + ox, cy + oy, this.enemyProjectiles))
+      })
+    })
+
+    this.time.delayedCall(40000, () => {
+      if (!this.scene.isActive('GameScene')) return
+      const offsets = [[-55, 0], [55, 0], [0, -40], [0, 40]]
+      offsets.forEach(([ox, oy]) => {
+        this.enemies.add(new Anghiato(this, cx + ox, cy + oy, this.enemyProjectiles))
+      })
+    })
+  }
+
+  _floodRoomWithWater(room) {
+    const gfx = this.add.graphics().setDepth(1)
+    gfx.fillStyle(TILE_COLORS.WATER, 1)
+    for (let ty = room.y; ty < room.y + room.height; ty++) {
+      for (let tx = room.x; tx < room.x + room.width; tx++) {
+        if (this.grid[ty]?.[tx] === TILE.FLOOR) {
+          this.grid[ty][tx] = TILE.WATER
+          gfx.fillRect(tx * TILE_SIZE, ty * TILE_SIZE, TILE_SIZE, TILE_SIZE)
+        }
+      }
+    }
   }
 
   _placeBloodPool(worldX, worldY) {

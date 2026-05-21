@@ -19,4 +19,5 @@ export const TILE_COLORS = {
   DESTRUCTIBLE: 0x2a1f14,
   BLOOD_POOL:   0x3a0000,
   METAL:        0x1a2530,
+  WATER:        0x182428,
 }
