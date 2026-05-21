@@ -5,6 +5,9 @@ import {
   GLOVES_MAX, GLOVES_REBOUND_COST,
   MAT, materialForTile, abilityCost, wallDuration, rmbDamage,
   tempAfterDecay, tempWithCost, isOverheat, isHighHeat,
+  reboundResult,
+  REBOUND_STUN_MS, REBOUND_BLEED_DPS, REBOUND_BLEED_MS,
+  REBOUND_AGG_DAMAGE, REBOUND_AGG_STUN_MS, TEMP_REBOUND_RECOVERY,
 } from '../../src/characters/MiraAlchemy.js'
 
 describe('MiraAlchemy — constants', () => {
@@ -81,4 +84,34 @@ describe('isOverheat / isHighHeat', () => {
   it('isHighHeat true at 80',   () => expect(isHighHeat(80)).toBe(true))
   it('isHighHeat false at 79',  () => expect(isHighHeat(79)).toBe(false))
   it('isHighHeat true at 100',  () => expect(isHighHeat(100)).toBe(true))
+})
+
+describe('reboundResult', () => {
+  describe('normal (guanti > 0)', () => {
+    const r = reboundResult(100, 100)
+    it('temp drops by TEMP_REBOUND_RECOVERY',  () => expect(r.newTemp).toBe(70))
+    it('gloves drop by GLOVES_REBOUND_COST',   () => expect(r.newGloves).toBe(75))
+    it('not aggravated',                        () => expect(r.aggravated).toBe(false))
+    it('stunMs = REBOUND_STUN_MS (800)',        () => expect(r.stunMs).toBe(REBOUND_STUN_MS))
+    it('bleedDmg = REBOUND_BLEED_DPS (10)',    () => expect(r.bleedDmg).toBe(REBOUND_BLEED_DPS))
+    it('bleedMs = REBOUND_BLEED_MS (3000)',    () => expect(r.bleedMs).toBe(REBOUND_BLEED_MS))
+    it('directDmg = 0',                        () => expect(r.directDmg).toBe(0))
+  })
+
+  describe('aggravated (guanti = 0)', () => {
+    const r = reboundResult(100, 0)
+    it('aggravated = true',                     () => expect(r.aggravated).toBe(true))
+    it('stunMs = REBOUND_AGG_STUN_MS (1000)',   () => expect(r.stunMs).toBe(REBOUND_AGG_STUN_MS))
+    it('directDmg = REBOUND_AGG_DAMAGE (40)',   () => expect(r.directDmg).toBe(REBOUND_AGG_DAMAGE))
+    it('bleedDmg = 0',                          () => expect(r.bleedDmg).toBe(0))
+    it('bleedMs = 0',                           () => expect(r.bleedMs).toBe(0))
+    it('newGloves stays at 0',                  () => expect(r.newGloves).toBe(0))
+  })
+
+  it('gloves clamp: 10 gloves → 0 after rebound',    () =>
+    expect(reboundResult(100, 10).newGloves).toBe(0))
+  it('temp clamp: 20 temp → 0 after rebound',         () =>
+    expect(reboundResult(20, 100).newTemp).toBe(0))
+  it('third rebound: gloves 50 → 25',                 () =>
+    expect(reboundResult(100, 50).newGloves).toBe(25))
 })

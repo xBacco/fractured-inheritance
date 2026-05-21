@@ -69,3 +69,16 @@ export function tempWithCost(temp, baseCost) {
 
 export function isOverheat(temp) { return temp >= TEMP_MAX }
 export function isHighHeat(temp)  { return temp >= TEMP_HIGH_THRESHOLD }
+
+export function reboundResult(temp, gloves) {
+  const aggravated = gloves <= 0
+  return {
+    newTemp:   Math.max(0, temp - TEMP_REBOUND_RECOVERY),
+    newGloves: Math.max(0, gloves - GLOVES_REBOUND_COST),
+    aggravated,
+    stunMs:    aggravated ? REBOUND_AGG_STUN_MS : REBOUND_STUN_MS,
+    bleedDmg:  aggravated ? 0 : REBOUND_BLEED_DPS,
+    bleedMs:   aggravated ? 0 : REBOUND_BLEED_MS,
+    directDmg: aggravated ? REBOUND_AGG_DAMAGE : 0,
+  }
+}
