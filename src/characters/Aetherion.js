@@ -45,6 +45,7 @@ export class Aetherion extends BaseCharacter {
 
     // HUD: burst indicator (cerchio sotto barra HP)
     this._burstIndicator = scene.add.graphics().setScrollFactor(0).setDepth(20)
+    this._dissolveCone = scene.add.graphics().setDepth(4)
   }
 
   update(scene, delta) {
@@ -53,6 +54,7 @@ export class Aetherion extends BaseCharacter {
     super.update(scene)
     this._handleLMB(scene)
     this._handleF(scene)
+    this._handleRMB(scene, delta)
     this._syncScarPosition()
     this._updateHud(scene)
     this._checkDeath(scene)
@@ -80,6 +82,7 @@ export class Aetherion extends BaseCharacter {
     this._scar?.destroy()
     this._hpBar?.destroy()
     this._burstIndicator?.destroy()
+    this._dissolveCone?.destroy()
     super.destroy()
   }
 
@@ -222,12 +225,87 @@ export class Aetherion extends BaseCharacter {
     })
   }
 
+  // ── RMB: Dissolve (hold) ──────────────────────────────────────────────────
+
+  _handleRMB(scene, delta) {
+    if (this._burstActive) {
+      if (this._dissolveActive) this._endDissolve()
+      return
+    }
+
+    const held = this._rmbDown
+
+    if (held && !this._dissolveActive && this._dissolveCd <= 0) {
+      this._dissolveActive = true
+      this._dissolveMs     = 0
+    }
+
+    if (this._dissolveActive) {
+      this._dissolveMs += delta
+      this.body.setVelocity(0, 0)
+      this._renderDissolveCone(scene)
+      this._dissolveProjectiles(scene)
+      if (!held || this._dissolveMs >= 2000) this._endDissolve()
+    } else {
+      this._dissolveCone.clear()
+    }
+  }
+
+  _endDissolve() {
+    this._dissolveActive = false
+    this._dissolveMs     = 0
+    this._dissolveCd     = 4000
+    this._dissolveCone?.clear()
+  }
+
+  _renderDissolveCone(scene) {
+    if (!this._dissolveCone) return
+    const range = 80
+    const halfAngle = Math.PI / 6
+    const baseAng = this._facingAngle()
+    const ax = this.x + Math.cos(baseAng - halfAngle) * range
+    const ay = this.y + Math.sin(baseAng - halfAngle) * range
+    const bx = this.x + Math.cos(baseAng + halfAngle) * range
+    const by = this.y + Math.sin(baseAng + halfAngle) * range
+    this._dissolveCone.clear()
+    this._dissolveCone.fillStyle(BURST_COLOR, 0.35)
+    this._dissolveCone.beginPath()
+    this._dissolveCone.moveTo(this.x, this.y)
+    this._dissolveCone.lineTo(ax, ay)
+    this._dissolveCone.lineTo(bx, by)
+    this._dissolveCone.closePath()
+    this._dissolveCone.fillPath()
+  }
+
+  _dissolveProjectiles(scene) {
+    if (!scene.enemyProjectiles) return
+    const range = 80
+    const halfAngle = Math.PI / 6
+    const baseAng = this._facingAngle()
+    scene.enemyProjectiles.getChildren().slice().forEach(proj => {
+      if (!proj.active) return
+      const dx = proj.x - this.x
+      const dy = proj.y - this.y
+      const d  = Math.sqrt(dx * dx + dy * dy)
+      if (d > range || d < 1) return
+      const ang = Math.atan2(dy, dx)
+      const diff = Math.abs(Phaser.Math.Angle.Wrap(ang - baseAng))
+      if (diff <= halfAngle) proj.destroy()
+    })
+  }
+
+  _facingAngle() {
+    if (this.facingX === 0 && this.facingY === 0) return 0
+    return Math.atan2(this.facingY, this.facingX)
+  }
+
   _checkDeath(scene) {
     if (!this.alive && !this._dead) {
       this._dead = true
       this._scar?.destroy();             this._scar             = null
       this._hpBar?.destroy();            this._hpBar            = null
       this._burstIndicator?.destroy();   this._burstIndicator   = null
+      this._dissolveCone?.destroy();     this._dissolveCone     = null
       scene.scene.start('GameOverScene', { score: scene.scoreSystem?.getScore() ?? 0 })
     }
   }
