@@ -155,7 +155,53 @@ export class Mira extends BaseCharacter {
       if (vis.active) vis.destroy()
     })
   }
-  _handleRMB(scene)      { /* Task 8 */ }
+  _handleRMB(scene) {
+    if (!this._rmbDown) return
+    this._rmbDown = false
+
+    const pointer = scene.input.activePointer
+    const wp = scene.cameras.main.getWorldPoint(pointer.x, pointer.y)
+    if (Phaser.Math.Distance.Between(this.x, this.y, wp.x, wp.y) > 200) return
+
+    const tileX = Math.floor(wp.x / TILE_SIZE)
+    const tileY = Math.floor(wp.y / TILE_SIZE)
+    const mat   = materialForTile(scene.grid?.[tileY]?.[tileX])
+    if (!mat) return
+
+    if (this._precastCheck(scene)) return
+
+    this.temperature = tempWithCost(this.temperature, abilityCost('RMB', mat))
+    this._postcastCheck()
+    this._applyRMBEffect(scene, tileX, tileY, mat, wp.x, wp.y)
+  }
+
+  _applyRMBEffect(scene, tileX, tileY, mat, worldX, worldY) {
+    const flash = scene.add.rectangle(
+      tileX * TILE_SIZE + TILE_SIZE / 2,
+      tileY * TILE_SIZE + TILE_SIZE / 2,
+      TILE_SIZE, TILE_SIZE, 0x3AAEFF, 0.55
+    ).setDepth(4)
+    scene.time.delayedCall(200, () => { if (flash.active) flash.destroy() })
+
+    if (!scene.enemies) return
+    scene.enemies.getChildren().forEach(enemy => {
+      if (!enemy.alive) return
+      if (Math.floor(enemy.x / TILE_SIZE) !== tileX) return
+      if (Math.floor(enemy.y / TILE_SIZE) !== tileY) return
+
+      if (mat === MAT.EARTH) {
+        enemy._slowTimer = 2000
+        enemy._slowMult  = 0.5
+      } else if (mat === MAT.LIQUID) {
+        enemy.takeDamage(rmbDamage(mat))
+        enemy._acidMs  = 2000
+        enemy._acidDps = 10
+      } else {
+        enemy.takeDamage(rmbDamage(mat))
+      }
+    })
+  }
+
   _handleQ(scene, delta) { /* Task 9 */ }
   _handleF(scene)        { /* Task 10 */ }
 
