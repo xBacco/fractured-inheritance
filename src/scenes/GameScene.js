@@ -5,6 +5,7 @@ import { TILE_COLORS, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT } from '../config/GameCon
 import { Mira } from '../characters/Mira.js'
 import { Korvan } from '../characters/Korvan.js'
 import { Veyra } from '../characters/Veyra.js'
+import { Aetherion } from '../characters/Aetherion.js'
 import { TacticalPause } from '../systems/TacticalPause.js'
 import { EsecutoreComune } from '../enemies/EsecutoreComune.js'
 import { EsecutoreLeader } from '../enemies/EsecutoreLeader.js'
@@ -28,7 +29,7 @@ export class GameScene extends Phaser.Scene {
     const spawn = this.rooms[0]
     const spawnX = (spawn.x + Math.floor(spawn.width / 2)) * TILE_SIZE
     const spawnY = (spawn.y + Math.floor(spawn.height / 2)) * TILE_SIZE
-    this.player = new Mira(this, spawnX, spawnY)
+    this.player = new Aetherion(this, spawnX, spawnY)
     this.floor = 1
     this._formations = []
 
