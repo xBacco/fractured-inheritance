@@ -72,7 +72,6 @@ export class Mira extends BaseCharacter {
     }
     this.hp = Math.max(0, this.hp - amount)
     if (this.hp <= 0) this.alive = false
-    const prev = this.fillColor
     this.fillColor = 0xff8800
     this.scene.time.delayedCall(80, () => { if (this.alive) this.fillColor = 0xD44E0A })
   }
