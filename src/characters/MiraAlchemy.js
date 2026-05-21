@@ -53,7 +53,7 @@ export function abilityCost(ability, material) {
 const WALL_DUR = {
   [MAT.EARTH]: 1500, [MAT.STONE]: 3000, [MAT.METAL]: 4000, [MAT.LIQUID]: 2000,
 }
-export function wallDuration(material) { return WALL_DUR[material] ?? 1500 }
+export function wallDuration(material) { return WALL_DUR[material] ?? null }
 
 const RMB_DMG = { [MAT.EARTH]: 0, [MAT.STONE]: 30, [MAT.METAL]: 35, [MAT.LIQUID]: 25 }
 export function rmbDamage(material) { return RMB_DMG[material] ?? 0 }
