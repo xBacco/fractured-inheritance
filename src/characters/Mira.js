@@ -265,7 +265,34 @@ export class Mira extends BaseCharacter {
     })
   }
 
-  _handleF(scene)        { /* Task 10 */ }
+  _handleF(scene) {
+    if (!Phaser.Input.Keyboard.JustDown(this.fKey)) return
+
+    const cx = Math.floor(this.x / TILE_SIZE)
+    const cy = Math.floor(this.y / TILE_SIZE)
+
+    let target = null
+    for (const [dx, dy] of [[-1,0],[1,0],[0,-1],[0,1]]) {
+      if (scene.grid?.[cy + dy]?.[cx + dx] === TILE.DESTRUCTIBLE) {
+        target = { x: cx + dx, y: cy + dy }
+        break
+      }
+    }
+    if (!target) return
+
+    if (this._precastCheck(scene)) return
+
+    scene.grid[target.y][target.x] = TILE.FLOOR
+    this.temperature = tempWithCost(this.temperature, abilityCost('F', null))
+    this._postcastCheck()
+
+    const gfx = scene.add.rectangle(
+      target.x * TILE_SIZE + TILE_SIZE / 2,
+      target.y * TILE_SIZE + TILE_SIZE / 2,
+      TILE_SIZE, TILE_SIZE, 0x3AAEFF, 0.65
+    ).setDepth(4)
+    scene.time.delayedCall(300, () => { if (gfx.active) gfx.destroy() })
+  }
 
   // Stubs for later tasks — will be implemented in Tasks 11 and 12
   _triggerRebound(scene)     { /* Task 11 */ }
