@@ -11,6 +11,10 @@ export class BaseEnemy extends Phaser.GameObjects.Rectangle {
     this.attackCooldown = 0
     this._bound = false
     this._boundTimer = 0
+    this._slowTimer  = 0
+    this._slowMult   = 1
+    this._acidMs     = 0
+    this._acidDps    = 0
   }
 
   _tickBound(delta) {
@@ -19,6 +23,19 @@ export class BaseEnemy extends Phaser.GameObjects.Rectangle {
     if (this._boundTimer <= 0) {
       this._bound = false
       this._boundTimer = 0
+    }
+  }
+
+  _tickSlowAndAcid(delta) {
+    if (this._slowTimer > 0) {
+      this._slowTimer -= delta
+      if (this._slowTimer <= 0) { this._slowTimer = 0; this._slowMult = 1 }
+    }
+    if (this._acidMs > 0) {
+      this._acidMs -= delta
+      const dmg = this._acidDps * (delta / 1000)
+      this.hp -= dmg
+      if (this.hp <= 0) this._die()
     }
   }
 
@@ -44,7 +61,8 @@ export class BaseEnemy extends Phaser.GameObjects.Rectangle {
     const dy = player.y - this.y
     const dist = Math.sqrt(dx * dx + dy * dy)
     if (dist < 5) return
-    this.body.setVelocity((dx / dist) * this.speed, (dy / dist) * this.speed)
+    const effectiveSpeed = this.speed * this._slowMult
+    this.body.setVelocity((dx / dist) * effectiveSpeed, (dy / dist) * effectiveSpeed)
   }
 
   attackPlayer(player, delta) {
@@ -60,6 +78,7 @@ export class BaseEnemy extends Phaser.GameObjects.Rectangle {
 
   update(player, delta) {
     this._tickBound(delta)
+    this._tickSlowAndAcid(delta)
     this.chasePlayer(player)
     this.attackPlayer(player, delta)
   }
