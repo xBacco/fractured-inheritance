@@ -128,7 +128,7 @@
   <table>
     <tr><th>Elemento</th><th>Dettaglio</th></tr>
     <tr><td>Modalità Storia</td><td>Protagonista. Il piano fratturato è il suo arco principale.</td></tr>
-    <tr><td>Modalità Roguelite</td><td>Non disponibile. La storia è la sua modalità.</td></tr>
+    <tr><td>Modalità Roguelite</td><td>Disponibile come PG principale (default selezionato).</td></tr>
     <tr><td>Boss finale della storia</td><td>Zeryth — una volta sconfitto viene sbloccato nella modalità roguelite</td></tr>
     <tr><td>Compagni</td><td>I quattro del Korvo Nero (Damian, Mira, Silas, Zeryth come antagonista) — da sbloccare in roguelite</td></tr>
     <tr><td>Antenato fondatore</td><td>Il motivo per cui nessuno lo ha esiliato — da definire in dettaglio</td></tr>
@@ -139,12 +139,58 @@
   <h2>Note Implementative</h2>
   <table>
     <tr><th>Campo</th><th>Valore</th></tr>
-    <tr><td>File da creare</td><td><code>src/characters/Aetherion.js</code></td></tr>
+    <tr><td>File</td><td><code>src/characters/Aetherion.js</code> + <code>src/characters/AetherionBurst.js</code> (modulo puro)</td></tr>
     <tr><td>Estende</td><td><code>BaseCharacter</code></td></tr>
-    <tr><td>Placeholder sprite</td><td>Rectangle <code>#E07828</code> (ember)</td></tr>
+    <tr><td>HP max</td><td><span class="val">100</span> (visibile come barra principale, a differenza degli altri PG)</td></tr>
+    <tr><td>Speed</td><td><code>PLAYER_SPEED</code> default</td></tr>
+    <tr><td>Risorse</td><td>Solo HP — niente seconda risorsa narrativa</td></tr>
+    <tr><td>Sprite placeholder</td><td>Rectangle 14×26 colore <code>#E07828</code></td></tr>
     <tr><td>Sprite reale</td><td><code>personaggi/giocabili/aetherion/card.jpg</code></td></tr>
-    <tr><td>Meccanica core</td><td>Da brainstormare — lago sotterraneo / burst non controllato</td></tr>
-    <tr><td>Stato</td><td><span class="status-story">lore completo — meccaniche da definire</span></td></tr>
+    <tr><td>Stato</td><td><span class="status-story">implementato — playtest pendente</span></td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>Abilità</h2>
+
+  <h3>LMB — Paint Strike</h3>
+  <p>Attacco melee corto raggio. Le mani macchiate di pittura, non di sangue.</p>
+  <table>
+    <tr><td>Range</td><td><span class="val">25px</span> (rettangolo 12×6 davanti al facing)</td></tr>
+    <tr><td>Danno</td><td><span class="val">8</span></td></tr>
+    <tr><td>Cooldown</td><td><span class="val">300ms</span></td></tr>
+    <tr><td>Costo</td><td>Nessuno</td></tr>
+  </table>
+
+  <h3>RMB — Dissolve (hold)</h3>
+  <p>Cono di calore frontale che dissolve i proiettili nemici. Manifestazione lore: "dissoluzione di freccia magica".</p>
+  <table>
+    <tr><td>Range</td><td><span class="val">cono 80px</span>, half-angle ±30°</td></tr>
+    <tr><td>Effetto</td><td>Dissolve <code>enemyProjectiles</code> nel cono — no damage diretto</td></tr>
+    <tr><td>Durata max hold</td><td><span class="val">2000ms</span></td></tr>
+    <tr><td>Movimento</td><td><strong>bloccato</strong> mentre held</td></tr>
+    <tr><td>Cooldown</td><td><span class="val">4000ms</span> dal release</td></tr>
+  </table>
+
+  <h3>Q — Crack / Burst (signature)</h3>
+  <p>"Spacca il lago": entra in Burst Mode. Incessante, non aspetta permesso.</p>
+  <table>
+    <tr><td>Durata</td><td><span class="val">4000ms fissi</span> — non annullabile</td></tr>
+    <tr><td>AOE</td><td>Raggio <span class="val">60px</span> dalla cicatrice, <span class="val">15 dmg/sec</span></td></tr>
+    <tr><td>Self-damage</td><td><span class="val">6 HP/sec</span> (24 totali se nessun kill)</td></tr>
+    <tr><td>Kill rebate</td><td>Ogni nemico ucciso durante Burst → <span class="val">−1s self-damage</span> (max 4)</td></tr>
+    <tr><td>Lockout</td><td>LMB, RMB, F disabilitati durante</td></tr>
+    <tr><td>Cooldown</td><td><span class="val">15000ms</span> dopo fine</td></tr>
+  </table>
+
+  <h3>F — Spezza Metallo (contestuale)</h3>
+  <p>Su tile METAL adiacente: distrugge il metallo. Manifestazione lore: "piegare e spezzare metallo".</p>
+  <table>
+    <tr><td>Trigger</td><td>Tile <code>METAL</code> in una delle 4 celle adiacenti</td></tr>
+    <tr><td>Tile effect</td><td>METAL → FLOOR per 8s, poi ripristino</td></tr>
+    <tr><td>AOE</td><td>Raggio <span class="val">40px</span> attorno al tile, <span class="val">30 dmg</span></td></tr>
+    <tr><td>Schegge</td><td>3 proiettili a cono ±25° facing, <span class="val">15 dmg</span> ciascuno, speed 320</td></tr>
+    <tr><td>Cooldown</td><td><span class="val">6000ms</span></td></tr>
   </table>
 </section>
 
