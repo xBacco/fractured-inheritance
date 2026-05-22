@@ -37,12 +37,70 @@ export class CharacterSelectScene extends Phaser.Scene {
     this._buildDetail()
     this._buildFooter()
 
-    this.selectedIndex = 0
-    this._renderDetail(CHARACTER_REGISTRY[0])
+    this.selectedIndex = this._firstUnlockedIndex()
+    this._buildSelectionIndicator()
+    this._setSelection(this.selectedIndex)
+    this._wireInput()
+  }
 
-    this.input.keyboard.once('keydown-SPACE', () => {
-      this.scene.start('GameScene', { characterId: 'aetherion' })
+  _firstUnlockedIndex() {
+    return CHARACTER_REGISTRY.findIndex(e => UnlockStore.isUnlocked(e.id))
+  }
+
+  _buildSelectionIndicator() {
+    // Bordo sx 4px che scorre tra le righe
+    this.selectionIndicator = this.add.rectangle(LIST_X - 6, LIST_TOP_Y, 4, ROW_HEIGHT, 0xffffff)
+      .setOrigin(0, 0)
+      .setAlpha(0.9)
+    // Anche un overlay sottile per la riga selezionata
+    this.selectionBg = this.add.rectangle(LIST_X, LIST_TOP_Y, LIST_WIDTH, ROW_HEIGHT, 0xffffff, 0.08)
+      .setOrigin(0, 0)
+  }
+
+  _setSelection(index) {
+    if (index < 0 || index >= CHARACTER_REGISTRY.length) return
+    this.selectedIndex = index
+    const row = this.rows[index]
+    const entry = row.entry
+    const accent = hexToNumber(entry.accentColor)
+
+    this.selectionIndicator.setFillStyle(accent)
+    this.selectionIndicator.y = row.y
+    this.selectionBg.y = row.y
+    this.selectionBg.setFillStyle(accent, 0.18)
+
+    this._renderDetail(entry)
+  }
+
+  _wireInput() {
+    this.input.keyboard.on('keydown-UP',    () => this._move(-1))
+    this.input.keyboard.on('keydown-DOWN',  () => this._move(+1))
+    this.input.keyboard.on('keydown-W',     () => this._move(-1))
+    this.input.keyboard.on('keydown-S',     () => this._move(+1))
+    this.input.keyboard.on('keydown-ENTER', () => this._startRun())
+    this.input.keyboard.on('keydown-SPACE', () => this._startRun())
+    this.input.keyboard.on('keydown-TAB',   (e) => {
+      e.preventDefault?.()
+      if (!this.scene.isActive('SettingsScene')) {
+        this.scene.pause()
+        this.scene.launch('SettingsScene')
+      }
     })
+  }
+
+  _move(delta) {
+    const n = CHARACTER_REGISTRY.length
+    const next = (this.selectedIndex + delta + n) % n
+    this._setSelection(next)
+  }
+
+  _startRun() {
+    const entry = CHARACTER_REGISTRY[this.selectedIndex]
+    if (!UnlockStore.isUnlocked(entry.id)) {
+      // feedback "locked" — Task 13
+      return
+    }
+    this.scene.start('GameScene', { characterId: entry.id })
   }
 
   _buildHeader() {
