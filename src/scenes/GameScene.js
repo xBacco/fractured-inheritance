@@ -91,6 +91,20 @@ export class GameScene extends Phaser.Scene {
         .setPosition(cam.scrollX + cam.width / 2, cam.scrollY + cam.height / 2)
         .setSize(cam.width, cam.height)
     }
+    if (this.player && !this.player.alive && !this._gameOverFired) {
+      this._gameOverFired = true
+      this.time.delayedCall(800, () => {
+        this.scene.start('GameOverScene', {
+          score: this.scoreSystem?.getScore() ?? 0,
+          characterId: this.characterId ?? 'aetherion',
+          runMeta: {
+            floorReached: this.runHighestFloor ?? 1,
+            completed:    false,
+            durationMs:   Date.now() - (this.runStartTime ?? Date.now()),
+          }
+        })
+      })
+    }
   }
 
   _generateMap() {

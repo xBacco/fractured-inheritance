@@ -375,7 +375,7 @@ export class Veyra extends BaseCharacter {
         scene.tweens.killTweensOf(scene.cameras.main)
         scene.cameras.main.startFollow(this, true, 0.1, 0.1)
       }
-      scene.scene.start('GameOverScene', { score: scene.scoreSystem?.getScore() ?? 0 })
+      // transizione a GameOverScene gestita da GameScene.update()
     }
   }
 }

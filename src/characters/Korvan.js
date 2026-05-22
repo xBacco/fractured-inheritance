@@ -306,7 +306,7 @@ export class Korvan extends BaseCharacter {
       this._axeR?.destroy();    this._axeR    = null
       this._auraRing?.destroy(); this._auraRing = null
       this._hpBar?.destroy();   this._hpBar   = null
-      scene.scene.start('GameOverScene', { score: scene.scoreSystem?.getScore() ?? 0 })
+      // transizione a GameOverScene gestita da GameScene.update()
     }
   }
 }

@@ -263,7 +263,7 @@ export class Damian extends BaseCharacter {
       this._resIndicator.destroy()
       if (this.shadow) { this.shadow.destroy(); this.shadow = null }
       this._traumaOverlay.destroy()
-      scene.scene.start('GameOverScene', { score: scene.scoreSystem?.getScore() ?? 0 })
+      // transizione a GameOverScene gestita da GameScene.update()
     }
   }
 }

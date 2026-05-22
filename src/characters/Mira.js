@@ -436,7 +436,7 @@ export class Mira extends BaseCharacter {
       this._glovesBar.destroy()
       this._vignette.destroy()
       if (this._qShield?.active) this._qShield.destroy()
-      scene.scene.start('GameOverScene', { score: scene.scoreSystem?.getScore() ?? 0 })
+      // transizione a GameOverScene gestita da GameScene.update()
     }
   }
 }

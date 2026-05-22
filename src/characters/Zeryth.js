@@ -159,7 +159,7 @@ export class Zeryth extends BaseCharacter {
   _checkDeath(scene) {
     if (this.integrity <= 0) {
       this.alive = false
-      scene.scene.start('GameOverScene', { score: scene.scoreSystem?.getScore() ?? 0 })
+      // transizione a GameOverScene gestita da GameScene.update()
     }
   }
 }

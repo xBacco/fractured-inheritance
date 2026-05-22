@@ -434,7 +434,7 @@ export class Aetherion extends BaseCharacter {
       this._burstIndicator?.destroy();   this._burstIndicator   = null
       this._dissolveCone?.destroy();     this._dissolveCone     = null
       this._burstAura?.destroy();        this._burstAura        = null
-      scene.scene.start('GameOverScene', { score: scene.scoreSystem?.getScore() ?? 0 })
+      // transizione a GameOverScene gestita da GameScene.update()
     }
   }
 }

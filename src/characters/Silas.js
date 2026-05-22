@@ -223,7 +223,7 @@ export class Silas extends BaseCharacter {
       this._dead = true
       this._tempIndicator.destroy()
       this._shadowIndicator.destroy()
-      scene.scene.start('GameOverScene', { score: scene.scoreSystem?.getScore() ?? 0 })
+      // transizione a GameOverScene gestita da GameScene.update()
     }
   }
 }
