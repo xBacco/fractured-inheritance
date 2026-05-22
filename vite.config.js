@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
   test: {
-    environment: 'node'
+    environment: 'node',
+    setupFiles: ['./tests/setup.js'],
   }
 })
