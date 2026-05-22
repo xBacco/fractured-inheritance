@@ -41,6 +41,7 @@ export class CharacterSelectScene extends Phaser.Scene {
     this._buildSelectionIndicator()
     this._setSelection(this.selectedIndex)
     this._wireInput()
+    this._playIntro()
   }
 
   _firstUnlockedIndex() {
@@ -70,10 +71,17 @@ export class CharacterSelectScene extends Phaser.Scene {
     const entry = row.entry
     const accent = hexToNumber(entry.accentColor)
 
+    // colore accent e bg selezione (immediato)
     this.selectionIndicator.setFillStyle(accent)
-    this.selectionIndicator.y = row.y
-    this.selectionBg.y = row.y
     this.selectionBg.setFillStyle(accent, 0.18)
+
+    // animazione posizione su indicator + bg
+    this.tweens.add({
+      targets: [this.selectionIndicator, this.selectionBg],
+      y: row.y,
+      duration: 120,
+      ease: 'Cubic.easeOut',
+    })
 
     this._renderDetail(entry)
   }
@@ -120,7 +128,7 @@ export class CharacterSelectScene extends Phaser.Scene {
   }
 
   _playLockedFeedback() {
-    // shake orizzontale del pannello destro (8px in 200ms, 3 yoyo)
+    // shake del pannello destro (8px x 4 cicli)
     const targets = this.detailObjects
     this.tweens.add({
       targets,
@@ -134,45 +142,87 @@ export class CharacterSelectScene extends Phaser.Scene {
     // flash sull'icona lucchetto della riga corrente
     const row = this.rows[this.selectedIndex]
     if (row.lockIcon) {
+      // Fix Conflict A: kill pulse loop first, reset scale, then feedback tween
+      this.tweens.killTweensOf(row.lockIcon)
+      row.lockIcon.setScale(1)
       this.tweens.add({
         targets: row.lockIcon,
         scale: 1.4,
         duration: 100,
         yoyo: true,
         ease: 'Cubic.easeOut',
+        onComplete: () => {
+          // ripristina il pulse loop
+          this.tweens.add({
+            targets: row.lockIcon,
+            scale: 1.1,
+            duration: 1200,
+            yoyo: true,
+            repeat: -1,
+            ease: 'Sine.easeInOut',
+          })
+        }
       })
     }
   }
 
   _buildHeader() {
     const cx = this.cameras.main.width / 2
-    this.add.text(cx, 28, 'FRACTURED INHERITANCE', {
+    this.headerObjs = []
+
+    this.headerObjs.push(this.add.text(cx, 28, 'FRACTURED INHERITANCE', {
       fontSize: '28px', color: COLOR_TEXT_PRIMARY, fontFamily: 'monospace',
-    }).setOrigin(0.5)
-    this.add.text(cx, 58, '── SELECT CHARACTER ──', {
+    }).setOrigin(0.5))
+
+    this.headerObjs.push(this.add.text(cx, 58, '── SELECT CHARACTER ──', {
       fontSize: '14px', color: COLOR_TEXT_SECONDARY, fontFamily: 'monospace',
-    }).setOrigin(0.5)
+    }).setOrigin(0.5))
   }
 
   _buildFooter() {
     const cx = this.cameras.main.width / 2
     const cy = this.cameras.main.height - FOOTER_HEIGHT / 2
-    this.add.text(cx, cy,
+    this.footerObjs = []
+
+    this.footerObjs.push(this.add.text(cx, cy,
       '↑/↓  navigate     ENTER  start     TAB  settings',
       { fontSize: '14px', color: COLOR_TEXT_MUTED, fontFamily: 'monospace' }
-    ).setOrigin(0.5)
+    ).setOrigin(0.5))
   }
 
   _buildDetail() {
-    // Container vuoto — i contenuti vengono ricostruiti in _renderDetail
     this.detailObjects = []
   }
 
   _renderDetail(entry) {
-    // Distruggi i text objects precedenti
-    this.detailObjects.forEach(o => o.destroy())
+    const oldObjects = this.detailObjects
     this.detailObjects = []
 
+    // Fix Conflict B: kill any competing tweens (e.g. shake) before fade-out
+    if (oldObjects.length > 0) {
+      this.tweens.killTweensOf(oldObjects)
+      this.tweens.add({
+        targets: oldObjects,
+        alpha: 0,
+        duration: 80,
+        onComplete: () => oldObjects.forEach(o => o.destroy()),
+      })
+    }
+
+    // build nuovi a alpha 0 → 1
+    const newObjects = this._buildDetailObjects(entry)
+    newObjects.forEach(o => o.setAlpha(0))
+    this.detailObjects = newObjects
+    this.tweens.add({
+      targets: newObjects,
+      alpha: 1,
+      duration: 150,
+      delay: 80,
+    })
+  }
+
+  _buildDetailObjects(entry) {
+    const created = []
     const unlocked = UnlockStore.isUnlocked(entry.id)
     const accent = entry.accentColor
     let y = LIST_TOP_Y
@@ -184,7 +234,7 @@ export class CharacterSelectScene extends Phaser.Scene {
       fontFamily: 'monospace',
       fontStyle: 'bold',
     })
-    this.detailObjects.push(name)
+    created.push(name)
     y += 60
 
     // Tagline
@@ -193,12 +243,12 @@ export class CharacterSelectScene extends Phaser.Scene {
       color: unlocked ? '#cccccc' : '#666677',
       fontFamily: 'monospace',
     })
-    this.detailObjects.push(tagline)
+    created.push(tagline)
     y += 36
 
     // Divisoria
     const divider = this.add.rectangle(DETAIL_X, y, 500, 1, 0x333344).setOrigin(0, 0)
-    this.detailObjects.push(divider)
+    created.push(divider)
     y += 16
 
     if (unlocked) {
@@ -209,7 +259,7 @@ export class CharacterSelectScene extends Phaser.Scene {
         fontFamily: 'monospace',
         wordWrap: { width: 600 },
       })
-      this.detailObjects.push(playstyle)
+      created.push(playstyle)
       y += playstyle.height + 24
 
       // Abilities header
@@ -219,7 +269,7 @@ export class CharacterSelectScene extends Phaser.Scene {
         fontFamily: 'monospace',
         fontStyle: 'bold',
       })
-      this.detailObjects.push(header)
+      created.push(header)
       y += 24
 
       // Abilities table
@@ -235,7 +285,7 @@ export class CharacterSelectScene extends Phaser.Scene {
           color: '#eeeeee',
           fontFamily: 'monospace',
         })
-        this.detailObjects.push(keyText, labelText)
+        created.push(keyText, labelText)
         y += 22
       }
     } else {
@@ -244,14 +294,14 @@ export class CharacterSelectScene extends Phaser.Scene {
       const lockBox = this.add.rectangle(DETAIL_X + 250, y, 400, 100, 0x000000, 0)
         .setStrokeStyle(1, 0x555566)
         .setOrigin(0.5, 0)
-      this.detailObjects.push(lockBox)
+      created.push(lockBox)
 
       const lockTitle = this.add.text(DETAIL_X + 250, y + 24, '🔒  BLOCCATO', {
         fontSize: '20px',
         color: '#888899',
         fontFamily: 'monospace',
       }).setOrigin(0.5, 0)
-      this.detailObjects.push(lockTitle)
+      created.push(lockTitle)
 
       const hint = this.add.text(DETAIL_X + 250, y + 60, entry.unlockHint ?? 'Sblocca giocando.', {
         fontSize: '14px',
@@ -260,8 +310,10 @@ export class CharacterSelectScene extends Phaser.Scene {
         wordWrap: { width: 380 },
         align: 'center',
       }).setOrigin(0.5, 0)
-      this.detailObjects.push(hint)
+      created.push(hint)
     }
+
+    return created
   }
 
   _buildList() {
@@ -320,9 +372,32 @@ export class CharacterSelectScene extends Phaser.Scene {
         lockIcon = this.add.text(LIST_X + LIST_WIDTH - 30, y + ROW_HEIGHT / 2, '🔒', {
           fontSize: '20px',
         }).setOrigin(0.5)
+
+        // pulse loop sottile
+        this.tweens.add({
+          targets: lockIcon,
+          scale: 1.1,
+          duration: 1200,
+          yoyo: true,
+          repeat: -1,
+          ease: 'Sine.easeInOut',
+        })
       }
 
       this.rows.push({ entry, unlocked, bg, accentStripe, nameText, taglineText, lockIcon, y })
     })
+  }
+
+  _playIntro() {
+    const listObjs = this.rows.flatMap(r => [r.bg, r.accentStripe, r.nameText, r.taglineText, r.lockIcon].filter(Boolean))
+    const indicatorObjs = [this.selectionIndicator, this.selectionBg]
+
+    ;[...this.headerObjs, ...listObjs, ...this.detailObjects, ...this.footerObjs, ...indicatorObjs].forEach(o => o.setAlpha(0))
+
+    this.tweens.add({ targets: this.headerObjs,    alpha: 1, duration: 250, delay: 0   })
+    this.tweens.add({ targets: listObjs,           alpha: 1, duration: 250, delay: 80  })
+    this.tweens.add({ targets: indicatorObjs,      alpha: 1, duration: 250, delay: 160 })
+    this.tweens.add({ targets: this.detailObjects, alpha: 1, duration: 250, delay: 160 })
+    this.tweens.add({ targets: this.footerObjs,    alpha: 1, duration: 250, delay: 240 })
   }
 }
