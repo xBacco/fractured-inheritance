@@ -102,11 +102,43 @@ export class CharacterSelectScene extends Phaser.Scene {
 
   _startRun() {
     const entry = CHARACTER_REGISTRY[this.selectedIndex]
+
     if (!UnlockStore.isUnlocked(entry.id)) {
-      // feedback "locked" — Task 13
+      this._playLockedFeedback()
       return
     }
-    this.scene.start('GameScene', { characterId: entry.id })
+
+    // Flash bianco breve + fade-to-black, poi start scene
+    this.cameras.main.flash(100, 255, 255, 255)
+    this.cameras.main.fade(200, 0, 0, 0)
+    this.time.delayedCall(220, () => {
+      this.scene.start('GameScene', { characterId: entry.id })
+    })
+  }
+
+  _playLockedFeedback() {
+    // shake orizzontale del pannello destro (8px in 200ms, 3 yoyo)
+    const targets = this.detailObjects
+    this.tweens.add({
+      targets,
+      x: '+=8',
+      duration: 50,
+      yoyo: true,
+      repeat: 3,
+      ease: 'Sine.easeInOut',
+    })
+
+    // flash sull'icona lucchetto della riga corrente
+    const row = this.rows[this.selectedIndex]
+    if (row.lockIcon) {
+      this.tweens.add({
+        targets: row.lockIcon,
+        scale: 1.4,
+        duration: 100,
+        yoyo: true,
+        ease: 'Cubic.easeOut',
+      })
+    }
   }
 
   _buildHeader() {
