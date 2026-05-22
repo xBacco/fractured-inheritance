@@ -15,3 +15,15 @@ Il piano non lo intimidisce. Lo ha già visto rallentare.
 ---
 
 *Giocare Zeryth è giocare a un tempo diverso da quello del piano. Gli ostacoli non scompaiono — diventano lenti.*
+
+---
+
+## Posizione in Story Mode
+
+**Final Boss.** In Story Mode il giocatore è Aetherion. Zeryth è il boss finale — protagonista del gioco, antagonista del romanzo e di Story Mode.
+
+Chi ha già giocato Zeryth conosce le sue meccaniche dall'interno. In Story Mode le affronta dall'esterno.
+
+Usa le stesse abilità del giocatore — Broken Second, Blood Weapons, distorsione temporale — come boss. Lo scontro inizia con il rito pre-combattimento: ripiega il cappotto, i guanti, gli strati esterni. Con calma. Chi sa cosa sta per succedere.
+
+Design dettagliato del boss fight da sviluppare: fasi, trigger narrativi, meccaniche di rallentamento del tempo contro Aetherion.

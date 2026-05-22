@@ -15,3 +15,11 @@ L'ombra non è il suo nemico. È la sua casa. Fuori dall'ombra è un buon combat
 ---
 
 *Giocare Silas è giocare nell'ombra che gli altri non vedono.*
+
+---
+
+## Ruolo nel gioco (Story Mode)
+
+Support attivabile — eliminazione silenziosa e ricognizione. Entra nel campo in Shadow Fusion per neutralizzare un target prioritario senza essere rilevato, poi sparisce. Può usare Shadow Teleport per aprire varchi o creare distrazioni. I nemici non sanno che è mai stato lì. Il limite è la temperatura del sangue — non opera indefinitamente.
+
+Funzione narrativa dettagliata da sviluppare.

@@ -13,3 +13,11 @@ Il piano dimensionale la affascina più di quanto la spaventi. È solo un sistem
 ---
 
 *Giocare Mira è giocare con ciò che il piano ti dà. Ogni stanza è un laboratorio. Ogni materiale è una risorsa. Ogni errore ha un prezzo fisico.*
+
+---
+
+## Ruolo nel gioco (Story Mode)
+
+Support attivabile — alchimia offensiva e manipolazione ambientale. Entra nel campo per modificare il terreno tramite Sintesi Somatica: crea reazioni che danneggiano o rallentano i nemici, può aprire passaggi o bloccare corridoi. Non è una presenza difensiva — è un vantaggio ambientale. Il calore dei tatuaggi la limita anche in Story Mode.
+
+Funzione narrativa dettagliata da sviluppare.

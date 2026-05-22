@@ -17,3 +17,11 @@ La riserva demoniaca si esaurisce. Lo sa. Ogni volta che spinge, sa esattamente 
 ---
 
 *Giocare Damian è scommettere su quanto lontano si vuole spingere, sapendo esattamente qual è il prezzo. E scegliere comunque.*
+
+---
+
+## Ruolo nel gioco (Story Mode)
+
+Support attivabile — sfondamento offensivo. Entra già in Fase 2 o 3 per eliminare gruppi di nemici ad alta densità. Non è chirurgico come Silas né posizionale come Mira — è devastante. In Fase 3 l'ombra attacca da sola: Damian non controlla il campo, lo svuota. Dopo l'intervento entra in stato traumatico — non disponibile immediatamente. In Fase 3 può colpire chiunque: il timing dell'attivazione è critico.
+
+Funzione narrativa dettagliata da sviluppare.
