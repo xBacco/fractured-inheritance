@@ -1,4 +1,5 @@
 import { KeyBindings } from '../config/KeyBindings.js'
+import { UnlockStore } from '../systems/UnlockStore.js'
 
 export class BootScene extends Phaser.Scene {
   constructor() { super({ key: 'BootScene' }) }
@@ -9,6 +10,7 @@ export class BootScene extends Phaser.Scene {
 
   create() {
     KeyBindings.load()
+    UnlockStore.load()
     this.game.canvas.addEventListener('contextmenu', e => e.preventDefault())
     this.scene.start('GameScene')
   }
