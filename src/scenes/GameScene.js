@@ -2,10 +2,7 @@ import { BSPGenerator } from '../map/BSPGenerator.js'
 import { FloorBuilder } from '../map/FloorBuilder.js'
 import { TILE, WALKABLE } from '../map/TileTypes.js'
 import { TILE_COLORS, TILE_SIZE, MAP_WIDTH, MAP_HEIGHT } from '../config/GameConfig.js'
-import { Mira } from '../characters/Mira.js'
-import { Korvan } from '../characters/Korvan.js'
-import { Veyra } from '../characters/Veyra.js'
-import { Aetherion } from '../characters/Aetherion.js'
+import { getCharacter } from '../config/CharacterRegistry.js'
 import { TacticalPause } from '../systems/TacticalPause.js'
 import { EsecutoreComune } from '../enemies/EsecutoreComune.js'
 import { EsecutoreLeader } from '../enemies/EsecutoreLeader.js'
@@ -21,6 +18,13 @@ import { KeyBindings } from '../config/KeyBindings.js'
 export class GameScene extends Phaser.Scene {
   constructor() { super({ key: 'GameScene' }) }
 
+  init(data) {
+    this.characterId     = data?.characterId ?? 'aetherion'
+    this.runStartTime    = Date.now()
+    this.runHighestFloor = 1
+    this._gameOverFired  = false
+  }
+
   create() {
     this.grid = this._generateMap()
     this._renderMap()
@@ -29,7 +33,9 @@ export class GameScene extends Phaser.Scene {
     const spawn = this.rooms[0]
     const spawnX = (spawn.x + Math.floor(spawn.width / 2)) * TILE_SIZE
     const spawnY = (spawn.y + Math.floor(spawn.height / 2)) * TILE_SIZE
-    this.player = new Aetherion(this, spawnX, spawnY)
+    const entry = getCharacter(this.characterId)
+    const PGClass = entry.classRef
+    this.player = new PGClass(this, spawnX, spawnY)
     this.floor = 1
     this._formations = []
 
