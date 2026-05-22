@@ -29,6 +29,8 @@ export class Mira extends BaseCharacter {
     this._bleedDps      = 0
     this._vignetteMs    = 0
     this._attackCooldown = 0
+    this._disorientMs    = 0
+    this._rootedMs       = 0
 
     this._qDown     = false
     this._qHoldMs   = 0
@@ -54,6 +56,8 @@ export class Mira extends BaseCharacter {
     }
 
     super.update(scene)
+    this._tickDisorient(delta)
+    this._tickRooted(delta)
     this._tickTemperature(delta)
     this._tickLockout(delta)
     this._tickAttackCooldown(delta)
@@ -73,7 +77,46 @@ export class Mira extends BaseCharacter {
     this.hp = Math.max(0, this.hp - amount)
     if (this.hp <= 0) this.alive = false
     this.fillColor = 0xff8800
-    this.scene.time.delayedCall(80, () => { if (this.alive) this.fillColor = 0xD44E0A })
+    this.scene.time.delayedCall(80, () => { if (this.alive && this._disorientMs <= 0) this.fillColor = 0xD44E0A })
+  }
+
+  applyDisorient(duration) {
+    this._disorientMs = duration
+    this.scene.cameras.main.flash(200, 0, 160, 120)
+  }
+
+  applyRoot(duration) {
+    this._rootedMs = Math.max(this._rootedMs, duration)
+    this.scene.cameras.main.shake(150, 0.005)
+  }
+
+  handleMovement(scene) {
+    if (this._rootedMs > 0) { this.body.setVelocity(0, 0); return }
+    if (this._disorientMs <= 0) { super.handleMovement(scene); return }
+    const body = this.body
+    let vx = 0
+    let vy = 0
+    if (this.wasd.left.isDown)  vx += 1
+    if (this.wasd.right.isDown) vx -= 1
+    if (this.wasd.up.isDown)    vy += 1
+    if (this.wasd.down.isDown)  vy -= 1
+    if (vx !== 0 || vy !== 0) {
+      const len = Math.sqrt(vx * vx + vy * vy)
+      vx = (vx / len) * this.speed
+      vy = (vy / len) * this.speed
+      this.facingX = vx > 0 ? 1 : vx < 0 ? -1 : this.facingX
+      this.facingY = vy > 0 ? 1 : vy < 0 ? -1 : this.facingY
+    }
+    const nextX  = this.x + vx * (1 / 60)
+    const nextY  = this.y + vy * (1 / 60)
+    const tileX  = Math.floor(nextX / TILE_SIZE)
+    const tileY  = Math.floor(nextY / TILE_SIZE)
+    if (scene.isWalkable(tileX, tileY)) {
+      body.setVelocity(vx, vy)
+    } else {
+      body.setVelocityX(scene.isWalkable(tileX, Math.floor(this.y / TILE_SIZE)) ? vx : 0)
+      body.setVelocityY(scene.isWalkable(Math.floor(this.x / TILE_SIZE), tileY) ? vy : 0)
+    }
   }
 
   rebindActions(scene) {
@@ -84,6 +127,17 @@ export class Mira extends BaseCharacter {
   }
 
   // ── Tick helpers ──────────────────────────────────────────────────────────
+
+  _tickDisorient(delta) {
+    if (this._disorientMs <= 0) return
+    this._disorientMs = Math.max(0, this._disorientMs - delta)
+    this.fillColor = this._disorientMs > 0 ? 0x4a8870 : 0xD44E0A
+  }
+
+  _tickRooted(delta) {
+    if (this._rootedMs <= 0) return
+    this._rootedMs = Math.max(0, this._rootedMs - delta)
+  }
 
   _tickTemperature(delta) {
     this.temperature = tempAfterDecay(this.temperature, delta)
@@ -131,6 +185,7 @@ export class Mira extends BaseCharacter {
 
     this.temperature = tempWithCost(this.temperature, abilityCost('LMB', mat))
     this._postcastCheck()
+    scene.events.emit('player_attacked', this.x, this.y)
     this._placeWall(scene, mx, my, mat)
   }
 
@@ -172,6 +227,7 @@ export class Mira extends BaseCharacter {
 
     this.temperature = tempWithCost(this.temperature, abilityCost('RMB', mat))
     this._postcastCheck()
+    scene.events.emit('player_attacked', this.x, this.y)
     this._applyRMBEffect(scene, tileX, tileY, mat, wp.x, wp.y)
   }
 
@@ -245,6 +301,7 @@ export class Mira extends BaseCharacter {
   }
 
   _throwLance(scene) {
+    scene.events.emit('player_attacked', this.x, this.y)
     const lance = scene.add.rectangle(this.x, this.y, 8, 4, 0xaab0b8).setDepth(5)
     scene.physics.add.existing(lance)
     lance.damage = 40
@@ -254,6 +311,7 @@ export class Mira extends BaseCharacter {
   }
 
   _spawnShield(scene) {
+    scene.events.emit('player_attacked', this.x, this.y)
     if (this._qShield?.active) this._qShield.destroy()
     const sx = this.x + this.facingX * 18
     const sy = this.y + this.facingY * 18
@@ -285,6 +343,7 @@ export class Mira extends BaseCharacter {
     scene.grid[target.y][target.x] = TILE.FLOOR
     this.temperature = tempWithCost(this.temperature, abilityCost('F', null))
     this._postcastCheck()
+    scene.events.emit('player_attacked', this.x, this.y)
 
     const gfx = scene.add.rectangle(
       target.x * TILE_SIZE + TILE_SIZE / 2,
@@ -319,6 +378,7 @@ export class Mira extends BaseCharacter {
   _tickRebound(scene, delta) {
     this._reboundMs    -= delta
     if (this._invincibleMs > 0) this._invincibleMs -= delta
+    if (this._disorientMs  > 0) this._tickDisorient(delta)
     if (this._vignetteMs  > 0) {
       this._vignetteMs -= delta
       this._updateVignette(scene)
