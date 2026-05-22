@@ -103,6 +103,7 @@ export class CharacterSelectScene extends Phaser.Scene {
   }
 
   _move(delta) {
+    if (this._transitioning) return
     const n = CHARACTER_REGISTRY.length
     const next = (this.selectedIndex + delta + n) % n
     this._setSelection(next)
@@ -198,27 +199,37 @@ export class CharacterSelectScene extends Phaser.Scene {
     const oldObjects = this.detailObjects
     this.detailObjects = []
 
-    // Fix Conflict B: kill any competing tweens (e.g. shake) before fade-out
+    // build new objects immediately at alpha 0
+    const newObjects = this._buildDetailObjects(entry)
+    newObjects.forEach(o => o.setAlpha(0))
+    this.detailObjects = newObjects
+
     if (oldObjects.length > 0) {
+      // Fix Conflict B: kill any competing tweens (e.g. shake) before fade-out.
+      // Chain fade-in inside onComplete to avoid the delay:80 race window —
+      // Phaser's killTweensOf does not cancel pending/delayed tweens.
       this.tweens.killTweensOf(oldObjects)
       this.tweens.add({
         targets: oldObjects,
         alpha: 0,
         duration: 80,
-        onComplete: () => oldObjects.forEach(o => o.destroy()),
+        onComplete: () => {
+          oldObjects.forEach(o => o.destroy())
+          this.tweens.add({
+            targets: newObjects,
+            alpha: 1,
+            duration: 150,
+          })
+        },
+      })
+    } else {
+      // first render: no fade-out, fade-in immediately
+      this.tweens.add({
+        targets: newObjects,
+        alpha: 1,
+        duration: 150,
       })
     }
-
-    // build nuovi a alpha 0 → 1
-    const newObjects = this._buildDetailObjects(entry)
-    newObjects.forEach(o => o.setAlpha(0))
-    this.detailObjects = newObjects
-    this.tweens.add({
-      targets: newObjects,
-      alpha: 1,
-      duration: 150,
-      delay: 80,
-    })
   }
 
   _buildDetailObjects(entry) {
@@ -338,6 +349,7 @@ export class CharacterSelectScene extends Phaser.Scene {
       })
 
       bg.on('pointerdown', (pointer) => {
+        if (this._transitioning) return
         this._setSelection(i)
         if (pointer.button === 0 && this._lastClickIndex === i && Date.now() - (this._lastClickTime ?? 0) < 350) {
           // double-click
