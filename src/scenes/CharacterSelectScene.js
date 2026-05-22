@@ -101,6 +101,8 @@ export class CharacterSelectScene extends Phaser.Scene {
   }
 
   _startRun() {
+    if (this._transitioning) return
+
     const entry = CHARACTER_REGISTRY[this.selectedIndex]
 
     if (!UnlockStore.isUnlocked(entry.id)) {
@@ -108,6 +110,7 @@ export class CharacterSelectScene extends Phaser.Scene {
       return
     }
 
+    this._transitioning = true
     // Flash bianco breve + fade-to-black, poi start scene
     this.cameras.main.flash(100, 255, 255, 255)
     this.cameras.main.fade(200, 0, 0, 0)
