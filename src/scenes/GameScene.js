@@ -21,6 +21,7 @@ export class GameScene extends Phaser.Scene {
   init(data) {
     this.characterId     = data?.characterId ?? 'aetherion'
     this.runStartTime    = Date.now()
+    // TODO: increment when multi-floor system lands — UNLOCK_RULES like floor2_reached depend on this
     this.runHighestFloor = 1
     this._gameOverFired  = false
   }
@@ -47,7 +48,7 @@ export class GameScene extends Phaser.Scene {
     this.tabKey.on('down', () => {
       if (!this.scene.isActive('SettingsScene')) {
         this.scene.pause()
-        this.scene.launch('SettingsScene')
+        this.scene.launch('SettingsScene', { from: 'GameScene' })
       }
     })
 

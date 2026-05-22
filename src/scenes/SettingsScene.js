@@ -15,6 +15,10 @@ const ACTIONS = [
 export class SettingsScene extends Phaser.Scene {
   constructor() { super({ key: 'SettingsScene' }) }
 
+  init(data) {
+    this._launcherKey = data?.from ?? 'GameScene'
+  }
+
   create() {
     this._pending = KeyBindings.all()
     this._listening = null
@@ -131,7 +135,7 @@ export class SettingsScene extends Phaser.Scene {
     KeyBindings.save()
     const game = this.scene.get('GameScene')
     if (game) game.events.emit('keybindings-updated')
-    this.scene.resume('GameScene')
+    this.scene.resume(this._launcherKey)
     this.scene.stop()
   }
 }

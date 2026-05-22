@@ -97,7 +97,7 @@ export class CharacterSelectScene extends Phaser.Scene {
       e.preventDefault?.()
       if (!this.scene.isActive('SettingsScene')) {
         this.scene.pause()
-        this.scene.launch('SettingsScene')
+        this.scene.launch('SettingsScene', { from: 'CharacterSelectScene' })
       }
     })
   }
