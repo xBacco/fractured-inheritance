@@ -12,6 +12,6 @@ export class BootScene extends Phaser.Scene {
     KeyBindings.load()
     UnlockStore.load()
     this.game.canvas.addEventListener('contextmenu', e => e.preventDefault())
-    this.scene.start('GameScene')
+    this.scene.start('CharacterSelectScene')
   }
 }

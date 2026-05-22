@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import { BootScene } from './scenes/BootScene.js'
+import { CharacterSelectScene } from './scenes/CharacterSelectScene.js'
 import { GameScene } from './scenes/GameScene.js'
 import { GameOverScene } from './scenes/GameOverScene.js'
 import { SettingsScene } from './scenes/SettingsScene.js'
@@ -14,7 +15,7 @@ const config = {
     default: 'arcade',
     arcade: { debug: false }
   },
-  scene: [BootScene, GameScene, GameOverScene, SettingsScene]
+  scene: [BootScene, CharacterSelectScene, GameScene, GameOverScene, SettingsScene]
 }
 
 window.__game = new Phaser.Game(config)
