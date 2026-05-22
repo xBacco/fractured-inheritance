@@ -59,6 +59,12 @@ export class CharacterSelectScene extends Phaser.Scene {
 
   _setSelection(index) {
     if (index < 0 || index >= CHARACTER_REGISTRY.length) return
+
+    // ripristina background delle altre righe
+    this.rows.forEach((r, i) => {
+      if (i !== index) r.bg.setFillStyle(COLOR_ROW_DEFAULT)
+    })
+
     this.selectedIndex = index
     const row = this.rows[index]
     const entry = row.entry
@@ -233,6 +239,26 @@ export class CharacterSelectScene extends Phaser.Scene {
 
       const bg = this.add.rectangle(LIST_X, y, LIST_WIDTH, ROW_HEIGHT, COLOR_ROW_DEFAULT)
         .setOrigin(0, 0)
+
+      bg.setInteractive({ useHandCursor: true })
+
+      bg.on('pointerover', () => {
+        if (this.selectedIndex !== i) bg.setFillStyle(COLOR_ROW_HOVER)
+      })
+
+      bg.on('pointerout', () => {
+        if (this.selectedIndex !== i) bg.setFillStyle(COLOR_ROW_DEFAULT)
+      })
+
+      bg.on('pointerdown', (pointer) => {
+        this._setSelection(i)
+        if (pointer.button === 0 && this._lastClickIndex === i && Date.now() - (this._lastClickTime ?? 0) < 350) {
+          // double-click
+          this._startRun()
+        }
+        this._lastClickIndex = i
+        this._lastClickTime = Date.now()
+      })
 
       const accentStripe = this.add.rectangle(LIST_X, y + 10, 4, ROW_HEIGHT - 20, accent)
         .setOrigin(0, 0)
