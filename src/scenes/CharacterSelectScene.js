@@ -34,13 +34,11 @@ export class CharacterSelectScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor(COLOR_BG)
     this._buildHeader()
     this._buildList()
+    this._buildDetail()
     this._buildFooter()
 
-    // Placeholder detail (Task 10)
-    this.add.text(DETAIL_X + 20, LIST_TOP_Y,
-      '[ detail panel nel prossimo task ]',
-      { fontSize: '14px', color: COLOR_TEXT_MUTED, fontFamily: 'monospace' }
-    )
+    this.selectedIndex = 0
+    this._renderDetail(CHARACTER_REGISTRY[0])
 
     this.input.keyboard.once('keydown-SPACE', () => {
       this.scene.start('GameScene', { characterId: 'aetherion' })
@@ -64,6 +62,107 @@ export class CharacterSelectScene extends Phaser.Scene {
       '↑/↓  navigate     ENTER  start     TAB  settings',
       { fontSize: '14px', color: COLOR_TEXT_MUTED, fontFamily: 'monospace' }
     ).setOrigin(0.5)
+  }
+
+  _buildDetail() {
+    // Container vuoto — i contenuti vengono ricostruiti in _renderDetail
+    this.detailObjects = []
+  }
+
+  _renderDetail(entry) {
+    // Distruggi i text objects precedenti
+    this.detailObjects.forEach(o => o.destroy())
+    this.detailObjects = []
+
+    const unlocked = UnlockStore.isUnlocked(entry.id)
+    const accent = entry.accentColor
+    let y = LIST_TOP_Y
+
+    // Nome grande
+    const name = this.add.text(DETAIL_X, y, entry.name, {
+      fontSize: '48px',
+      color: unlocked ? accent : '#444455',
+      fontFamily: 'monospace',
+      fontStyle: 'bold',
+    })
+    this.detailObjects.push(name)
+    y += 60
+
+    // Tagline
+    const tagline = this.add.text(DETAIL_X, y, entry.tagline, {
+      fontSize: '20px',
+      color: unlocked ? '#cccccc' : '#666677',
+      fontFamily: 'monospace',
+    })
+    this.detailObjects.push(tagline)
+    y += 36
+
+    // Divisoria
+    const divider = this.add.rectangle(DETAIL_X, y, 500, 1, 0x333344).setOrigin(0, 0)
+    this.detailObjects.push(divider)
+    y += 16
+
+    if (unlocked) {
+      // Playstyle (word-wrapped)
+      const playstyle = this.add.text(DETAIL_X, y, entry.playstyle, {
+        fontSize: '15px',
+        color: COLOR_TEXT_SECONDARY,
+        fontFamily: 'monospace',
+        wordWrap: { width: 600 },
+      })
+      this.detailObjects.push(playstyle)
+      y += playstyle.height + 24
+
+      // Abilities header
+      const header = this.add.text(DETAIL_X, y, 'ABILITIES', {
+        fontSize: '13px',
+        color: '#777777',
+        fontFamily: 'monospace',
+        fontStyle: 'bold',
+      })
+      this.detailObjects.push(header)
+      y += 24
+
+      // Abilities table
+      for (const [key, label] of Object.entries(entry.abilities)) {
+        const keyText = this.add.text(DETAIL_X, y, key.padEnd(5, ' '), {
+          fontSize: '15px',
+          color: accent,
+          fontFamily: 'monospace',
+          fontStyle: 'bold',
+        })
+        const labelText = this.add.text(DETAIL_X + 60, y, label, {
+          fontSize: '15px',
+          color: '#eeeeee',
+          fontFamily: 'monospace',
+        })
+        this.detailObjects.push(keyText, labelText)
+        y += 22
+      }
+    } else {
+      // Box bloccato
+      y += 40
+      const lockBox = this.add.rectangle(DETAIL_X + 250, y, 400, 100, 0x000000, 0)
+        .setStrokeStyle(1, 0x555566)
+        .setOrigin(0.5, 0)
+      this.detailObjects.push(lockBox)
+
+      const lockTitle = this.add.text(DETAIL_X + 250, y + 24, '🔒  BLOCCATO', {
+        fontSize: '20px',
+        color: '#888899',
+        fontFamily: 'monospace',
+      }).setOrigin(0.5, 0)
+      this.detailObjects.push(lockTitle)
+
+      const hint = this.add.text(DETAIL_X + 250, y + 60, entry.unlockHint ?? 'Sblocca giocando.', {
+        fontSize: '14px',
+        color: '#777788',
+        fontFamily: 'monospace',
+        wordWrap: { width: 380 },
+        align: 'center',
+      }).setOrigin(0.5, 0)
+      this.detailObjects.push(hint)
+    }
   }
 
   _buildList() {
