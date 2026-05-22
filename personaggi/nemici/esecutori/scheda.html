@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Esecutori di Illyrium — Scheda Tecnica</title>
+<style>
+  :root { --accent: #882222; --bg: #0d0909; --bg2: #120d0d; --bg3: #100a0a; --text: #c4b8b8; --muted: #886666; --val: #dd8888; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); max-width: 920px; margin: 0 auto; padding: 2.5rem 2rem; line-height: 1.6; }
+  header { display: flex; gap: 2rem; align-items: flex-start; padding-bottom: 2rem; border-bottom: 1px solid var(--accent); margin-bottom: 2.5rem; }
+  header img { width: 180px; border-radius: 6px; flex-shrink: 0; }
+  .header-text h1 { font-size: 2.4rem; color: var(--accent); letter-spacing: 0.02em; }
+  .header-text .subtitle { color: var(--muted); font-size: 1rem; margin-top: 0.3rem; margin-bottom: 1rem; }
+  .header-text .tagline { font-style: italic; color: #664444; font-size: 0.9rem; border-left: 2px solid var(--accent); padding-left: 0.8rem; }
+  .tag-enemy { display: inline-block; margin-top: 1rem; padding: 0.2rem 0.7rem; border-radius: 3px; font-size: 0.75rem; font-family: monospace; background: #220a0a; color: #cc4444; }
+  .tag-done { display: inline-block; margin-top: 0.4rem; padding: 0.2rem 0.7rem; border-radius: 3px; font-size: 0.75rem; font-family: monospace; background: #113311; color: #66cc66; margin-left: 0.5rem; }
+  section { margin-bottom: 2.5rem; }
+  h2 { color: var(--accent); font-size: 1.15rem; margin-bottom: 0.9rem; border-left: 3px solid var(--accent); padding-left: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  h3 { color: #aa6666; font-size: 0.95rem; margin: 1.2rem 0 0.4rem; }
+  p { font-size: 0.9rem; margin-bottom: 0.5rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  th { background: var(--bg3); color: var(--accent); text-align: left; padding: 0.5rem 0.9rem; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.07em; }
+  td { padding: 0.45rem 0.9rem; border-bottom: 1px solid #1a0f0f; vertical-align: top; }
+  tr:hover td { background: var(--bg2); }
+  td:first-child { color: var(--muted); font-family: monospace; font-size: 0.85rem; white-space: nowrap; }
+  .val { font-family: monospace; color: var(--val); font-weight: 600; }
+  .swatch { display: inline-block; width: 14px; height: 14px; border-radius: 2px; vertical-align: middle; margin-right: 6px; border: 1px solid #333; }
+  .note { background: var(--bg2); border-left: 2px solid #441a1a; padding: 0.6rem 1rem; margin: 0.6rem 0; font-size: 0.84rem; color: #886666; }
+  .identity { background: var(--bg3); border: 1px solid var(--accent); border-radius: 4px; padding: 1rem 1.2rem; margin: 0.8rem 0; display: flex; gap: 1rem; align-items: center; }
+  .identity-swatch { width: 36px; height: 36px; border-radius: 4px; border: 1px solid #333; flex-shrink: 0; }
+  .box-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+  code { font-family: monospace; background: var(--bg3); padding: 0.1rem 0.4rem; border-radius: 2px; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+<header>
+  <img src="card.jpg" alt="Esecutore di Illyrium">
+  <div class="header-text">
+    <h1>Esecutori di Illyrium</h1>
+    <p class="subtitle">Cessazione Funzionale</p>
+    <p class="tagline">Non sono nati. Sono stati fatti.</p>
+    <span class="tag-enemy">ENEMY</span><span class="tag-done">✓ IMPLEMENTATO</span>
+  </div>
+</header>
+
+<section>
+  <h2>Identità Visiva</h2>
+  <div class="identity"><div class="identity-swatch" style="background:#606878"></div><div><div class="box-label">Trench coat (Comune)</div><code>#606878</code></div></div>
+  <div class="identity"><div class="identity-swatch" style="background:#C0C4CC"></div><div><div class="box-label">Pelle cadaverica</div><code>#C0C4CC</code></div></div>
+  <div class="identity"><div class="identity-swatch" style="background:#882222"></div><div><div class="box-label">Sigillo III</div><code>#882222</code></div></div>
+</section>
+
+<section>
+  <h2>Palette — Esecutore Comune</h2>
+  <table>
+    <tr><th>Zona</th><th>Hex</th><th></th></tr>
+    <tr><td>Pelle cadaverica</td><td class="val">#C0C4CC</td><td><span class="swatch" style="background:#C0C4CC"></span></td></tr>
+    <tr><td>Ombre pelle</td><td class="val">#8890A0</td><td><span class="swatch" style="background:#8890A0"></span></td></tr>
+    <tr><td>Occhi vuoti</td><td class="val">#D0D8E0</td><td><span class="swatch" style="background:#D0D8E0"></span></td></tr>
+    <tr><td>Capelli corti</td><td class="val">#A0A8B0</td><td><span class="swatch" style="background:#A0A8B0"></span></td></tr>
+    <tr><td>Trench coat</td><td class="val">#606878</td><td><span class="swatch" style="background:#606878"></span></td></tr>
+    <tr><td>Ombre cappotto</td><td class="val">#3A404A</td><td><span class="swatch" style="background:#3A404A"></span></td></tr>
+    <tr><td>Cinghie tattiche</td><td class="val">#4A5040</td><td><span class="swatch" style="background:#4A5040"></span></td></tr>
+    <tr><td>Stivali</td><td class="val">#282828</td><td><span class="swatch" style="background:#282828"></span></td></tr>
+    <tr><td>Sigillo III (rosso)</td><td class="val">#882222</td><td><span class="swatch" style="background:#882222"></span></td></tr>
+    <tr><td>Numero di serie</td><td class="val">#882222</td><td><span class="swatch" style="background:#882222"></span></td></tr>
+  </table>
+  <div class="note">Leader: cappotto <code>#3A4050</code> invece di <code>#606878</code> — più scuro, stessa famiglia cromatica.</div>
+</section>
+
+<section>
+  <h2>Degradazione Funzionale</h2>
+  <table>
+    <tr><th>Stato</th><th>HP</th><th>Occhi</th><th>Sigillo</th></tr>
+    <tr><td>Operativo</td><td>100–71%</td><td><span class="swatch" style="background:#FFFFFF; border-color:#aaa"></span><span class="val">#FFFFFF</span> bianchi</td><td><span class="swatch" style="background:#882222"></span>luminoso</td></tr>
+    <tr><td>Degrado</td><td>70–41%</td><td>un occhio <span class="val">#FFFFFF</span> + uno <span class="val">#222222</span></td><td><span class="swatch" style="background:#882222"></span>attivo</td></tr>
+    <tr><td>Critico</td><td>40–1%</td><td><span class="swatch" style="background:#222222"></span><span class="val">#222222</span> entrambi</td><td><span class="swatch" style="background:#333333"></span>spento</td></tr>
+    <tr><td>Collasso</td><td>0%</td><td colspan="2">corpo cade dritto — nessun suono</td></tr>
+  </table>
+  <div class="note">Nessun flash al danno. Tre soglie visive graduali. Nessun blood pool. Il corpo resta.</div>
+</section>
+
+<section>
+  <h2>Meccaniche</h2>
+  <table>
+    <tr><th>Meccanica</th><th>Dettaglio</th></tr>
+    <tr><td>Formazione a slot</td><td>Leader occupa sempre il fronte — il gruppo si ridistribuisce attorno al giocatore</td></tr>
+    <tr><td>Ricalibrazione</td><td>Pausa 600-800ms alla morte di un'unità — slot ridistribuiti in silenzio</td></tr>
+    <tr><td>Coordinamento</td><td>Nessun segnale visibile tra loro — si muovono come se fosse già avvenuto altrove</td></tr>
+    <tr><td>Morte</td><td>Cade dritto, nessun grido, nessun blood pool — corpo resta al suolo</td></tr>
+  </table>
+  <div class="note">Connessione narrativa: Zeryth è "L'Esecutore" singolo e spezzato — loro sono la versione di serie. Spec completa: <code>docs/superpowers/specs/2026-05-19-esecutori-design.md</code></div>
+</section>
+</body>
+</html>

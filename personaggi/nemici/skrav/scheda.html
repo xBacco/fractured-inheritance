@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Skrav — Scheda Tecnica</title>
+<style>
+  :root { --accent: #aa4400; --bg: #0d0904; --bg2: #130e06; --bg3: #100b04; --text: #c4b8a8; --muted: #886644; --val: #ee9944; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); max-width: 920px; margin: 0 auto; padding: 2.5rem 2rem; line-height: 1.6; }
+  header { display: flex; gap: 2rem; align-items: flex-start; padding-bottom: 2rem; border-bottom: 1px solid var(--accent); margin-bottom: 2.5rem; }
+  header img { width: 180px; border-radius: 6px; flex-shrink: 0; }
+  .header-text h1 { font-size: 2.4rem; color: var(--accent); letter-spacing: 0.02em; }
+  .header-text .subtitle { color: var(--muted); font-size: 1rem; margin-top: 0.3rem; margin-bottom: 1rem; }
+  .header-text .tagline { font-style: italic; color: #774422; font-size: 0.9rem; border-left: 2px solid var(--accent); padding-left: 0.8rem; }
+  .tag-enemy { display: inline-block; margin-top: 1rem; padding: 0.2rem 0.7rem; border-radius: 3px; font-size: 0.75rem; font-family: monospace; background: #220a0a; color: #cc4444; }
+  .tag-done { display: inline-block; margin-top: 0.4rem; padding: 0.2rem 0.7rem; border-radius: 3px; font-size: 0.75rem; font-family: monospace; background: #113311; color: #66cc66; margin-left: 0.5rem; }
+  section { margin-bottom: 2.5rem; }
+  h2 { color: var(--accent); font-size: 1.15rem; margin-bottom: 0.9rem; border-left: 3px solid var(--accent); padding-left: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  h3 { color: #aa7744; font-size: 0.95rem; margin: 1.2rem 0 0.4rem; }
+  p { font-size: 0.9rem; margin-bottom: 0.5rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  th { background: var(--bg3); color: var(--accent); text-align: left; padding: 0.5rem 0.9rem; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.07em; }
+  td { padding: 0.45rem 0.9rem; border-bottom: 1px solid #1c1208; vertical-align: top; }
+  tr:hover td { background: var(--bg2); }
+  td:first-child { color: var(--muted); font-family: monospace; font-size: 0.85rem; white-space: nowrap; }
+  .val { font-family: monospace; color: var(--val); font-weight: 600; }
+  .swatch { display: inline-block; width: 14px; height: 14px; border-radius: 2px; vertical-align: middle; margin-right: 6px; border: 1px solid #333; }
+  .note { background: var(--bg2); border-left: 2px solid #442200; padding: 0.6rem 1rem; margin: 0.6rem 0; font-size: 0.84rem; color: #886644; }
+  .identity { background: var(--bg3); border: 1px solid var(--accent); border-radius: 4px; padding: 1rem 1.2rem; margin: 0.8rem 0; display: flex; gap: 1rem; align-items: center; }
+  .identity-swatch { width: 36px; height: 36px; border-radius: 4px; border: 1px solid #333; flex-shrink: 0; }
+  .box-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+  code { font-family: monospace; background: var(--bg3); padding: 0.1rem 0.4rem; border-radius: 2px; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+<header>
+  <img src="card.jpg" alt="Skrav">
+  <div class="header-text">
+    <h1>Skrav</h1>
+    <p class="subtitle">Ratfiend Marauder — Mutanti delle Terre di Nessuno</p>
+    <p class="tagline">Non attaccano mai da soli. Zero magia. Pura violenza fisica.</p>
+    <span class="tag-enemy">ENEMY</span><span class="tag-done">✓ IMPLEMENTATO</span>
+  </div>
+</header>
+
+<section>
+  <h2>Identità Visiva</h2>
+  <div class="identity"><div class="identity-swatch" style="background:#8A7870"></div><div><div class="box-label">Pelo (Comune)</div><code>#8A7870</code></div></div>
+  <div class="identity"><div class="identity-swatch" style="background:#E8A820"></div><div><div class="box-label">Occhi ambra (Comune)</div><code>#E8A820</code></div></div>
+  <div class="identity"><div class="identity-swatch" style="background:#CC1111"></div><div><div class="box-label">Sangue</div><code>#CC1111</code></div></div>
+</section>
+
+<section>
+  <h2>Palette — Skrav Comune</h2>
+  <table>
+    <tr><th>Zona</th><th>Hex</th><th></th></tr>
+    <tr><td>Pelo base</td><td class="val">#8A7870</td><td><span class="swatch" style="background:#8A7870"></span></td></tr>
+    <tr><td>Pelo highlight</td><td class="val">#B0A898</td><td><span class="swatch" style="background:#B0A898"></span></td></tr>
+    <tr><td>Pelo ombre</td><td class="val">#3A3028</td><td><span class="swatch" style="background:#3A3028"></span></td></tr>
+    <tr><td>Orecchie / naso</td><td class="val">#C06060</td><td><span class="swatch" style="background:#C06060"></span></td></tr>
+    <tr><td>Denti / artigli</td><td class="val">#E0D8A0</td><td><span class="swatch" style="background:#E0D8A0"></span></td></tr>
+    <tr><td>Occhi (giallo ambra)</td><td class="val">#E8A820</td><td><span class="swatch" style="background:#E8A820"></span></td></tr>
+    <tr><td>Spallaccio metallo</td><td class="val">#909080</td><td><span class="swatch" style="background:#909080"></span></td></tr>
+    <tr><td>Cintura / tessuto</td><td class="val">#8B6040</td><td><span class="swatch" style="background:#8B6040"></span></td></tr>
+    <tr><td>Lama cleaver</td><td class="val">#C0C0B0</td><td><span class="swatch" style="background:#C0C0B0"></span></td></tr>
+    <tr><td>Sangue</td><td class="val">#CC1111</td><td><span class="swatch" style="background:#CC1111"></span></td></tr>
+  </table>
+  <div class="note">Alpha (Capobranco): pelo <code>#858080</code> (grigio freddo), occhi <code>#CC2222</code> (rosso sangue), labbra <code>#0A0808</code> (nere).</div>
+</section>
+
+<section>
+  <h2>Meccaniche</h2>
+  <table>
+    <tr><th>Meccanica</th><th>Dettaglio</th></tr>
+    <tr><td>Alpha meccanica</td><td>Uccidere il capobranco → flee e disorganizzazione del branco</td></tr>
+    <tr><td>Attacco coda</td><td>Proiettile fisico telegrafato, traiettoria a parabola</td></tr>
+    <tr><td>Squittio</td><td>Audio cue che annuncia spawn imminente</td></tr>
+    <tr><td>Scaling dimensionale</td><td>Piccoli: veloci. Grandi: lenti ma resistenti</td></tr>
+    <tr><td>Armi</td><td>Mischia: mazze chiodate, lance spezzate, lame seghettate</td></tr>
+    <tr><td>Comportamento</td><td>Branco — nessuno avanza senza segnale del capobranco</td></tr>
+  </table>
+</section>
+</body>
+</html>

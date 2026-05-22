@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Le Signore — Scheda Tecnica</title>
+<style>
+  :root { --accent: #8844bb; --bg: #0d0910; --bg2: #120f18; --bg3: #100c16; --text: #c4b4d4; --muted: #8844bb; --val: #cc99ff; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); max-width: 920px; margin: 0 auto; padding: 2.5rem 2rem; line-height: 1.6; }
+  header { display: flex; gap: 2rem; align-items: flex-start; padding-bottom: 2rem; border-bottom: 1px solid var(--accent); margin-bottom: 2.5rem; }
+  header img { width: 180px; border-radius: 6px; flex-shrink: 0; }
+  .header-text h1 { font-size: 2.4rem; color: var(--accent); letter-spacing: 0.02em; }
+  .header-text .subtitle { color: var(--muted); font-size: 1rem; margin-top: 0.3rem; margin-bottom: 1rem; }
+  .header-text .tagline { font-style: italic; color: #6633aa; font-size: 0.9rem; border-left: 2px solid var(--accent); padding-left: 0.8rem; }
+  .tag-enemy { display: inline-block; margin-top: 1rem; padding: 0.2rem 0.7rem; border-radius: 3px; font-size: 0.75rem; font-family: monospace; background: #220a0a; color: #cc4444; }
+  .tag-todo { display: inline-block; margin-top: 0.4rem; padding: 0.2rem 0.7rem; border-radius: 3px; font-size: 0.75rem; font-family: monospace; background: #221100; color: #ff9944; margin-left: 0.5rem; }
+  section { margin-bottom: 2.5rem; }
+  h2 { color: var(--accent); font-size: 1.15rem; margin-bottom: 0.9rem; border-left: 3px solid var(--accent); padding-left: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  p { font-size: 0.9rem; margin-bottom: 0.5rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  th { background: var(--bg3); color: var(--accent); text-align: left; padding: 0.5rem 0.9rem; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.07em; }
+  td { padding: 0.45rem 0.9rem; border-bottom: 1px solid #1a1020; vertical-align: top; }
+  tr:hover td { background: var(--bg2); }
+  td:first-child { color: var(--muted); font-family: monospace; font-size: 0.85rem; white-space: nowrap; }
+  .val { font-family: monospace; color: var(--val); font-weight: 600; }
+  .swatch { display: inline-block; width: 14px; height: 14px; border-radius: 2px; vertical-align: middle; margin-right: 6px; border: 1px solid #333; }
+  .note { background: var(--bg2); border-left: 2px solid #3a1a55; padding: 0.6rem 1rem; margin: 0.6rem 0; font-size: 0.84rem; color: #8844bb; }
+  .identity { background: var(--bg3); border: 1px solid var(--accent); border-radius: 4px; padding: 1rem 1.2rem; margin: 0.8rem 0; display: flex; gap: 1rem; align-items: center; }
+  .identity-swatch { width: 36px; height: 36px; border-radius: 4px; border: 1px solid #333; flex-shrink: 0; }
+  .box-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+  code { font-family: monospace; background: var(--bg3); padding: 0.1rem 0.4rem; border-radius: 2px; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+<header>
+  <img src="card.jpg" alt="Le Signore">
+  <div class="header-text">
+    <h1>Le Signore</h1>
+    <p class="subtitle">Predatrici Coronate — Prima di Illyrium</p>
+    <p class="tagline">Quando ti guardano non vedono una minaccia. Vedono una scelta.</p>
+    <span class="tag-enemy">ENEMY</span><span class="tag-todo">⬡ DA IMPLEMENTARE</span>
+  </div>
+</header>
+
+<section>
+  <h2>Identità Visiva</h2>
+  <div class="identity"><div class="identity-swatch" style="background:#1E1228"></div><div><div class="box-label">Ali (viola-nero)</div><code>#1E1228</code></div></div>
+  <div class="identity"><div class="identity-swatch" style="background:#C8A020"></div><div><div class="box-label">Oro (corona, collare, artigli)</div><code>#C8A020</code></div></div>
+  <div class="identity"><div class="identity-swatch" style="background:#7A3050"></div><div><div class="box-label">Labbra (prugna)</div><code>#7A3050</code></div></div>
+</section>
+
+<section>
+  <h2>Palette Completa</h2>
+  <table>
+    <tr><th>Zona</th><th>Hex</th><th></th></tr>
+    <tr><td>Pelle pallida (viola-bianco)</td><td class="val">#E0D4DC</td><td><span class="swatch" style="background:#E0D4DC"></span></td></tr>
+    <tr><td>Ombre pelle</td><td class="val">#B090A8</td><td><span class="swatch" style="background:#B090A8"></span></td></tr>
+    <tr><td>Labbra (prugna)</td><td class="val">#7A3050</td><td><span class="swatch" style="background:#7A3050"></span></td></tr>
+    <tr><td>Capelli nero-blu</td><td class="val">#151220</td><td><span class="swatch" style="background:#151220"></span></td></tr>
+    <tr><td>Iride oro</td><td class="val">#CC8800</td><td><span class="swatch" style="background:#CC8800"></span></td></tr>
+    <tr><td>Pupilla viola</td><td class="val">#6633AA</td><td><span class="swatch" style="background:#6633AA"></span></td></tr>
+    <tr><td>Gemma fronte</td><td class="val">#5522AA</td><td><span class="swatch" style="background:#5522AA"></span></td></tr>
+    <tr><td>Piume (viola-nero)</td><td class="val">#1E1228</td><td><span class="swatch" style="background:#1E1228"></span></td></tr>
+    <tr><td>Highlight ali (oro)</td><td class="val">#C87820</td><td><span class="swatch" style="background:#C87820"></span></td></tr>
+    <tr><td>Punta ali</td><td class="val">#0A0808</td><td><span class="swatch" style="background:#0A0808; border-color:#444"></span></td></tr>
+    <tr><td>Corpo scaglie (viola scuro)</td><td class="val">#2E1438</td><td><span class="swatch" style="background:#2E1438"></span></td></tr>
+    <tr><td>Oro base</td><td class="val">#C8A020</td><td><span class="swatch" style="background:#C8A020"></span></td></tr>
+    <tr><td>Oro highlight</td><td class="val">#E8C840</td><td><span class="swatch" style="background:#E8C840"></span></td></tr>
+    <tr><td>Oro ombre / artigli</td><td class="val">#8B5E10</td><td><span class="swatch" style="background:#8B5E10"></span></td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>Aspetto</h2>
+  <table>
+    <tr><th>Elemento</th><th>Descrizione</th></tr>
+    <tr><td>Corpo</td><td>Umanoide snello — ali grandi sul dorso, separate dalle braccia</td></tr>
+    <tr><td>Braccia</td><td>Artigli lunghi su quattro dita, dorati in punta</td></tr>
+    <tr><td>Gambe</td><td>Umane fino al ginocchio, poi zampe di rapace</td></tr>
+    <tr><td>Occhi</td><td>Iride oro bruciato, pupilla verticale viola scuro</td></tr>
+    <tr><td>Ornamenti</td><td>Corona, collare, bracciali — conteggio delle prede, non decorazione</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>Meccaniche</h2>
+  <table>
+    <tr><th>Meccanica</th><th>Dettaglio</th></tr>
+    <tr><td>FSM</td><td>Stati DIVE / WINGBEAT / CLAW — reattivi alla posizione del giocatore</td></tr>
+    <tr><td>Territorialità</td><td>Non inseguono oltre i confini del loro spazio aereo</td></tr>
+    <tr><td>Spawn</td><td>Da sole o in gruppi 2-3 — valutano prima di attaccare</td></tr>
+    <tr><td>Enrage</td><td>Alla morte di una compagna — comportamento da definire</td></tr>
+  </table>
+  <div class="note">Meccaniche dettagliate da sviluppare. Spec: <code>docs/superpowers/specs/2026-05-19-le-signore-design.md</code></div>
+</section>
+</body>
+</html>

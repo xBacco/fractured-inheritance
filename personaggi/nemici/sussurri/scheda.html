@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Sussurri — Scheda Tecnica</title>
+<style>
+  :root { --accent: #777788; --bg: #0c0c0d; --bg2: #111113; --bg3: #0e0e10; --text: #c4c4c8; --muted: #666677; --val: #aaaacc; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); max-width: 920px; margin: 0 auto; padding: 2.5rem 2rem; line-height: 1.6; }
+  header { display: flex; gap: 2rem; align-items: flex-start; padding-bottom: 2rem; border-bottom: 1px solid var(--accent); margin-bottom: 2.5rem; }
+  header img { width: 180px; border-radius: 6px; flex-shrink: 0; }
+  .header-text h1 { font-size: 2.4rem; color: var(--accent); letter-spacing: 0.02em; }
+  .header-text .subtitle { color: var(--muted); font-size: 1rem; margin-top: 0.3rem; margin-bottom: 1rem; }
+  .header-text .tagline { font-style: italic; color: #555566; font-size: 0.9rem; border-left: 2px solid var(--accent); padding-left: 0.8rem; }
+  .tag-enemy { display: inline-block; margin-top: 1rem; padding: 0.2rem 0.7rem; border-radius: 3px; font-size: 0.75rem; font-family: monospace; background: #220a0a; color: #cc4444; }
+  .tag-done { display: inline-block; margin-top: 0.4rem; padding: 0.2rem 0.7rem; border-radius: 3px; font-size: 0.75rem; font-family: monospace; background: #113311; color: #66cc66; margin-left: 0.5rem; }
+  section { margin-bottom: 2.5rem; }
+  h2 { color: var(--accent); font-size: 1.15rem; margin-bottom: 0.9rem; border-left: 3px solid var(--accent); padding-left: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  p { font-size: 0.9rem; margin-bottom: 0.5rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  th { background: var(--bg3); color: var(--accent); text-align: left; padding: 0.5rem 0.9rem; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.07em; }
+  td { padding: 0.45rem 0.9rem; border-bottom: 1px solid #181818; vertical-align: top; }
+  tr:hover td { background: var(--bg2); }
+  td:first-child { color: var(--muted); font-family: monospace; font-size: 0.85rem; white-space: nowrap; }
+  .val { font-family: monospace; color: var(--val); font-weight: 600; }
+  .swatch { display: inline-block; width: 14px; height: 14px; border-radius: 2px; vertical-align: middle; margin-right: 6px; border: 1px solid #333; }
+  .note { background: var(--bg2); border-left: 2px solid #333344; padding: 0.6rem 1rem; margin: 0.6rem 0; font-size: 0.84rem; color: #666677; }
+  .identity { background: var(--bg3); border: 1px solid var(--accent); border-radius: 4px; padding: 1rem 1.2rem; margin: 0.8rem 0; display: flex; gap: 1rem; align-items: center; }
+  .identity-swatch { width: 36px; height: 36px; border-radius: 4px; border: 1px solid #333; flex-shrink: 0; }
+  .box-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+  code { font-family: monospace; background: var(--bg3); padding: 0.1rem 0.4rem; border-radius: 2px; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+<header>
+  <img src="card.jpg" alt="Sussurri">
+  <div class="header-text">
+    <h1>Sussurri</h1>
+    <p class="subtitle">L'Eco di Illyrium</p>
+    <p class="tagline">Non sono creature. Sono echi del luogo stesso.</p>
+    <span class="tag-enemy">ENEMY</span><span class="tag-done">✓ IMPLEMENTATO</span>
+  </div>
+</header>
+
+<section>
+  <h2>Identità Visiva</h2>
+  <p style="font-size:0.85rem; color:var(--muted); margin-bottom:1rem">Palette intenzionalmente desaturata — nessun colore caldo. Contrasto nero-su-bianco.</p>
+  <div class="identity"><div class="identity-swatch" style="background:#252525"></div><div><div class="box-label">Corpo fumo scuro</div><code>#252525</code></div></div>
+  <div class="identity"><div class="identity-swatch" style="background:#808080"></div><div><div class="box-label">Tendrili fumo</div><code>#808080</code></div></div>
+  <div class="identity"><div class="identity-swatch" style="background:#F0EDE4; border-color:#999"></div><div><div class="box-label">Sfondo carta / ambiente</div><code>#F0EDE4</code></div></div>
+</section>
+
+<section>
+  <h2>Palette Completa</h2>
+  <table>
+    <tr><th>Zona</th><th>Hex</th><th></th></tr>
+    <tr><td>Corpo fumo scuro</td><td class="val">#252525</td><td><span class="swatch" style="background:#252525"></span></td></tr>
+    <tr><td>Fumo medio</td><td class="val">#505050</td><td><span class="swatch" style="background:#505050"></span></td></tr>
+    <tr><td>Tendrili fumo</td><td class="val">#808080</td><td><span class="swatch" style="background:#808080"></span></td></tr>
+    <tr><td>Volti cenere</td><td class="val">#B8B8B8</td><td><span class="swatch" style="background:#B8B8B8"></span></td></tr>
+    <tr><td>Occhi (glow bianco)</td><td class="val">#F0F0F0</td><td><span class="swatch" style="background:#F0F0F0; border-color:#999"></span></td></tr>
+    <tr><td>Carta / ambiente BG</td><td class="val">#F0EDE4</td><td><span class="swatch" style="background:#F0EDE4; border-color:#999"></span></td></tr>
+    <tr><td>Ombre sfondo</td><td class="val">#D0CCC4</td><td><span class="swatch" style="background:#D0CCC4; border-color:#999"></span></td></tr>
+    <tr><td>Glow esplosione (morte)</td><td class="val">#FFFFFF</td><td><span class="swatch" style="background:#FFFFFF; border-color:#999"></span></td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>Meccaniche</h2>
+  <table>
+    <tr><th>Stato</th><th>Comportamento</th></tr>
+    <tr><td>In movimento</td><td>Invincibile — niente da colpire</td></tr>
+    <tr><td>Carica</td><td>Vulnerabile — finestra stretta. Telegraph: distorsione che si stringe, bocca appare</td></tr>
+    <tr><td>Morte</td><td>Esplosione AoE radiale indiscriminata — chain kill possibile se più d'uno</td></tr>
+  </table>
+  <table style="margin-top:1rem">
+    <tr><th>Meccanica</th><th>Dettaglio</th></tr>
+    <tr><td>Chiamata per nome</td><td>Voce di qualcuno che conosci — fermarsi ad ascoltare = già perso</td></tr>
+    <tr><td>Cono sonoro</td><td>Stordimento + danni; post-urlo il bersaglio smette di pensare</td></tr>
+    <tr><td>Targeting</td><td>Priorità sul bersaglio immobile — incentivo al movimento costante</td></tr>
+    <tr><td>Ostacoli</td><td>Non li toccano — scorrono tra di essi</td></tr>
+  </table>
+  <div class="note">vs Zeryth: pausa tattica congela la carica, estende la finestra di vulnerabilità.</div>
+  <div class="note">vs Damian Fase 3: l'ombra senziente li colpisce ignorando la meccanica di movimento.</div>
+</section>
+</body>
+</html>

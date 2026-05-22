@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Alberi della Richiusa — Scheda Tecnica</title>
+<style>
+  :root { --accent: #2a8878; --bg: #080d0c; --bg2: #0c1413; --bg3: #0a1210; --text: #a8c4bc; --muted: #2a8878; --val: #44ddcc; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); max-width: 920px; margin: 0 auto; padding: 2.5rem 2rem; line-height: 1.6; }
+  header { display: flex; gap: 2rem; align-items: flex-start; padding-bottom: 2rem; border-bottom: 1px solid var(--accent); margin-bottom: 2.5rem; }
+  header img { width: 180px; border-radius: 6px; flex-shrink: 0; }
+  .header-text h1 { font-size: 2.4rem; color: var(--accent); letter-spacing: 0.02em; }
+  .header-text .subtitle { color: var(--muted); font-size: 1rem; margin-top: 0.3rem; margin-bottom: 1rem; }
+  .header-text .tagline { font-style: italic; color: #206858; font-size: 0.9rem; border-left: 2px solid var(--accent); padding-left: 0.8rem; }
+  .tag-hazard { display: inline-block; margin-top: 1rem; padding: 0.2rem 0.7rem; border-radius: 3px; font-size: 0.75rem; font-family: monospace; background: #0a2020; color: #44ddcc; }
+  .tag-todo { display: inline-block; margin-top: 0.4rem; padding: 0.2rem 0.7rem; border-radius: 3px; font-size: 0.75rem; font-family: monospace; background: #221100; color: #ff9944; margin-left: 0.5rem; }
+  section { margin-bottom: 2.5rem; }
+  h2 { color: var(--accent); font-size: 1.15rem; margin-bottom: 0.9rem; border-left: 3px solid var(--accent); padding-left: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  h3 { color: #44aa99; font-size: 0.95rem; margin: 1.2rem 0 0.4rem; }
+  p { font-size: 0.9rem; margin-bottom: 0.5rem; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  th { background: var(--bg3); color: var(--accent); text-align: left; padding: 0.5rem 0.9rem; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.07em; }
+  td { padding: 0.45rem 0.9rem; border-bottom: 1px solid #101e1c; vertical-align: top; }
+  tr:hover td { background: var(--bg2); }
+  td:first-child { color: var(--muted); font-family: monospace; font-size: 0.85rem; white-space: nowrap; }
+  .val { font-family: monospace; color: var(--val); font-weight: 600; }
+  .swatch { display: inline-block; width: 14px; height: 14px; border-radius: 2px; vertical-align: middle; margin-right: 6px; border: 1px solid #333; }
+  .note { background: var(--bg2); border-left: 2px solid #1a4038; padding: 0.6rem 1rem; margin: 0.6rem 0; font-size: 0.84rem; color: #2a8878; }
+  .identity { background: var(--bg3); border: 1px solid var(--accent); border-radius: 4px; padding: 1rem 1.2rem; margin: 0.8rem 0; display: flex; gap: 1rem; align-items: center; }
+  .identity-swatch { width: 36px; height: 36px; border-radius: 4px; border: 1px solid #333; flex-shrink: 0; }
+  .box-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+  code { font-family: monospace; background: var(--bg3); padding: 0.1rem 0.4rem; border-radius: 2px; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+<header>
+  <img src="card.jpg" alt="Alberi della Richiusa">
+  <div class="header-text">
+    <h1>Alberi della Richiusa</h1>
+    <p class="subtitle">Le Voci nel Legno — Foresta Maledetta</p>
+    <p class="tagline">Non si muovono. Il loro potere è nel territorio.</p>
+    <span class="tag-hazard">HAZARD</span><span class="tag-todo">⬡ DA IMPLEMENTARE</span>
+  </div>
+</header>
+
+<section>
+  <h2>Identità Visiva</h2>
+  <div class="identity"><div class="identity-swatch" style="background:#1A1810"></div><div><div class="box-label">Corteccia scura (base)</div><code>#1A1810</code></div></div>
+  <div class="identity"><div class="identity-swatch" style="background:#44CCBB"></div><div><div class="box-label">Nodo luminoso (attivato)</div><code>#44CCBB</code></div></div>
+  <div class="identity"><div class="identity-swatch" style="background:#141008; border-color:#444"></div><div><div class="box-label">Radici</div><code>#141008</code></div></div>
+</section>
+
+<section>
+  <h2>Palette Completa</h2>
+  <table>
+    <tr><th>Zona</th><th>Hex</th><th></th></tr>
+    <tr><td>Corteccia scura (base)</td><td class="val">#1A1810</td><td><span class="swatch" style="background:#1A1810"></span></td></tr>
+    <tr><td>Corteccia media</td><td class="val">#2E2820</td><td><span class="swatch" style="background:#2E2820"></span></td></tr>
+    <tr><td>Corteccia highlight</td><td class="val">#3D3428</td><td><span class="swatch" style="background:#3D3428"></span></td></tr>
+    <tr><td>Radici</td><td class="val">#141008</td><td><span class="swatch" style="background:#141008; border-color:#444"></span></td></tr>
+    <tr><td>Forme umane nella corteccia</td><td class="val">#2A2218</td><td><span class="swatch" style="background:#2A2218"></span></td></tr>
+    <tr><td>Nodo luminoso (attivato)</td><td class="val">#44CCBB</td><td><span class="swatch" style="background:#44CCBB"></span></td></tr>
+    <tr><td>Luce crack (azzurra)</td><td class="val">#2288AA</td><td><span class="swatch" style="background:#2288AA"></span></td></tr>
+    <tr><td>Nebbia a terra</td><td class="val">#101820</td><td><span class="swatch" style="background:#101820"></span></td></tr>
+    <tr><td>Alberi sfondo</td><td class="val">#0A0E14</td><td><span class="swatch" style="background:#0A0E14; border-color:#444"></span></td></tr>
+    <tr><td>Foresta BG</td><td class="val">#080C10</td><td><span class="swatch" style="background:#080C10; border-color:#444"></span></td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>Meccaniche</h2>
+  <h3>Stati</h3>
+  <table>
+    <tr><th>Stato</th><th>Comportamento</th></tr>
+    <tr><td>Dormiente</td><td>Scenario fisso — blocca proiettili, crea collo di bottiglia. Emette sussurri audio.</td></tr>
+    <tr><td>Attivato</td><td>Nodo luminoso acceso — attacca. Catena agli alberi vicini entro pochi secondi.</td></tr>
+    <tr><td>Disattivato</td><td>Nodo luminoso distrutto → dormiente per ~20s</td></tr>
+  </table>
+
+  <h3>Trigger di attivazione</h3>
+  <table>
+    <tr><th>Trigger</th><th>Dettaglio</th></tr>
+    <tr><td>Prossimità</td><td>Giocatore entra nel raggio (da bilanciare)</td></tr>
+    <tr><td>Sangue versato</td><td>Morte di nemico nelle vicinanze</td></tr>
+    <tr><td>Primo attacco in zona</td><td>Qualsiasi attacco senza aver prima attraversato la foresta</td></tr>
+  </table>
+
+  <h3>Attacchi</h3>
+  <table>
+    <tr><th>Attacco</th><th>Effetto</th><th>Telegraph</th></tr>
+    <tr><td>Schianto di ramo</td><td>Danno fisico + stagger</td><td>Cigolìo + illuminazione nodo</td></tr>
+    <tr><td>Trappola di radici</td><td>Imprigiona 1-2s (no danno diretto)</td><td>Rigonfiamento del terreno</td></tr>
+    <tr><td>Voce paralizzante</td><td>Slow o stun — solo alberi anziani/elite</td><td>Suono dissonante in carica; interrompibile</td></tr>
+  </table>
+
+  <div class="note">Non reagiscono se il giocatore attraversa veloce senza fermarsi — incentivo alla mobilità.</div>
+  <div class="note">Debolezza al fuoco: danno aumentato, possibile propagazione (attenzione: può bloccare percorsi).</div>
+  <div class="note">Design intent: moltiplicatori di pressione — altri nemici usano gli alberi come copertura; gli alberi puniscono chi si ferma.</div>
+</section>
+</body>
+</html>
