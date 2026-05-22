@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Veyra — Scheda Tecnica</title>
+<style>
+  :root { --accent: #556677; --accent-dim: #55667722; --bg: #090b0d; --bg2: #0d1015; --bg3: #0a0c10; --text: #b0bac4; --muted: #556677; --val: #88aabb; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); max-width: 920px; margin: 0 auto; padding: 2.5rem 2rem; line-height: 1.6; }
+
+  header { display: flex; gap: 2rem; align-items: flex-start; padding-bottom: 2rem; border-bottom: 1px solid var(--accent); margin-bottom: 2.5rem; }
+  header img { width: 180px; border-radius: 6px; flex-shrink: 0; }
+  .header-text h1 { font-size: 2.4rem; color: var(--accent); letter-spacing: 0.02em; }
+  .header-text .subtitle { color: var(--muted); font-size: 1rem; margin-top: 0.3rem; margin-bottom: 1rem; }
+  .header-text .tagline { font-style: italic; color: #445566; font-size: 0.9rem; border-left: 2px solid var(--accent); padding-left: 0.8rem; }
+  .status-todo { display: inline-block; margin-top: 1rem; padding: 0.2rem 0.7rem; border-radius: 3px; font-size: 0.75rem; font-family: monospace; background: #221100; color: #ff9944; }
+
+  section { margin-bottom: 2.5rem; }
+  h2 { color: var(--accent); font-size: 1.15rem; margin-bottom: 0.9rem; border-left: 3px solid var(--accent); padding-left: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  h3 { color: #778899; font-size: 0.95rem; margin: 1.2rem 0 0.4rem; }
+  p { font-size: 0.9rem; margin-bottom: 0.5rem; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+  th { background: var(--bg3); color: var(--accent); text-align: left; padding: 0.5rem 0.9rem; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.07em; font-weight: 600; }
+  td { padding: 0.45rem 0.9rem; border-bottom: 1px solid #111520; vertical-align: top; }
+  tr:hover td { background: var(--bg2); }
+  td:first-child { color: #556677; font-family: monospace; font-size: 0.85rem; white-space: nowrap; }
+
+  .val { font-family: monospace; color: var(--val); font-weight: 600; }
+  .swatch { display: inline-block; width: 14px; height: 14px; border-radius: 2px; vertical-align: middle; margin-right: 6px; border: 1px solid #333; }
+  .note { background: var(--bg2); border-left: 2px solid #1a2030; padding: 0.6rem 1rem; margin: 0.6rem 0; font-size: 0.84rem; color: #556677; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1rem; }
+  .box { background: var(--bg2); border: 1px solid #111520; border-radius: 4px; padding: 1rem 1.2rem; }
+  .box-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 0.3rem; }
+  .box-val { font-size: 1.1rem; font-family: monospace; color: var(--val); }
+  .box-desc { font-size: 0.8rem; color: #334455; margin-top: 0.2rem; }
+  .identity { background: var(--bg3); border: 1px solid var(--accent); border-radius: 4px; padding: 1rem 1.2rem; margin: 0.8rem 0; display: flex; gap: 1rem; align-items: center; }
+  .identity-swatch { width: 36px; height: 36px; border-radius: 4px; border: 1px solid #333; flex-shrink: 0; }
+  code { font-family: monospace; background: #0a0c10; padding: 0.1rem 0.4rem; border-radius: 2px; font-size: 0.85rem; }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="card.jpg" alt="Veyra">
+  <div class="header-text">
+    <h1>Veyra</h1>
+    <p class="subtitle">Voce tra i Corvi — HERO</p>
+    <p class="tagline">Giocare con Veyra attiva è sapere quello che gli altri non sanno ancora di non sapere.</p>
+    <span class="status-todo">⬡ DA IMPLEMENTARE</span>
+  </div>
+</header>
+
+<section>
+  <h2>Identità Visiva</h2>
+  <div class="identity">
+    <div class="identity-swatch" style="background:#0F0F12"></div>
+    <div><div class="box-label">Mantella di piume (blu-nero)</div><code>#0F0F12</code></div>
+  </div>
+  <div class="identity">
+    <div class="identity-swatch" style="background:#4A3020"></div>
+    <div><div class="box-label">Imbracatura in cuoio</div><code>#4A3020</code></div>
+  </div>
+  <div class="identity">
+    <div class="identity-swatch" style="background:#5A3A18"></div>
+    <div><div class="box-label">Legno dell'arco</div><code>#5A3A18</code></div>
+  </div>
+</section>
+
+<section>
+  <h2>Palette completa</h2>
+  <table>
+    <tr><th>Zona</th><th>Hex</th><th>Anteprima</th></tr>
+    <tr><td>Pelle base</td><td class="val">#8B6844</td><td><span class="swatch" style="background:#8B6844"></span></td></tr>
+    <tr><td>Ombre pelle</td><td class="val">#6B4E30</td><td><span class="swatch" style="background:#6B4E30"></span></td></tr>
+    <tr><td>Capelli (nero caldo)</td><td class="val">#1A1818</td><td><span class="swatch" style="background:#1A1818"></span></td></tr>
+    <tr><td>Capelli highlight</td><td class="val">#2E2828</td><td><span class="swatch" style="background:#2E2828"></span></td></tr>
+    <tr><td>Mantella piume — base</td><td class="val">#0F0F12</td><td><span class="swatch" style="background:#0F0F12; border-color:#444"></span></td></tr>
+    <tr><td>Mantella piume — iridescenza</td><td class="val">#1E1E2A</td><td><span class="swatch" style="background:#1E1E2A"></span></td></tr>
+    <tr><td>Abbigliamento nero</td><td class="val">#111111</td><td><span class="swatch" style="background:#111111"></span></td></tr>
+    <tr><td>Imbracatura pelle</td><td class="val">#4A3020</td><td><span class="swatch" style="background:#4A3020"></span></td></tr>
+    <tr><td>Imbracatura highlight</td><td class="val">#6A5040</td><td><span class="swatch" style="background:#6A5040"></span></td></tr>
+    <tr><td>Legno arco</td><td class="val">#5A3A18</td><td><span class="swatch" style="background:#5A3A18"></span></td></tr>
+    <tr><td>Legno frecce</td><td class="val">#7A5528</td><td><span class="swatch" style="background:#7A5528"></span></td></tr>
+    <tr><td>Penne frecce</td><td class="val">#1A1818</td><td><span class="swatch" style="background:#1A1818"></span></td></tr>
+    <tr><td>Corpo corvo</td><td class="val">#0A0A10</td><td><span class="swatch" style="background:#0A0A10; border-color:#444"></span></td></tr>
+    <tr><td>Corvo — iridescenza</td><td class="val">#1A2030</td><td><span class="swatch" style="background:#1A2030"></span></td></tr>
+    <tr><td>Occhi corvo</td><td class="val">#222222</td><td><span class="swatch" style="background:#222222"></span></td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>Aspetto Fisico</h2>
+  <div class="grid2">
+    <div class="box"><div class="box-label">Corporatura</div><div class="box-val">Atletica</div><div class="box-desc">Costruita per il movimento, velocità di reazione fisica</div></div>
+    <div class="box"><div class="box-label">Arma primaria</div><div class="box-val">Arco</div><div class="box-desc">Con faretra — sempre presenti</div></div>
+  </div>
+  <table>
+    <tr><th>Elemento</th><th>Descrizione</th></tr>
+    <tr><td>Mantella</td><td>Piume nere — funzionale, non decorativa. Mimetismo e connessione con i corvi</td></tr>
+    <tr><td>Abbigliamento</td><td>Tutto nero, da caccia, pratico — niente di cerimoniale</td></tr>
+    <tr><td>Imbracatura</td><td>Cuoio scuro, cinghie incrociate sul busto</td></tr>
+    <tr><td>Guanti</td><td>Da combattimento — lasciano libere le dita</td></tr>
+    <tr><td>Capelli</td><td>Scuri, quasi neri, tono caldo</td></tr>
+    <tr><td>Occhi</td><td>Sguardo giudicante — valuta prima di riconoscere</td></tr>
+    <tr><td>Corvi</td><td>Sempre presenti — uno o più, appollaiati o in volo. Parte della composizione visiva</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>Ruolo nel Gioco</h2>
+  <p><strong>Support strategico — controllo del campo a distanza</strong></p>
+  <div class="note">I corvi sono estensione del suo campo visivo: vedono dove lei non arriva, segnalano, distraggono, intervengono.</div>
+  <table>
+    <tr><th>Funzione</th><th>Dettaglio</th></tr>
+    <tr><td>Attacco primario</td><td>Arco — distanza, precisione</td></tr>
+    <tr><td>Corvi attivi</td><td>Usabili come strumenti: ricognizione, distrazione, interruzione</td></tr>
+    <tr><td>Visibilità</td><td>Campo visivo ampliato tramite i corvi — vede prima degli altri</td></tr>
+    <tr><td>Posizione</td><td>Preferisce posizioni elevate e perimetro — non prima linea</td></tr>
+    <tr><td>Affiliazione</td><td>Korvo Nero dal giorno zero — con Silas e Korvan prima degli altri</td></tr>
+  </table>
+</section>
+
+<section>
+  <h2>Note di Lore</h2>
+  <div class="note">Dal giorno zero — con Silas, prima che il Korvo Nero avesse la forma che ha adesso. Come ci è entrata: non specificato.</div>
+  <div class="note">Quando Ethan chiede di essere chiamato per nome: si alza di scatto. "Chi saresti tu. Per chiedere un favore a noi? E perché noi dovremmo fare un favore a te?" Immediata, secca, poi finita.</div>
+  <div class="note">Quando non ha missioni, va a caccia.</div>
+  <div class="note">⚠️ Aspetto fisico non specificato nel testo — la card è inferenza coerente, non canon confermato.</div>
+</section>
+
+</body>
+</html>
